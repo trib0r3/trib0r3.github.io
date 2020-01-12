@@ -1,0 +1,69 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on trib0r3&#39;s blog</title>
+        <link>/posts/</link>
+        <description>Recent content in Posts on trib0r3&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sat, 11 Jan 2020 14:50:06 +0100</lastBuildDate>
+        <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>C&#43;&#43; assembly</title>
+            <link>/posts/c&#43;&#43;-assembly/</link>
+            <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
+            
+            <guid>/posts/c&#43;&#43;-assembly/</guid>
+            <description>Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
+            <content type="html"><![CDATA[<h2 id="structures">Structures</h2>
+<h3 id="c-struct-vs-c-class">C struct vs C++ class</h3>
+<h4 id="c-struct">C struct</h4>
+<ul>
+<li>functions are loosely correlated with paramaters,</li>
+<li>parameters are usually passed via pointer,</li>
+<li>it may look like array for struct with 2 identical parameters in struct,</li>
+<li>for structures created dynamically look for <code>malloc</code> with non-usual size.</li>
+</ul>
+<h4 id="c-class">C++ class</h4>
+<ul>
+<li>Find constructor, it have always 1 argument (<code>this</code> pointer -&gt; <code>thiscall</code>),</li>
+<li><code>main()</code> function have initialization function <code>__main</code> with ctor initlizers,</li>
+<li>after creation of class with <code>new</code> operator the class constructor is called (can be empty),</li>
+<li>Methods are called with <code>thiscall</code> convention.</li>
+</ul>
+<h3 id="inheritance">Inheritance</h3>
+<p>Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> __thiscall <span style="color:#a6e22e">Inherited</span>(Inherited <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>)
+{
+  Box((Box <span style="color:#f92672">*</span>)<span style="color:#66d9ef">this</span>);
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// this was assigned in class definition, not constructor
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>b;
+  <span style="color:#66d9ef">return</span>;
+}
+
+</code></pre></div><p>Inherited destructors contains destructors of base class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> __thiscall <span style="color:#f92672">~</span>Inherited(Inherited <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>)
+
+{
+  <span style="color:#f92672">~</span>Box((Box <span style="color:#f92672">*</span>)<span style="color:#66d9ef">this</span>);
+  <span style="color:#66d9ef">return</span>;
+}
+</code></pre></div><h3 id="virtuals">Virtuals</h3>
+<p>Generally we have the same behaviour like in inheritance, but additionally we have also vtables.</p>
+<p>The structures of classess contains 1 additional field (at offset 0): <code>vptr</code> to <code>vtable</code> structure containing pointers to all virtual methods in this class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">vtable_class_A</span> {
+  <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">virtual_func_1</span>();
+  <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">virtual_func_2</span>();
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>};
+</code></pre></div><h2 id="references">References</h2>
+<ol>
+<li><a href="https://oalabs.openanalysis.net/2019/06/03/reverse-engineering-c-with-ida-pro-classes-constructors-and-structs/">OA Labs</a></li>
+</ol>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
