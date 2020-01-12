@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>re on trib0r3&#39;s blog</title>
-    <link>/tags/re/</link>
-    <description>Recent content in re on trib0r3&#39;s blog</description>
+    <title>windows on trib0r3&#39;s blog</title>
+    <link>/tags/windows/</link>
+    <description>Recent content in windows on trib0r3&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 12 Jan 2020 21:06:10 +0100</lastBuildDate>
     
-	<atom:link href="/tags/re/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>/posts/disable-aslr/</guid>
       <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43; assembly</title>
-      <link>/posts/c&#43;&#43;-assembly/</link>
-      <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
-      
-      <guid>/posts/c&#43;&#43;-assembly/</guid>
-      <description>Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
     </item>
     
   </channel>
