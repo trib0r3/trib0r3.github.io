@@ -6,8 +6,49 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 18 Jan 2020 09:00:00 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 18 Jan 2020 14:00:15 +0100</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Disable Aslr</title>
+            <link>/posts/disable-aslr/</link>
+            <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+            
+            <guid>/posts/disable-aslr/</guid>
+            <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
+            <content type="html"><![CDATA[<h2 id="linux">Linux</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#ae81ff">0</span> | sudo tee /proc/sys/kernel/randomize_va_space
+</code></pre></div><h3 id="radare2">radare2</h3>
+<pre><code class="language-r2" data-lang="r2"># disable ASLR &amp; reanalyse
+dor aslr=no
+aaa
+</code></pre><h2 id="windows">Windows</h2>
+<h3 id="windows-7">Windows 7</h3>
+<ol>
+<li>Open <code>RegEdit</code></li>
+<li>Goto: <code>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\</code></li>
+<li>Create new <em>value</em> (not a key): <code>MoveImages</code> with value <code>0</code>.</li>
+<li>Reboot.</li>
+</ol>
+<h3 id="windows-10">Windows 10</h3>
+<h4 id="disable-aslr-per-file">Disable ASLR per file</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
+</code></pre></div><h4 id="disable-aslr-by-default">Disable ASLR by default</h4>
+<ol>
+<li>Search in Windows for: “windows defender Security Center”</li>
+<li>Click on the second icon from the bottom: “App &amp; browser control”</li>
+<li>Scroll to the bottom and click on: “Exploit protection settings”</li>
+<li>Set “Force randomization for images “ to <em>OFF</em>.</li>
+<li>Reboot</li>
+</ol>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/">Disable ASLR for Easier Malware Debugging With x64dbg and IDA Pro</a></li>
+<li><a href="https://gist.github.com/trietptm/b84ccad9db01f459ac7e">Gist</a></li>
+<li><a href="https://www.reddit.com/r/ReverseEngineering/comments/bzn06z/disable_aslr_for_easier_malware_debugging_with/">Disable ASLR For Easier Malware Debugging With x64dbg and IDA Pro (OALabs Quick Tip) : ReverseEngineering</a></li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Keep Your Notes Organized (bear2mdtree demo)</title>

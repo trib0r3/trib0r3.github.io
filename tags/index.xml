@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 Jan 2020 09:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jan 2020 14:00:15 +0100</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>asm</title>
+      <link>/tags/asm/</link>
+      <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+      
+      <guid>/tags/asm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>malware-analysis</title>
+      <link>/tags/malware-analysis/</link>
+      <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+      
+      <guid>/tags/malware-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>re</title>
+      <link>/tags/re/</link>
+      <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+      
+      <guid>/tags/re/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>windows</title>
+      <link>/tags/windows/</link>
+      <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
+      
+      <guid>/tags/windows/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>bear2md</title>
@@ -31,29 +76,11 @@
     </item>
     
     <item>
-      <title>asm</title>
-      <link>/tags/asm/</link>
-      <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
-      
-      <guid>/tags/asm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>malware</title>
       <link>/tags/malware/</link>
       <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
       
       <guid>/tags/malware/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>re</title>
-      <link>/tags/re/</link>
-      <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
-      
-      <guid>/tags/re/</guid>
       <description></description>
     </item>
     
