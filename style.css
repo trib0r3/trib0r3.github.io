@@ -1,4 +1,15 @@
 .logo__cursor {
     background: #7ec699;
-    
   }
+
+a {
+  text-decoration: none; /* no underline */
+}
+
+article a {
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #7ec699;
+}
