@@ -13,3 +13,11 @@ article a {
 a:hover {
   color: #7ec699;
 }
+
+.post-tags-list {
+  display: flex;
+}
+
+.post-tag {
+  padding: 5px 5px 5px 5px;
+}
