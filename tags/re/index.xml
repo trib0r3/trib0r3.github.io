@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 Jan 2020 14:00:15 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jan 2020 09:00:00 +0100</lastBuildDate>
     
 	<atom:link href="/tags/re/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Unmap PE Manually</title>
+      <link>/posts/unmap-pe-manually/</link>
+      <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
+      
+      <guid>/posts/unmap-pe-manually/</guid>
+      <description>Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
+    </item>
     
     <item>
       <title>Disable Aslr</title>
