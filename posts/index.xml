@@ -100,7 +100,7 @@ bot<span style="color:#f92672">.</span>send_message(chat_id<span style="color:#f
 <span style="color:#75715e">#!/bin/bash</span>
 
 NGROK<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/ngrok&#39;</span>
-DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/home/foo/ngrok-apps</span><span style="color:#e6db74">&#34;</span>
+DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/ngrok-apps</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># directory containing this script and tsend.py</span>
 URL_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/ngrok-url&#39;</span>
 
 <span style="color:#75715e"># check if it&#39;s working</span>
