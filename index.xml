@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 25 Jan 2020 09:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2020 13:53:37 +0100</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Expose Any Port With Ngrok</title>
+      <link>/posts/expose-any-port-with-ngrok/</link>
+      <pubDate>Sat, 01 Feb 2020 13:53:37 +0100</pubDate>
+      
+      <guid>/posts/expose-any-port-with-ngrok/</guid>
+      <description>&lt;p&gt;How to expose any port to the Internet without exposing your private IP (for free).&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Unmap PE Manually</title>

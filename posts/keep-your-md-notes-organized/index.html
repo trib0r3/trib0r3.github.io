@@ -136,7 +136,7 @@
         <li><a href="#requirements">Requirements</a></li>
       </ul>
     </li>
-    <li><a href="#ideal-doesnt-exists-but">Ideal doesn't exists, but&hellip;</a>
+    <li><a href="#ideal-doesnt-exists-but">Ideal doesn&rsquo;t exists, but&hellip;</a>
       <ul>
         <li><a href="#prerequirements">Prerequirements</a></li>
         <li><a href="#move-your-bear-notes">Move your bear notes</a></li>
@@ -171,9 +171,9 @@
 <p>We can have tree-like tags, i.e notes assigned to: <code>tag1/sub1</code>, will be also visible in <code>tag1</code>, but not in <code>tag2/sub1</code> (defferent parent).</p>
 <h4 id="2-multi-tagging">(2) Multi-tagging</h4>
 <p>Notes can belong to multiple tags, so they should be visible from multiple tag sub-trees.</p>
-<h2 id="ideal-doesnt-exists-but">Ideal doesn't exists, but&hellip;</h2>
-<p>Finally I couldn't find ideal substitute for <em>Bear</em>, so I decided to move into some WYSWIG Markdown editor which will nicely present meta-data for multi-tagging - I will take care about the rest of mine requirements.</p>
-<p>I decided to move to <a href="https://typora.io/">Typora</a> - it is not perfect, but it seems to work fine. Moving to editor based on directory tree (folders = tags) have one big disadvantage - we can't have multiple tags (but nested tags are working nicely). I had idea how to overcome this issue.</p>
+<h2 id="ideal-doesnt-exists-but">Ideal doesn&rsquo;t exists, but&hellip;</h2>
+<p>Finally I couldn&rsquo;t find ideal substitute for <em>Bear</em>, so I decided to move into some WYSWIG Markdown editor which will nicely present meta-data for multi-tagging - I will take care about the rest of mine requirements.</p>
+<p>I decided to move to <a href="https://typora.io/">Typora</a> - it is not perfect, but it seems to work fine. Moving to editor based on directory tree (folders = tags) have one big disadvantage - we can&rsquo;t have multiple tags (but nested tags are working nicely). I had idea how to overcome this issue.</p>
 <h3 id="prerequirements">Prerequirements</h3>
 <ol>
 <li>Clone my repo <a href="https://github.com/trib0r3/bear2markdowntree">bear2markdowntree</a>.</li>
@@ -195,7 +195,7 @@ tags: [&#34;tag1/sub1&#34;, &#34;tag2/sub2&#34;]
 
 My note
 </code></pre></div><h4 id="demo">Demo</h4>
-<p>Before running <code>export-bear2typora.py</code> don't forget setup script by editing it:</p>
+<p>Before running <code>export-bear2typora.py</code> don&rsquo;t forget setup script by editing it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
 NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Notes/</span><span style="color:#e6db74">&#34;</span>         <span style="color:#75715e"># output dir</span>
 BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BearNotes/</span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># input dir</span>
@@ -209,7 +209,7 @@ BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span
 NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/Dropbox/Notes/</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
 </code></pre></div><p>If you want to use absoulte path change code to:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/root/home/notes/</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><p>Additionally if you don't want to see some tags, you can add them here:</p>
+</code></pre></div><p>Additionally if you don&rsquo;t want to see some tags, you can add them here:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
 <span style="color:#75715e"># WARNING: this feature is actually taking only subtag, </span>
 <span style="color:#75715e">#  Ex#1: you have note with tag: &#34;dev/python/code-snippets&#34;</span>

@@ -6,8 +6,136 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 25 Jan 2020 09:00:00 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 01 Feb 2020 13:53:37 +0100</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Expose Any Port With Ngrok</title>
+            <link>/posts/expose-any-port-with-ngrok/</link>
+            <pubDate>Sat, 01 Feb 2020 13:53:37 +0100</pubDate>
+            
+            <guid>/posts/expose-any-port-with-ngrok/</guid>
+            <description>&lt;p&gt;How to expose any port to the Internet without exposing your private IP (for free).&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>How to expose any port to the Internet without exposing your private IP (for free).</p>
+<p>Today I will show you how to easly setup exposure of any port without exposing your IP, this solution also bypasses situation when your ISP is not giving possibility to have private (own) IP address which is not behind any NAT.</p>
+<p>I used this solution to create access (for myself) to SSH and locally hosted security camera system at my home.</p>
+<h2 id="1-setup-ngrok">1. Setup NGrok</h2>
+<p>First of all you need to have an ngrok account<a href="#references">[1]</a> - free account is enough for our purposes. Generally ngrok is a reverse-proxy service where you need tun ngrok client on target machine, client enables connection with ngrok server and then you are able to connect with your machine (where ngrok client is running) via Internet.</p>
+<blockquote>
+<p>Free acount forwards local port as random remote port (usually under const hostname: <code>0.tcp.ngrok.io</code> for tcp tunnels)</p>
+</blockquote>
+<p>After you have account you need to download client and activate account with your API key (follow the instuctions from web service).</p>
+<h2 id="2-verify-that-tunnel-works">2. Verify that tunnel works</h2>
+<p>Create ngrok config file (under <code>~/.ngrok2/ngrok.yml</code>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">authtoken</span>: &lt;YOUR_TOKEN_HERE&gt;
+<span style="color:#66d9ef">tunnels</span>:
+        <span style="color:#66d9ef">sshglob</span>:
+                <span style="color:#66d9ef">proto</span>: tcp
+                <span style="color:#66d9ef">addr</span>: <span style="color:#ae81ff">22</span>
+</code></pre></div><p>Above config setups tunnel <code>sshglob</code> which forwards locally hosted <code>tcp/22</code> - in this case SSH service. You should change these values according to your needs.</p>
+<p>Now you can try to start ngrok <code>ngrok start sshglob</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ngrok by @inconshreveable                                                            (Ctrl+C to quit)
+
+Session Status                online
+Account                       whoami (Plan: Free)
+Version                       2.3.35
+Region                        United States (us)
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    tcp://0.tcp.ngrok.io:13036 -&gt; localhost:22
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
+</code></pre></div><p>Now you should be able to connect with ssh (in my case) with command: <code>ssh -p 13036 whoami@0.tcp.ngrok.io</code>.</p>
+<p>If you don&rsquo;t have any issues with accessing you machine over Internet you are free to follow next steps :) (otherwise check <a href="#troubleshooting">Troubleshooting</a> section).</p>
+<h2 id="3-bypass-random-port-issue">3. Bypass random port issue</h2>
+<p>If you run ngrok couple of times you should notice that every time you service is running at random port, to bypass this issue you can by a premium or make some additional steps presented below.</p>
+<h3 id="install-dependencies">Install dependencies</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install -y python3 python3-pip curl jq
+pip3 install telegram
+</code></pre></div><h3 id="setup-telegram-bot">Setup Telegram bot</h3>
+<p>For myself I decided to create Telegram<a href="#references">[2]</a> bot which will send me external hostname and random IP address. Ofc you need to have created Telegram account to follow next steps.</p>
+<ol>
+<li>Start conversation with telegram <a href="https://t.me/botfather">Botfather</a>.</li>
+<li>Type commands in Botfather conversation:</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/newbot
+mysuper_bot <span style="color:#75715e"># replace &#34;mysuper&#34; with your bot name</span>
+</code></pre></div><ol start="3">
+<li>Copy API key and start conversation with your bot</li>
+<li>Type something in the chat &amp; run the below code:</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+<span style="color:#f92672">import</span> telegram
+
+bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">YOUR_API_KEY</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">print</span>(bot<span style="color:#f92672">.</span>getUpdates())
+</code></pre></div><ol start="5">
+<li>Copy <code>chat_id</code></li>
+<li>Create script <code>tsend.py</code>:</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+<span style="color:#f92672">import</span> telegram
+
+bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">YOUR_API_KEY</span><span style="color:#e6db74">&#34;</span>) <span style="color:#75715e"># FIXME your api key</span>
+chat_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span> <span style="color:#75715e"># FIXME YOUR_CHAT_ID</span>
+raw_msg <span style="color:#f92672">=</span> argv[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)  <span style="color:#75715e"># &#34;tcp://0.tcp.ngrok.io:10361&#34;</span>
+ip,port <span style="color:#f92672">=</span> raw_msg<span style="color:#f92672">.</span>split(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&#39;</span>)
+
+message <span style="color:#f92672">=</span> f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{ip}:{port}</span><span style="color:#e6db74">&#39;</span>
+bot<span style="color:#f92672">.</span>send_message(chat_id<span style="color:#f92672">=</span>chat_id, text<span style="color:#f92672">=</span>message)
+</code></pre></div><ol start="7">
+<li>Check if you are able to send message to you from your bot by typing <code>python3 tsend.py hello</code>.</li>
+</ol>
+<h3 id="make-your-service-always-available">Make your service always available</h3>
+<p>Final step, below script will:</p>
+<ol>
+<li>Start ngrok tunnel if it is not running</li>
+<li>Send you actual <code>IP:PORT</code> thanks to telegram bot</li>
+</ol>
+<blockquote>
+<p>Below script is designed to be run from cron, thanks to this solution it will be run automatically i.e every 5 minutes:
+<code>*/5 * * * * path/to/monitor.sh</code></p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># monitor.sh</span>
+<span style="color:#75715e">#!/bin/bash</span>
+
+NGROK<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/ngrok&#39;</span>
+DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/home/foo/ngrok-apps</span><span style="color:#e6db74">&#34;</span>
+URL_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/ngrok-url&#39;</span>
+
+<span style="color:#75715e"># check if it&#39;s working</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pidof ngrok<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        echo <span style="color:#e6db74">&#34;[ngrok] is not working, starting new instance...&#34;</span>
+        $NGROK start sshglob &gt; /dev/null &amp;
+        sleep <span style="color:#ae81ff">3</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># get current status of tunnel</span>
+NEW_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -s http://127.0.0.1:4040/api/tunnels | jq <span style="color:#e6db74">&#39;.tunnels[0] .public_url&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[ngrok] </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74"> </span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
+OLD_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$URL_DIR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        OLD_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat $URL_DIR<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># check if differ</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span>$OLD_STATUS<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        echo <span style="color:#e6db74">&#34;[ngrok] New status detected! Updating IP&#34;</span>
+        echo <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span> &gt; <span style="color:#e6db74">&#34;</span>$URL_DIR<span style="color:#e6db74">&#34;</span>
+        python3 <span style="color:#e6db74">&#34;</span>$DIR<span style="color:#e6db74">/tsend.py</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div><p>If everything works you should receive notification to your telegram if IP or port will change.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h4 id="my-ngrok-tunnel-is-started-but-i-cant-access-service">My ngrok tunnel is started, but I can&rsquo;t access service</h4>
+<p>Is this service running also on localhost? Or can you reach shown ngrok host (IP)?</p>
+<h3 id="can-i-use-something-else-than-telegram">Can I use something else than telegram?</h3>
+<p>Yes, but I had already telegram in place. If you need you can use i.e Discord, Slack, mail, etc. (but you need to modify <code>tsend.py</code> script)</p>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://ngrok.com/">https://ngrok.com/</a></li>
+<li><a href="https://telegram.org/">https://telegram.org/</a></li>
+</ol>]]></content>
+        </item>
         
         <item>
             <title>Unmap PE Manually</title>
@@ -123,9 +251,9 @@ aaa
 <p>We can have tree-like tags, i.e notes assigned to: <code>tag1/sub1</code>, will be also visible in <code>tag1</code>, but not in <code>tag2/sub1</code> (defferent parent).</p>
 <h4 id="2-multi-tagging">(2) Multi-tagging</h4>
 <p>Notes can belong to multiple tags, so they should be visible from multiple tag sub-trees.</p>
-<h2 id="ideal-doesnt-exists-but">Ideal doesn't exists, but&hellip;</h2>
-<p>Finally I couldn't find ideal substitute for <em>Bear</em>, so I decided to move into some WYSWIG Markdown editor which will nicely present meta-data for multi-tagging - I will take care about the rest of mine requirements.</p>
-<p>I decided to move to <a href="https://typora.io/">Typora</a> - it is not perfect, but it seems to work fine. Moving to editor based on directory tree (folders = tags) have one big disadvantage - we can't have multiple tags (but nested tags are working nicely). I had idea how to overcome this issue.</p>
+<h2 id="ideal-doesnt-exists-but">Ideal doesn&rsquo;t exists, but&hellip;</h2>
+<p>Finally I couldn&rsquo;t find ideal substitute for <em>Bear</em>, so I decided to move into some WYSWIG Markdown editor which will nicely present meta-data for multi-tagging - I will take care about the rest of mine requirements.</p>
+<p>I decided to move to <a href="https://typora.io/">Typora</a> - it is not perfect, but it seems to work fine. Moving to editor based on directory tree (folders = tags) have one big disadvantage - we can&rsquo;t have multiple tags (but nested tags are working nicely). I had idea how to overcome this issue.</p>
 <h3 id="prerequirements">Prerequirements</h3>
 <ol>
 <li>Clone my repo <a href="https://github.com/trib0r3/bear2markdowntree">bear2markdowntree</a>.</li>
@@ -147,7 +275,7 @@ tags: [&#34;tag1/sub1&#34;, &#34;tag2/sub2&#34;]
 
 My note
 </code></pre></div><h4 id="demo">Demo</h4>
-<p>Before running <code>export-bear2typora.py</code> don't forget setup script by editing it:</p>
+<p>Before running <code>export-bear2typora.py</code> don&rsquo;t forget setup script by editing it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
 NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Notes/</span><span style="color:#e6db74">&#34;</span>         <span style="color:#75715e"># output dir</span>
 BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BearNotes/</span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># input dir</span>
@@ -161,7 +289,7 @@ BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span
 NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/Dropbox/Notes/</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
 </code></pre></div><p>If you want to use absoulte path change code to:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/root/home/notes/</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><p>Additionally if you don't want to see some tags, you can add them here:</p>
+</code></pre></div><p>Additionally if you don&rsquo;t want to see some tags, you can add them here:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
 <span style="color:#75715e"># WARNING: this feature is actually taking only subtag, </span>
 <span style="color:#75715e">#  Ex#1: you have note with tag: &#34;dev/python/code-snippets&#34;</span>
