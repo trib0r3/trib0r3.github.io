@@ -6,8 +6,28 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 01 Feb 2020 13:53:37 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 15 Feb 2020 12:01:53 +0100</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Ida Pro Plugins</title>
+            <link>/posts/ida-pro-plugins/</link>
+            <pubDate>Sat, 15 Feb 2020 12:01:53 +0100</pubDate>
+            
+            <guid>/posts/ida-pro-plugins/</guid>
+            <description>&lt;p&gt;Plugins worth installing&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Plugins worth installing</p>
+<ul>
+<li><a href="https://github.com/OALabs/FindYara">FindYara</a> - use yara rules for looking into binary</li>
+<li><a href="https://github.com/polymorf/findcrypt-yara">Findcrypt YARA</a> - find crypto structs with yara rules</li>
+<li><a href="https://github.com/vrtadmin/FIRST">FIRST</a> - community driven Lunsa function matching plugin</li>
+<li><a href="https://github.com/CheckPointSW/Karta">Karta</a> - open source lib functions matching</li>
+<li><a href="https://github.com/joxeankoret/diaphora">Diaphora</a> - diff binaries</li>
+<li><a href="https://github.com/hasherezade/ida_ifl">IDA IFL</a> - interactive function list</li>
+<li><a href="https://github.com/cseagle/blc">blc</a> - decompiler based on Ghidra</li>
+<li><a href="https://retdec.com/idaplugin/">retdec</a> - standalone decompiler</li>
+</ul>]]></content>
+        </item>
         
         <item>
             <title>Expose Any Port With Ngrok</title>
