@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>writeups on trib0r3&#39;s blog</title>
+    <link>/tags/writeups/</link>
+    <description>Recent content in writeups on trib0r3&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 27 Mar 2020 19:22:09 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/writeups/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Writeup - HTB Snake</title>
+      <link>/posts/writeup-htb-snake/</link>
+      <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
+      
+      <guid>/posts/writeup-htb-snake/</guid>
+      <description>[re] Snake (10) Description Short info about task:
+ Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
+ Overview We have got the python script that is waiting for some username and password:
+$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
+    </item>
+    
+  </channel>
+</rss>
