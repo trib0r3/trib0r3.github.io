@@ -197,8 +197,8 @@ My note
 </code></pre></div><h4 id="demo">Demo</h4>
 <p>Before running <code>export-bear2typora.py</code> don&rsquo;t forget setup script by editing it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
-NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Notes/</span><span style="color:#e6db74">&#34;</span>         <span style="color:#75715e"># output dir</span>
-BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BearNotes/</span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># input dir</span>
+NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Notes/&#34;</span>         <span style="color:#75715e"># output dir</span>
+BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BearNotes/&#34;</span>     <span style="color:#75715e"># input dir</span>
 </code></pre></div><p>Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in <code>tags</code> array.</p>
 <p>After this process you should have exported and fixed notes in your <code>BEAR_DIR</code>.</p>
 <h3 id="multitagging-support">Multitagging support</h3>
@@ -206,9 +206,9 @@ BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span
 <p>This file should be (re)generated with <code>build-tags.py</code> each time you decide to put some new file in your directory list.</p>
 <p>Here you should edit only one variable (if you have <code>NOTES_DIR</code> relative to home directory):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">HOME_USER <span style="color:#f92672">=</span> str(Path<span style="color:#f92672">.</span>home())
-NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/Dropbox/Notes/</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
+NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/Dropbox/Notes/&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
 </code></pre></div><p>If you want to use absoulte path change code to:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/root/home/notes/</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/root/home/notes/&#34;</span>
 </code></pre></div><p>Additionally if you don&rsquo;t want to see some tags, you can add them here:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
 <span style="color:#75715e"># WARNING: this feature is actually taking only subtag, </span>

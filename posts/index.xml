@@ -87,7 +87,7 @@ mysuper_bot <span style="color:#75715e"># replace &#34;mysuper&#34; with your bo
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
 <span style="color:#f92672">import</span> telegram
 
-bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">YOUR_API_KEY</span><span style="color:#e6db74">&#34;</span>)
+bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;YOUR_API_KEY&#34;</span>)
 <span style="color:#66d9ef">print</span>(bot<span style="color:#f92672">.</span>getUpdates())
 </code></pre></div><ol start="5">
 <li>Copy <code>chat_id</code></li>
@@ -96,12 +96,12 @@ bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
 <span style="color:#f92672">import</span> telegram
 
-bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">YOUR_API_KEY</span><span style="color:#e6db74">&#34;</span>) <span style="color:#75715e"># FIXME your api key</span>
+bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;YOUR_API_KEY&#34;</span>) <span style="color:#75715e"># FIXME your api key</span>
 chat_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span> <span style="color:#75715e"># FIXME YOUR_CHAT_ID</span>
-raw_msg <span style="color:#f92672">=</span> argv[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)  <span style="color:#75715e"># &#34;tcp://0.tcp.ngrok.io:10361&#34;</span>
-ip,port <span style="color:#f92672">=</span> raw_msg<span style="color:#f92672">.</span>split(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&#39;</span>)
+raw_msg <span style="color:#f92672">=</span> argv[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;&#34;&#39;</span>,<span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;tcp://&#39;</span>,<span style="color:#e6db74">&#39;&#39;</span>)  <span style="color:#75715e"># &#34;tcp://0.tcp.ngrok.io:10361&#34;</span>
+ip,port <span style="color:#f92672">=</span> raw_msg<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;:&#39;</span>)
 
-message <span style="color:#f92672">=</span> f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{ip}:{port}</span><span style="color:#e6db74">&#39;</span>
+message <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;{ip}:{port}&#39;</span>
 bot<span style="color:#f92672">.</span>send_message(chat_id<span style="color:#f92672">=</span>chat_id, text<span style="color:#f92672">=</span>message)
 </code></pre></div><ol start="7">
 <li>Check if you are able to send message to you from your bot by typing <code>python3 tsend.py hello</code>.</li>
@@ -120,7 +120,7 @@ bot<span style="color:#f92672">.</span>send_message(chat_id<span style="color:#f
 <span style="color:#75715e">#!/bin/bash</span>
 
 NGROK<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/ngrok&#39;</span>
-DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/ngrok-apps</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># directory containing this script and tsend.py</span>
+DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/ngrok-apps&#34;</span> <span style="color:#75715e"># directory containing this script and tsend.py</span>
 URL_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/ngrok-url&#39;</span>
 
 <span style="color:#75715e"># check if it&#39;s working</span>
@@ -132,7 +132,7 @@ URL_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp
 
 <span style="color:#75715e"># get current status of tunnel</span>
 NEW_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -s http://127.0.0.1:4040/api/tunnels | jq <span style="color:#e6db74">&#39;.tunnels[0] .public_url&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[ngrok] </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74"> </span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
+echo <span style="color:#e6db74">&#34;[ngrok] </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74"> </span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
 OLD_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$URL_DIR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
         OLD_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat $URL_DIR<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
@@ -142,7 +142,7 @@ OLD_STATUS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span>$OLD_STATUS<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
         echo <span style="color:#e6db74">&#34;[ngrok] New status detected! Updating IP&#34;</span>
         echo <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span> &gt; <span style="color:#e6db74">&#34;</span>$URL_DIR<span style="color:#e6db74">&#34;</span>
-        python3 <span style="color:#e6db74">&#34;</span>$DIR<span style="color:#e6db74">/tsend.py</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
+        python3 <span style="color:#e6db74">&#34;</span>$DIR<span style="color:#e6db74">/tsend.py&#34;</span> <span style="color:#e6db74">&#34;</span>$NEW_STATUS<span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">fi</span>
 </code></pre></div><p>If everything works you should receive notification to your telegram if IP or port will change.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -297,8 +297,8 @@ My note
 </code></pre></div><h4 id="demo">Demo</h4>
 <p>Before running <code>export-bear2typora.py</code> don&rsquo;t forget setup script by editing it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
-NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Notes/</span><span style="color:#e6db74">&#34;</span>         <span style="color:#75715e"># output dir</span>
-BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BearNotes/</span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># input dir</span>
+NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Notes/&#34;</span>         <span style="color:#75715e"># output dir</span>
+BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BearNotes/&#34;</span>     <span style="color:#75715e"># input dir</span>
 </code></pre></div><p>Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in <code>tags</code> array.</p>
 <p>After this process you should have exported and fixed notes in your <code>BEAR_DIR</code>.</p>
 <h3 id="multitagging-support">Multitagging support</h3>
@@ -306,9 +306,9 @@ BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span
 <p>This file should be (re)generated with <code>build-tags.py</code> each time you decide to put some new file in your directory list.</p>
 <p>Here you should edit only one variable (if you have <code>NOTES_DIR</code> relative to home directory):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">HOME_USER <span style="color:#f92672">=</span> str(Path<span style="color:#f92672">.</span>home())
-NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/Dropbox/Notes/</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
+NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/Dropbox/Notes/&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
 </code></pre></div><p>If you want to use absoulte path change code to:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/root/home/notes/</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/root/home/notes/&#34;</span>
 </code></pre></div><p>Additionally if you don&rsquo;t want to see some tags, you can add them here:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
 <span style="color:#75715e"># WARNING: this feature is actually taking only subtag, </span>
@@ -352,9 +352,9 @@ IGNORE_TAGS <span style="color:#f92672">=</span> [] <span style="color:#75715e">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> __thiscall <span style="color:#a6e22e">Inherited</span>(Inherited <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>)
 {
   Box((Box <span style="color:#f92672">*</span>)<span style="color:#66d9ef">this</span>);
-  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// this was assigned in class definition, not constructor
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-  <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>b;
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// this was assigned in class definition, not constructor
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>b;
   <span style="color:#66d9ef">return</span>;
 }
 
