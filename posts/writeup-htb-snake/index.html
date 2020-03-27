@@ -9,7 +9,7 @@
  Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
  Overview We have got the python script that is waiting for some username and password:
 $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password." />
-<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming" />
+<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming, writeups, htb, re" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="/posts/writeup-htb-snake/" />
@@ -28,7 +28,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
 
 
 
-<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
+<link rel="stylesheet" href="/main.min.84ed5579024525d4b50458514d1a43e40dd5272df45c7cd6da85b225af457154.css">
 
 
     
@@ -84,7 +84,11 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
         
             <span class="logo__mark">></span>
             <span class="logo__text">trib0r3&#39;s blog</span>
-            <span class="logo__cursor" style=""></span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
         
     </div>
 </a>
@@ -325,8 +329,28 @@ pass_input <span style="color:#f92672">=</span> raw_input(<span style="color:#e6
                 </div>
             </div>
         
-
-        
+            <div id="comments" class="thin">
+                <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
     </main>
 
             </div>
@@ -346,7 +370,7 @@ pass_input <span style="color:#f92672">=</span> raw_input(<span style="color:#e6
     <div class="footer__inner">
         <div class="footer__content">
             <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
-            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
         </div>
     </div>
 </footer>

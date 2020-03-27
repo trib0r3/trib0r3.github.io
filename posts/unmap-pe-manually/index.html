@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="trib0r3 ">
 <meta name="description" content="Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i&#43;1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before." />
-<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming" />
+<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming, re, malware-analysis, asm" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="/posts/unmap-pe-manually/" />
@@ -25,7 +25,7 @@
 
 
 
-<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
+<link rel="stylesheet" href="/main.min.84ed5579024525d4b50458514d1a43e40dd5272df45c7cd6da85b225af457154.css">
 
 
     
@@ -75,7 +75,11 @@
         
             <span class="logo__mark">></span>
             <span class="logo__text">trib0r3&#39;s blog</span>
-            <span class="logo__cursor" style=""></span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
         
     </div>
 </a>
@@ -223,8 +227,28 @@
                 </div>
             </div>
         
-
-        
+            <div id="comments" class="thin">
+                <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
     </main>
 
             </div>
@@ -244,7 +268,7 @@
     <div class="footer__inner">
         <div class="footer__content">
             <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
-            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
         </div>
     </div>
 </footer>
