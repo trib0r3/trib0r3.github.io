@@ -6,8 +6,70 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 27 Mar 2020 19:22:09 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 28 Mar 2020 08:00:00 +0100</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Writeup - Securinets2020 Warmup</title>
+            <link>/posts/writeup-securinets2020-warmup/</link>
+            <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
+            
+            <guid>/posts/writeup-securinets2020-warmup/</guid>
+            <description>Warmup  Warmup : Welcome to securinets CTF
+ In this task we are dealing with very simple function main:
+undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
+            <content type="html"><![CDATA[<h1 id="warmup">Warmup</h1>
+<blockquote>
+<p>Warmup : Welcome to securinets CTF</p>
+</blockquote>
+<p>In this task we are dealing with very simple function main:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">undefined8 <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    int64_t iVar1;
+    undefined8 uVar2;
+    uint32_t var_8h;
+    undefined8 var_4h;
+    
+    write(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0x988</span>, <span style="color:#ae81ff">0x1a</span>);
+    read(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0x201080</span>, <span style="color:#ae81ff">0x31</span>);
+    iVar1 <span style="color:#f92672">=</span> strlen(<span style="color:#ae81ff">0x201080</span>);
+    <span style="color:#f92672">*</span>(undefined <span style="color:#f92672">*</span>)(iVar1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x20107f</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    var_8h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    strcpy(rsi, <span style="color:#ae81ff">0x201080</span>);
+    uVar2 <span style="color:#f92672">=</span> strlen(<span style="color:#ae81ff">0x201080</span>);
+    memfrob(<span style="color:#ae81ff">0x201080</span>, uVar2);
+    var_4h._0_4_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> ((int32_t)var_4h <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x14</span>) {
+        var_8h <span style="color:#f92672">=</span> var_8h <span style="color:#f92672">+</span> (int32_t)(<span style="color:#66d9ef">char</span>)(<span style="color:#f92672">*</span>(uint8_t <span style="color:#f92672">*</span>)((int64_t)(int32_t)var_4h <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x201020</span>) <span style="color:#f92672">^</span>
+                                         <span style="color:#f92672">*</span>(uint8_t <span style="color:#f92672">*</span>)((int64_t)(int32_t)var_4h <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x201080</span>));
+        var_4h._0_4_ <span style="color:#f92672">=</span> (int32_t)var_4h <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+    }
+    <span style="color:#66d9ef">if</span> (var_8h <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        printf(<span style="color:#ae81ff">0x9a8</span>, rsi);
+    } <span style="color:#66d9ef">else</span> {
+        puts(<span style="color:#ae81ff">0x9d5</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><p>In this function the <code>memfrob</code> is used, from manual you can learn that this function is xoring buffer with key <code>42</code>, solution:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> [  <span style="color:#ae81ff">0x46</span>, <span style="color:#ae81ff">0x19</span>, <span style="color:#ae81ff">0x5e</span>, <span style="color:#ae81ff">0x0d</span>, <span style="color:#ae81ff">0x59</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x5d</span>, <span style="color:#ae81ff">0x1e</span>, <span style="color:#ae81ff">0x58</span>, <span style="color:#ae81ff">0x47</span>,
+<span style="color:#f92672">...</span>   <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x1b</span>, <span style="color:#ae81ff">0x5e</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x5f</span>, <span style="color:#ae81ff">0x5a</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x48</span>, <span style="color:#ae81ff">0x45</span>, <span style="color:#ae81ff">0x53</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> r <span style="color:#f92672">=</span> []
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> a:
+<span style="color:#f92672">...</span>   r<span style="color:#f92672">.</span>append(b<span style="color:#f92672">^</span><span style="color:#ae81ff">42</span>)
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> r
+[<span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">39</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">119</span>, <span style="color:#ae81ff">52</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">121</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([chr(c) <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> r])
+<span style="color:#e6db74">&#34;l3t&#39;s_w4rm_1t_up_boy&#34;</span>
+</code></pre></div><p>And execution:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Welcome to SECURINETS CTF
+l3t&#39;s_w4rm_1t_up_boy
+Good job
+You can submit with securinets{l3t&#39;s_w4rm_1t_up_boy}
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Writeup - HTB Snake</title>
