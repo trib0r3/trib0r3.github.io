@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 28 Mar 2020 08:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2020 12:12:00 +0200</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>binja</title>
+      <link>/tags/binja/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/tags/binja/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ghidra</title>
+      <link>/tags/ghidra/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/tags/ghidra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ida</title>
+      <link>/tags/ida/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/tags/ida/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>radare2</title>
+      <link>/tags/radare2/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/tags/radare2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>re</title>
+      <link>/tags/re/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/tags/re/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ctf</title>
@@ -18,15 +63,6 @@
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
       
       <guid>/tags/ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>re</title>
-      <link>/tags/re/</link>
-      <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
-      
-      <guid>/tags/re/</guid>
       <description></description>
     </item>
     

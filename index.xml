@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 28 Mar 2020 08:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2020 12:12:00 +0200</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Comparision of Reverse-Engineering Tools</title>
+      <link>/posts/comparision-of-re-tools/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/posts/comparision-of-re-tools/</guid>
+      <description>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Hopefully this post will help you to find tools worth choosing as primary reverse engineering tool.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Writeup - Securinets2020 Warmup</title>

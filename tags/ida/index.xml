@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ida on trib0r3&#39;s blog</title>
+    <link>/tags/ida/</link>
+    <description>Recent content in ida on trib0r3&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 Apr 2020 12:12:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/ida/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Comparision of Reverse-Engineering Tools</title>
+      <link>/posts/comparision-of-re-tools/</link>
+      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
+      
+      <guid>/posts/comparision-of-re-tools/</guid>
+      <description>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Hopefully this post will help you to find tools worth choosing as primary reverse engineering tool.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
