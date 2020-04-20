@@ -30,3 +30,9 @@ pre code {
 p {
   font-size: initial;
 }
+
+
+/* Sharing buttons */
+div #sharebuttons {
+  text-align: right;
+}
