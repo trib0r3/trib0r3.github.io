@@ -43,7 +43,7 @@
 <h3 id="price">Price</h3>
 <p>Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:</p>
 <ul>
-<li><a href="cloud.binary.ninja/">BinaryNinja Cloud</a> - Binary Ninja Personal in browser, but without debugger and plugins support.</li>
+<li><a href="https://cloud.binary.ninja/">BinaryNinja Cloud</a> - Binary Ninja Personal in browser, but without debugger and plugins support.</li>
 <li><a href="https://www.hex-rays.com/products/ida/support/download_freeware/">IDA Freeware 7.0</a> - free version of IDA, with a lot of limitations.</li>
 </ul>
 <blockquote>
@@ -80,6 +80,9 @@
 <p>IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.</p>
 <blockquote>
 <p><strong>Note:</strong> radare2 developed something called ESIL - very useful features for emulating code, analysis. Unfortunatelly it can&rsquo;t run code handled by operating system (APIs).</p>
+</blockquote>
+<blockquote>
+<p><strong>Update:</strong> actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)</p>
 </blockquote>
 <h3 id="plugins">Plugins</h3>
 <p><img src="/img/binja-plugins.png" alt="BinaryNinja - plugins"></p>
