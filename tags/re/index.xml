@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 Apr 2020 12:12:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 14:53:08 +0200</lastBuildDate>
     
 	<atom:link href="/tags/re/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Qiling Scripting and Simple RE Task</title>
+      <link>/posts/qiling-scripting-and-simple-re-task/</link>
+      <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
+      
+      <guid>/posts/qiling-scripting-and-simple-re-task/</guid>
+      <description>What is Qiling From the author&amp;rsquo;s website:
+ Qiling is an advanced binary emulation framework, with the following features:
+ Cross platform: Windows, MacOS, Linux, BSD Cross architecture: X86, X86_64, Arm, Arm64, Mips Multiple file formats: PE, MachO, ELF Emulate &amp;amp; sandbox machine code in a isolated environment Supports cross architecture and platform debugging capabilities Provide high level API to setup &amp;amp; configure the sandbox Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc) Allow dynamic hotpatch on-the-fly running code, including the loaded library True framework in Python, making it easy to build customized security analysis tools on top  Qiling is backed by Unicorn engine.</description>
+    </item>
     
     <item>
       <title>Comparision of Reverse-Engineering Tools</title>

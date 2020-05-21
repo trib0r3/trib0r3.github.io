@@ -6,8 +6,109 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 19 Apr 2020 12:12:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 21 May 2020 14:53:08 +0200</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Qiling Scripting and Simple RE Task</title>
+            <link>/posts/qiling-scripting-and-simple-re-task/</link>
+            <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
+            
+            <guid>/posts/qiling-scripting-and-simple-re-task/</guid>
+            <description>What is Qiling From the author&amp;rsquo;s website:
+ Qiling is an advanced binary emulation framework, with the following features:
+ Cross platform: Windows, MacOS, Linux, BSD Cross architecture: X86, X86_64, Arm, Arm64, Mips Multiple file formats: PE, MachO, ELF Emulate &amp;amp; sandbox machine code in a isolated environment Supports cross architecture and platform debugging capabilities Provide high level API to setup &amp;amp; configure the sandbox Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc) Allow dynamic hotpatch on-the-fly running code, including the loaded library True framework in Python, making it easy to build customized security analysis tools on top  Qiling is backed by Unicorn engine.</description>
+            <content type="html"><![CDATA[<h2 id="what-is-qiling">What is Qiling</h2>
+<p>From the author&rsquo;s website:</p>
+<blockquote>
+<p>Qiling is an advanced binary emulation framework, with the following features:</p>
+<ul>
+<li>Cross platform: Windows, MacOS, Linux, BSD</li>
+<li>Cross architecture: X86, X86_64, Arm, Arm64, Mips</li>
+<li>Multiple file formats: PE, MachO, ELF</li>
+<li>Emulate &amp; sandbox machine code in a isolated environment</li>
+<li>Supports cross architecture and platform debugging capabilities</li>
+<li>Provide high level API to setup &amp; configure the sandbox</li>
+<li>Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc)</li>
+<li>Allow dynamic hotpatch on-the-fly running code, including the loaded library</li>
+<li>True framework in Python, making it easy to build customized security analysis tools on top</li>
+</ul>
+<p>Qiling is backed by <a href="http://www.unicorn-engine.org">Unicorn engine</a>.</p>
+</blockquote>
+<p>Or just saying shortly: this tool will allow you to run binary from one system to another, i.e you can run Windows PE on Mac.</p>
+<p>Additionally you can also utilize its scripting ability to hook addresses, run only part of binary, etc. Check the <a href="#references">references</a> to view project&rsquo;s GitHub page and others.</p>
+<h2 id="simple-demo">Simple demo</h2>
+<p>Let&rsquo;s imagine that we have this simple task:</p>
+<p><img src="/img/task-code.png" alt="Task"></p>
+<p>Obviously flag is generated from the stack strings with some on-the-fly operations, we can very easly capture the flag by setting couple of breakpoints in the debugger at addresses: <code>0x804852e</code> and <code>0x804853d</code> and check the contents of <em>eax</em> (notice that second part of the flag actually replaces the 1st part) or we can write simple script using Qiling:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> qiling <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> environ
+
+EXEC_FILE <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;./task&#34;</span>]
+ROOTFS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{}/x86_linux&#34;</span><span style="color:#f92672">.</span>format(environ[<span style="color:#e6db74">&#34;QILING_ROOTFS&#34;</span>])
+FLAG <span style="color:#f92672">=</span> []
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_hook</span>(ql : core<span style="color:#f92672">.</span>Qiling) <span style="color:#f92672">-&gt;</span> None:
+    addr_flag <span style="color:#f92672">=</span> ql<span style="color:#f92672">.</span>reg<span style="color:#f92672">.</span>eax
+    FLAG<span style="color:#f92672">.</span>append(ql<span style="color:#f92672">.</span>mem<span style="color:#f92672">.</span>read(addr_flag, <span style="color:#ae81ff">0x13</span>))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_sandbox</span>(path, rootfs):
+    ql <span style="color:#f92672">=</span> Qiling(path, rootfs)
+    
+    <span style="color:#75715e"># remove systrace logs</span>
+    ql<span style="color:#f92672">.</span>filter <span style="color:#f92672">=</span> []
+
+    ql<span style="color:#f92672">.</span>hook_address(on_hook, <span style="color:#ae81ff">0x804852e</span>)
+    ql<span style="color:#f92672">.</span>hook_address(on_hook, <span style="color:#ae81ff">0x804853d</span>)
+    ql<span style="color:#f92672">.</span>run()
+
+    flag <span style="color:#f92672">=</span> FLAG[<span style="color:#ae81ff">0</span>][:<span style="color:#ae81ff">0x12</span>]<span style="color:#f92672">.</span>decode() <span style="color:#f92672">+</span> FLAG[<span style="color:#ae81ff">1</span>][:<span style="color:#ae81ff">7</span>]<span style="color:#f92672">.</span>decode()
+    <span style="color:#66d9ef">print</span>(flag)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    my_sandbox(EXEC_FILE, ROOTFS)
+</code></pre></div><p>Some explanation: Qiling for execution requires 2 things:</p>
+<ul>
+<li>binary - what is obvious;</li>
+<li>Rootfs - which should match target architecture.</li>
+</ul>
+<p>In my case environment variable <code>$QILING_ROOTFS</code> points to <code>$QILING_REPO_DIR/examples/rootfs</code>, above mentioned is a linux x86 binary so we are selecting <code>x68_linux</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> qiling <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> environ
+
+EXEC_FILE <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;./task&#34;</span>]
+ROOTFS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{}/x86_linux&#34;</span><span style="color:#f92672">.</span>format(environ[<span style="color:#e6db74">&#34;QILING_ROOTFS&#34;</span>])
+</code></pre></div><p>We want to <del>break</del> hook at specified addresses, so we can achieve that by calling <code>hook_address(callback, address)</code> I decided to reuse twice the same function, but you can create separate functions for that:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ql<span style="color:#f92672">.</span>hook_address(on_hook, <span style="color:#ae81ff">0x804852e</span>)
+ql<span style="color:#f92672">.</span>hook_address(on_hook, <span style="color:#ae81ff">0x804853d</span>) 
+</code></pre></div><p>After everything is setup we can run the binary with <code>ql.run()</code>.</p>
+<p>Our hook method reads the value from <em>eax</em> register and saves it in global variable:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_hook</span>(ql : core<span style="color:#f92672">.</span>Qiling) <span style="color:#f92672">-&gt;</span> None:
+    addr_flag <span style="color:#f92672">=</span> ql<span style="color:#f92672">.</span>reg<span style="color:#f92672">.</span>eax
+    FLAG<span style="color:#f92672">.</span>append(ql<span style="color:#f92672">.</span>mem<span style="color:#f92672">.</span>read(addr_flag, <span style="color:#ae81ff">0x13</span>))
+</code></pre></div><p>Notice that we are reading twice the same amount of bytes (<code>ql.mem.read(addr_flag, 0x13)</code>), so we need to truncate these array before printing it on the screen:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    flag <span style="color:#f92672">=</span> FLAG[<span style="color:#ae81ff">0</span>][:<span style="color:#ae81ff">0x12</span>]<span style="color:#f92672">.</span>decode() <span style="color:#f92672">+</span> FLAG[<span style="color:#ae81ff">1</span>][:<span style="color:#ae81ff">7</span>]<span style="color:#f92672">.</span>decode()
+    <span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>By default Qiling displays <code>strace</code> log, if you don&rsquo;t want to see it or you want to see only logs from specific methods you can use filters (you need to change this variable before running the qiling):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># mute strace log</span>
+ql<span style="color:#f92672">.</span>filter <span style="color:#f92672">=</span> []
+
+<span style="color:#75715e"># display only &#34;read&#34; functions</span>
+ql<span style="color:#f92672">.</span>filter <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;read&#34;</span>]
+</code></pre></div><blockquote>
+<p><strong>Notice</strong>: the current version doesn&rsquo;t have working properly filters, so you need to switch to <code>dev</code> branch.</p>
+</blockquote>
+<p>Finally you can run it with python and see the flag:</p>
+<p><img src="/img/qiling-flag.png" alt="flag"></p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>Qiling is definately great framework, very simple to use and very powerful. Definately worth to try :)</p>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://github.com/qilingframework/qiling">Qiling Github</a></li>
+<li><a href="docs.google.com/">Documentation</a></li>
+</ol>
+]]></content>
+        </item>
         
         <item>
             <title>Comparision of Reverse-Engineering Tools</title>
