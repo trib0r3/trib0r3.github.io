@@ -6,8 +6,29 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 21 May 2020 14:53:08 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 14 Jun 2020 09:42:17 +0200</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Nothing Is Lost in the Internet</title>
+            <link>/posts/nothing-is-lost-in-the-internet/</link>
+            <pubDate>Sun, 14 Jun 2020 09:42:17 +0200</pubDate>
+            
+            <guid>/posts/nothing-is-lost-in-the-internet/</guid>
+            <description>&lt;p&gt;It  is very easy to upload something to the Internet, but hard to delete. This is short story about searching for &amp;ldquo;deleted&amp;rdquo; resources in the Internet.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>It  is very easy to upload something to the Internet, but hard to delete. This is short story about searching for &ldquo;deleted&rdquo; resources in the Internet.</p>
+<h2 id="problem">Problem</h2>
+<p>These methods may help you if want to access some Internet resource (like document or page), but it is no longer available because website is down or author decided to remove it.</p>
+<h2 id="finding-removed-things">Finding &ldquo;removed&rdquo; things</h2>
+<h3 id="website-mirrors">Website mirrors</h3>
+<p>If you know where this resource is placed (you know it&rsquo;s url) the easiest method is to go to <a href="https://archive.org/web/">Web Archive</a>, type your url and select a mirror from the timeline.</p>
+<h3 id="google-cache">Google cache</h3>
+<p>Of course not all Internet resources are mirrored, so it may happen that web archive doesn&rsquo;t have saved url interesting for you. If your resource was deleted recently you can always search for it&rsquo;s search browser <em>cached</em> version, for google you need to type in search field:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">cache:&lt;url&gt;
+</code></pre></div><p>You can also use other search browser to achieve similar results.</p>
+<h3 id="hunting-for-deleted-things">Hunting for deleted things</h3>
+<p>Finally if you don&rsquo;t know your resource url you can also use other search browser than google, like <a href="https://duckduckgo.com/">DuckDuckGo</a>. It may be useful, because google is removing dead url pretty quickly (it is also intentionally hiding some websites), so it is always good to use other search browsers.</p>]]></content>
+        </item>
         
         <item>
             <title>Qiling Scripting and Simple RE Task</title>
