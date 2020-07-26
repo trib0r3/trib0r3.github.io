@@ -6,8 +6,331 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 14 Jun 2020 09:42:17 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 26 Jul 2020 15:31:42 +0200</lastBuildDate>
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>[0x0] FRIDA Playground</title>
+            <link>/posts/0-frida-playgrounds/</link>
+            <pubDate>Sun, 26 Jul 2020 15:31:42 +0200</pubDate>
+            
+            <guid>/posts/0-frida-playgrounds/</guid>
+            <description>&lt;p&gt;&lt;img src=&#34;/img/thumb/fridaplayground-0.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples. For this I will solve &lt;a href=&#34;#references&#34;&gt;FlareOn&lt;/a&gt; challenges.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p><img src="/img/thumb/fridaplayground-0.png" alt=""></p>
+<p>Hello, this is the very first post of my new series where I will show the big potential of <a href="#references">frida</a> on practical examples. For this I will solve <a href="#references">FlareOn</a> challenges.</p>
+<h2 id="about">About</h2>
+<p>If you want to learn more about frida, then I suggest you to check my <a href="/posts/frida-cheatsheet/">notes/cheatsheet</a> or frida&rsquo;s <a href="https://frida.re/docs/home/">docs</a>.</p>
+<p>Check tag <a href="/tags/frida-playground/">#frida-playground</a> for all posts.</p>
+<h2 id="lab-setup">Lab Setup</h2>
+<p>My environment:</p>
+<ul>
+<li>host machine - the place where I&rsquo;m writing scripts, run scripts, etc</li>
+<li>guest vms - machines where ctf binaries are run:
+<ul>
+<li>Windows10 (vbox)</li>
+<li>REmnux (vbox)</li>
+<li>Android (nox)</li>
+</ul>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://frida.re">Frida</a></li>
+<li><a href="http://flare-on.com/">FlareOn</a></li>
+<li><a href="/posts/frida-cheatsheet/">Cheatsheet</a></li>
+</ol>]]></content>
+        </item>
+        
+        <item>
+            <title>Frida Cheatsheet</title>
+            <link>/posts/frida-cheatsheet/</link>
+            <pubDate>Sun, 26 Jul 2020 15:25:42 +0200</pubDate>
+            
+            <guid>/posts/frida-cheatsheet/</guid>
+            <description></description>
+            <content type="html"><![CDATA[<blockquote>
+<p>Notes are mostly based on the <a href="#references">frida-boot</a> labs.</p>
+</blockquote>
+<h2 id="quick-start">Quick Start</h2>
+<p>Frida project quick start:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/trib0r3/frida-scripts
+</code></pre></div><h2 id="default-stuff">Default stuff</h2>
+<ul>
+<li>remote port: <code>27042</code></li>
+</ul>
+<h2 id="code-snippets">Code snippets:</h2>
+<ul>
+<li><a href="https://github.com/iddoeldor/frida-snippets">GitHub - iddoeldor/frida-snippets: Hand-crafted Frida examples</a></li>
+<li><a href="https://codeshare.frida.re/">https://codeshare.frida.re/</a></li>
+</ul>
+<h2 id="useful-api-calls">Useful API calls</h2>
+<h3 id="debugging">Debugging</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// print local environment (variables)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">context</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">4</span>))
+</code></pre></div><h3 id="enumerate-binary">Enumerate binary</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// list loaded libraries
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Process</span>.<span style="color:#a6e22e">enumerateModulesSync</span>();
+
+<span style="color:#75715e">// list functions of the library
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Process</span>.<span style="color:#a6e22e">getModuleByName</span>(<span style="color:#e6db74">&#34;libc-2.30.so&#34;</span>).<span style="color:#a6e22e">enumerateExports</span>();
+</code></pre></div><h3 id="resolving-libsfuncs-location">Resolving libs/funcs location</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// get reference to library
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Process</span>.<span style="color:#a6e22e">getModuleByName</span>(<span style="color:#e6db74">&#34;libc-2.30.so&#34;</span>);
+
+<span style="color:#75715e">// Retrieve from symbols
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Module</span>.<span style="color:#a6e22e">getExportByName</span>(<span style="color:#75715e">/* libname or */</span> <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;sleep&#34;</span>);
+<span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);
+
+<span style="color:#75715e">// Calculate based on offset
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Module</span>.<span style="color:#a6e22e">getBaseAddress</span>(<span style="color:#e6db74">&#34;libc-2.30.so&#34;</span>).<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;0xcad90&#34;</span>);
+<span style="color:#e6db74">&#34;0x7fc2edc42d90&#34;</span>
+</code></pre></div><h2 id="script-communication">Script Communication</h2>
+<ol>
+<li>via <code>recv</code> and <code>send</code></li>
+<li>via RPC
+<ul>
+<li>you can provide arguments and receive the return values</li>
+<li>whole logic can be held in python, only binary operations are in JS</li>
+</ul>
+</li>
+</ol>
+<h3 id="rpc">RPC</h3>
+<ul>
+<li>TypeScript
+<ol>
+<li>Get reference to the function</li>
+<li>Create it prototype</li>
+<li>Make them python-accessible by adding them to the <code>rpc.exports</code> dictionary.</li>
+</ol>
+</li>
+<li>Python
+<ol>
+<li>Reference functions with <code>script.exports.&lt;func_name&gt;()</code></li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPinPtr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;test_pin&#34;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPin</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">NativeFunction</span>(<span style="color:#a6e22e">testPinPtr</span>, <span style="color:#e6db74">&#34;int&#34;</span>, [<span style="color:#e6db74">&#34;pointer&#34;</span>]);
+
+<span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> { <span style="color:#75715e">// defince accessible funcs from python
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">testPin</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">p</span>) {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Memory</span>.<span style="color:#a6e22e">allocUtf8String</span>(<span style="color:#a6e22e">p</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">testPin</span>(<span style="color:#a6e22e">pin</span>);
+    }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> frida
+<span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;index.js&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>) <span style="color:#66d9ef">as</span> f:
+    agent <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+
+session <span style="color:#f92672">=</span> frida<span style="color:#f92672">.</span>attach(<span style="color:#e6db74">&#34;crypt&#34;</span>)
+script <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>create_script(agent)
+script<span style="color:#f92672">.</span>load()
+
+api <span style="color:#f92672">=</span> script<span style="color:#f92672">.</span>exports <span style="color:#75715e"># ref to funcs from js</span>
+
+<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">9999</span>):
+    res <span style="color:#f92672">=</span> api<span style="color:#f92672">.</span>test_pin(str(x))
+    <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">continue</span>
+
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Pin: {x}&#34;</span>)
+    <span style="color:#66d9ef">break</span>
+
+</code></pre></div><h2 id="reuse-the-binary-code">Reuse the binary code</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// get addr
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPinPtr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;test_pin&#34;</span>);
+
+<span style="color:#75715e">// create JS wrapper
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPin</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">NativeFunction</span>(<span style="color:#a6e22e">testPinPtr</span>, <span style="color:#e6db74">&#34;int&#34;</span>, [<span style="color:#e6db74">&#34;pointer&#34;</span>]);
+
+
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">9999</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Trying: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Memory</span>.<span style="color:#a6e22e">allocUtf8String</span>(<span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">testPin</span>(<span style="color:#a6e22e">pin</span>);
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Pin is: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+        <span style="color:#66d9ef">break</span>;
+    }
+}
+</code></pre></div><h2 id="function-hooking">Function Hooking</h2>
+<h3 id="by-symbol">By symbol</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> print_function
+<span style="color:#f92672">import</span> frida
+<span style="color:#f92672">import</span> sys
+
+session <span style="color:#f92672">=</span> frida<span style="color:#f92672">.</span>attach(<span style="color:#e6db74">&#34;hello&#34;</span>)
+script <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>create_script(<span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">Interceptor.attach(ptr(&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;), {
+</span><span style="color:#e6db74">    onEnter: function(args) {
+</span><span style="color:#e6db74">        send(args[0].toInt32());
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">});
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span> <span style="color:#f92672">%</span> int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">16</span>))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_message</span>(message, data):
+    <span style="color:#66d9ef">print</span>(message)
+script<span style="color:#f92672">.</span>on(<span style="color:#960050;background-color:#1e0010">‘</span>message<span style="color:#960050;background-color:#1e0010">’</span>, on_message)
+script<span style="color:#f92672">.</span>load()
+sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
+</code></pre></div><h3 id="by-symbol-1">By symbol</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rand_range</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;rand_range&#34;</span>);
+
+<span style="color:#a6e22e">Interceptor</span>.<span style="color:#a6e22e">attach</span>(<span style="color:#a6e22e">rand_range</span>, {
+    <span style="color:#a6e22e">onEnter</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">args</span>) {
+        <span style="color:#75715e">// Replace with string
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">Memory</span>.<span style="color:#a6e22e">allocUtf8String</span>(<span style="color:#e6db74">&#34;Frida sleep! :D\n&#34;</span>);
+        <span style="color:#75715e">// Replace with int
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">NativePointer</span>(<span style="color:#e6db74">&#34;0x1&#34;</span>) <span style="color:#75715e">// or ptr(&#34;0x1&#34;)
+</span><span style="color:#75715e"></span>        
+        <span style="color:#75715e">// Update the value
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">arg1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>];
+    },
+    <span style="color:#a6e22e">onLeave</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">retval</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">retval</span>);
+        <span style="color:#a6e22e">retval</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">arg1</span>);
+    }
+});
+</code></pre></div><h2 id="remote-execution-debugging">Remote execution (debugging)</h2>
+<blockquote>
+<p>Proptip: Just add <code>-H</code> or <code>-R</code> if you want to use remote mode with default settings or you want to provide remote connection details</p>
+</blockquote>
+<ul>
+<li><a href="#frida-server-remote">frida-server</a></li>
+<li><a href="#frida-gadget-remote">frida-gadget</a></li>
+</ul>
+<h2 id="tools">Tools</h2>
+<h3 id="frida-cli">frida CLI</h3>
+<p>Open binary with <code>frida &lt;exec&gt;</code> command and play with it in interactive shell session.</p>
+<h3 id="frida-server-remote">frida-server (remote)</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># on victim</span>
+frida-server -l 0.0.0.0:1337
+
+<span style="color:#75715e"># on local client</span>
+frida-ps -H $IP:$PORT -R
+frida -H $IP:$PORT $proc_name
+</code></pre></div><h3 id="frida-gadget-remote">frida-gadget (remote)</h3>
+<p>Loaded apps are <strong>paused</strong> (can be changed), common ways of injecting gadget:</p>
+<ul>
+<li>load with LD_PRELOAD</li>
+<li>load with patchelf</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># on victim</span>
+LD_PRELOAD<span style="color:#f92672">=</span>./frida-gadget.so ./crypt
+
+<span style="color:#75715e"># on analysis machine</span>
+frida-ps -R <span style="color:#75715e"># should yield gadget process</span>
+frida -R Gadget
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># on victim</span>
+$ patchelf --add-needed ../frida-gadget.so crypt
+
+<span style="color:#75715e"># on analysis machine</span>
+$ ./crypt
+<span style="color:#f92672">[</span>Frida INFO<span style="color:#f92672">]</span> Listening on 127.0.0.1 TCP port <span style="color:#ae81ff">27042</span>
+</code></pre></div><p>Configure with <code>frida-gadget.config</code> (default):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;interaction&#34;</span>: {
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;listen&#34;</span>,
+    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+    <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">27042</span>,
+    <span style="color:#f92672">&#34;on_load&#34;</span>: <span style="color:#e6db74">&#34;resume&#34;</span>
+  }
+}
+</code></pre></div><p>Scripting:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;interaction&#34;</span>: {
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;script&#34;</span>,
+    <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/root/code/embedded-agent.js&#34;</span>
+  }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPinPtr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;test_pin&#34;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testPin</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">NativeFunction</span>(<span style="color:#a6e22e">testPinPtr</span>, <span style="color:#e6db74">&#34;int&#34;</span>, [<span style="color:#e6db74">&#34;pointer&#34;</span>]);
+
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">9999</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Trying: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Memory</span>.<span style="color:#a6e22e">allocUtf8String</span>(<span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">testPin</span>(<span style="color:#a6e22e">pin</span>);
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Pin is: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">toString</span>());
+        <span style="color:#66d9ef">break</span>;
+    }
+}
+</code></pre></div><h3 id="frida-trace">frida-trace</h3>
+<ol>
+<li>Select function to trace</li>
+<li>Edit desired function behaviour
+<ol>
+<li>Open <code>__hooks__</code> directory</li>
+<li>edit scripts there</li>
+</ol>
+</li>
+<li>Run &amp; watch new injected behaviour</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#a6e22e">onEnter</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">log</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">state</span>) {
+    <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">ptr</span>(<span style="color:#e6db74">&#39;1337&#39;</span>);
+    <span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;printf(&#39;</span> <span style="color:#f92672">+</span>
+      <span style="color:#e6db74">&#39;format=&#34;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">readUtf8String</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&#34;&#39;</span> <span style="color:#f92672">+</span>
+    <span style="color:#e6db74">&#39;)&#39;</span>);
+  },
+</code></pre></div><h2 id="examples">Examples</h2>
+<h3 id="spawn-web-server">Spawn web server</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">log</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./logger&#34;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;http&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">testPinPtr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DebugSymbol</span>.<span style="color:#a6e22e">getFunctionByName</span>(<span style="color:#e6db74">&#34;test_pin&#34;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">testPin</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">NativeFunction</span>(<span style="color:#a6e22e">testPinPtr</span>, <span style="color:#e6db74">&#34;int&#34;</span>, [<span style="color:#e6db74">&#34;pointer&#34;</span>]);
+
+<span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">testPin</span>: <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">p</span>: <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Memory</span>.<span style="color:#a6e22e">allocUtf8String</span>(<span style="color:#a6e22e">p</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">testPin</span>(<span style="color:#a6e22e">pin</span>);
+    },
+    <span style="color:#a6e22e">httpServer</span>: <span style="color:#66d9ef">function</span>() {
+        <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">createServer</span>((<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span><span style="color:#f92672">?</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>;
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">check</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testPin</span>(<span style="color:#a6e22e">pin</span>);
+
+            <span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Request to check </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> returned </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">check</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">check</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+                <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">writeHead</span>(<span style="color:#ae81ff">200</span>, {<span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;text/plain&#39;</span>});
+                <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">write</span>(<span style="color:#e6db74">`Welcome!</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n`</span>);
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">writeHead</span>(<span style="color:#ae81ff">401</span>, {<span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;text/plain&#39;</span>});
+                <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">write</span>(<span style="color:#e6db74">`Wrong PIN</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n`</span>);
+            }
+
+            <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>();
+        }).<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">1337</span>);
+    }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> frida
+<span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;frida-agent-example/_agent.js&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>) <span style="color:#66d9ef">as</span> f:
+    agent <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+
+session <span style="color:#f92672">=</span> frida<span style="color:#f92672">.</span>attach(<span style="color:#e6db74">&#34;crypt&#34;</span>)
+script <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>create_script(agent)
+script<span style="color:#f92672">.</span>load()
+
+api <span style="color:#f92672">=</span> script<span style="color:#f92672">.</span>exports
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;starting HTTP server...&#34;</span>)
+api<span style="color:#f92672">.</span>http_server()
+
+<span style="color:#75715e"># keep the server alive now</span>
+sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">npm run build <span style="color:#75715e"># or watch</span>
+</code></pre></div><h2 id="references">References</h2>
+<ul>
+<li><a href="https://frida.re">https://frida.re</a></li>
+<li><a href="https://github.com/leonjza/frida-boot">https://github.com/leonjza/frida-boot</a></li>
+</ul>]]></content>
+        </item>
         
         <item>
             <title>Nothing Is Lost in the Internet</title>

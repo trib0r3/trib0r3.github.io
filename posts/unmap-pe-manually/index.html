@@ -38,14 +38,15 @@
 
 <meta itemprop="name" content="Unmap PE Manually">
 <meta itemprop="description" content="Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &gt; Sections &gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i&#43;1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.">
-<meta itemprop="datePublished" content="2020-01-25T09:00:00&#43;01:00" />
-<meta itemprop="dateModified" content="2020-01-25T09:00:00&#43;01:00" />
+<meta itemprop="datePublished" content="2020-01-25T09:00:00+01:00" />
+<meta itemprop="dateModified" content="2020-01-25T09:00:00+01:00" />
 <meta itemprop="wordCount" content="151">
 <meta itemprop="image" content="/"/>
 
 
 
 <meta itemprop="keywords" content="re,malware-analysis,asm," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="/"/>
 

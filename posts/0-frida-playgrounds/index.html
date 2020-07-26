@@ -5,17 +5,17 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="trib0r3 ">
-<meta name="description" content="Plugins worth installing
+<meta name="description" content="Hello, this is the very first post of my new series where I will show the big potential of frida on practical examples. For this I will solve FlareOn challenges.
 " />
-<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming, re" />
+<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming, frida, frida-playground, re" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
-<link rel="canonical" href="/posts/ida-pro-plugins/" />
+<link rel="canonical" href="/posts/0-frida-playgrounds/" />
 
 
     <title>
         
-            Ida Pro Plugins :: trib0r3&#39;s blog  — Make reversing fun again!
+            [0x0] FRIDA Playground :: trib0r3&#39;s blog  — Make reversing fun again!
         
     </title>
 
@@ -37,30 +37,32 @@
 
 
 
-<meta itemprop="name" content="Ida Pro Plugins">
-<meta itemprop="description" content="Plugins worth installing">
-<meta itemprop="datePublished" content="2020-02-15T12:01:53+01:00" />
-<meta itemprop="dateModified" content="2020-02-15T12:01:53+01:00" />
-<meta itemprop="wordCount" content="56">
-<meta itemprop="image" content="/"/>
+<meta itemprop="name" content="[0x0] FRIDA Playground">
+<meta itemprop="description" content="
+Hello, this is the very first post of my new series where I will show the big potential of frida on practical examples. For this I will solve FlareOn challenges.">
+<meta itemprop="datePublished" content="2020-07-26T15:31:42+02:00" />
+<meta itemprop="dateModified" content="2020-07-26T15:31:42+02:00" />
+<meta itemprop="wordCount" content="91">
+<meta itemprop="image" content="/img/thumb/fridaplayground-0.png">
 
 
 
-<meta itemprop="keywords" content="re," />
+<meta itemprop="keywords" content="frida,frida-playground,re," />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="/"/>
+<meta name="twitter:image" content="/img/thumb/fridaplayground-0.png"/>
 
-<meta name="twitter:title" content="Ida Pro Plugins"/>
-<meta name="twitter:description" content="Plugins worth installing"/>
-
-
-
+<meta name="twitter:title" content="[0x0] FRIDA Playground"/>
+<meta name="twitter:description" content="
+Hello, this is the very first post of my new series where I will show the big potential of frida on practical examples. For this I will solve FlareOn challenges."/>
 
 
 
 
-    <meta property="article:published_time" content="2020-02-15 12:01:53 &#43;0100 CET" />
+
+
+
+    <meta property="article:published_time" content="2020-07-26 15:31:42 &#43;0200 CEST" />
 
 
 
@@ -69,13 +71,14 @@
 
 
 <meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
-<meta property="og:title" content="Ida Pro Plugins" />
-<meta property="og:description" content="Plugins worth installing" />
+<meta property="og:title" content="[0x0] FRIDA Playground" />
+<meta property="og:description" content="
+Hello, this is the very first post of my new series where I will show the big potential of frida on practical examples. For this I will solve FlareOn challenges." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/ida-pro-plugins/" />
-<meta property="og:image" content="/"/>
-<meta property="article:published_time" content="2020-02-15T12:01:53+01:00" />
-<meta property="article:modified_time" content="2020-02-15T12:01:53+01:00" /><meta property="og:site_name" content="trib0r3&#39;s blog" />
+<meta property="og:url" content="/posts/0-frida-playgrounds/" />
+<meta property="og:image" content="/img/thumb/fridaplayground-0.png" />
+<meta property="article:published_time" content="2020-07-26T15:31:42+02:00" />
+<meta property="article:modified_time" content="2020-07-26T15:31:42+02:00" /><meta property="og:site_name" content="trib0r3&#39;s blog" />
 
 
     </head>
@@ -139,23 +142,35 @@
 
         <article>
             <h1 class="post-title">
-                <a href="/posts/ida-pro-plugins/">Ida Pro Plugins</a>
+                <a href="/posts/0-frida-playgrounds/">[0x0] FRIDA Playground</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Plugins worth installing</p>
+                <p><img src="/img/thumb/fridaplayground-0.png" alt=""></p>
+<p>Hello, this is the very first post of my new series where I will show the big potential of <a href="#references">frida</a> on practical examples. For this I will solve <a href="#references">FlareOn</a> challenges.</p>
+<h2 id="about">About</h2>
+<p>If you want to learn more about frida, then I suggest you to check my <a href="/posts/frida-cheatsheet/">notes/cheatsheet</a> or frida&rsquo;s <a href="https://frida.re/docs/home/">docs</a>.</p>
+<p>Check tag <a href="/tags/frida-playground/">#frida-playground</a> for all posts.</p>
+<h2 id="lab-setup">Lab Setup</h2>
+<p>My environment:</p>
 <ul>
-<li><a href="https://github.com/OALabs/FindYara">FindYara</a> - use yara rules for looking into binary</li>
-<li><a href="https://github.com/polymorf/findcrypt-yara">Findcrypt YARA</a> - find crypto structs with yara rules</li>
-<li><a href="https://github.com/vrtadmin/FIRST">FIRST</a> - community driven Lunsa function matching plugin</li>
-<li><a href="https://github.com/CheckPointSW/Karta">Karta</a> - open source lib functions matching</li>
-<li><a href="https://github.com/joxeankoret/diaphora">Diaphora</a> - diff binaries</li>
-<li><a href="https://github.com/hasherezade/ida_ifl">IDA IFL</a> - interactive function list</li>
-<li><a href="https://github.com/cseagle/blc">blc</a> - decompiler based on Ghidra</li>
-<li><a href="https://retdec.com/idaplugin/">retdec</a> - standalone decompiler</li>
+<li>host machine - the place where I&rsquo;m writing scripts, run scripts, etc</li>
+<li>guest vms - machines where ctf binaries are run:
+<ul>
+<li>Windows10 (vbox)</li>
+<li>REmnux (vbox)</li>
+<li>Android (nox)</li>
 </ul>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://frida.re">Frida</a></li>
+<li><a href="http://flare-on.com/">FlareOn</a></li>
+<li><a href="/posts/frida-cheatsheet/">Cheatsheet</a></li>
+</ol>
             </div>
         </article>
 
@@ -163,12 +178,12 @@
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/re">re</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/frida">frida</a></span><span class="tag"><a href="/tags/frida-playground">frida-playground</a></span><span class="tag"><a href="/tags/re">re</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>56 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>91 Words</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-02-15 12:01 &#43;0100</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-26 15:31 &#43;0200</p>
         </div>
         <hr />
         <div id="sharebuttons" class="thin">
@@ -184,18 +199,11 @@
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="/posts/writeup-htb-snake/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Writeup - HTB Snake</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="/posts/expose-any-port-with-ngrok/">
-                                <span class="button__text">Expose Any Port With Ngrok</span>
+                            <a href="/posts/frida-cheatsheet/">
+                                <span class="button__text">Frida Cheatsheet</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
