@@ -31,6 +31,10 @@ p {
   font-size: initial;
 }
 
+code[class*="language-"] {
+  font-size: small;
+}
+
 
 /* Sharing buttons */
 div #sharebuttons {
