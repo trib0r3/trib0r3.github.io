@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>trib0r3&#39;s blog</title>
+    <title>REhex</title>
     <link>/</link>
-    <description>Recent content on trib0r3&#39;s blog</description>
+    <description>Recent content on REhex</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
@@ -18,8 +18,7 @@
       <pubDate>Sun, 26 Jul 2020 15:31:42 +0200</pubDate>
       
       <guid>/posts/0-frida-playgrounds/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;/img/thumb/fridaplayground-0.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples. For this I will solve &lt;a href=&#34;#references&#34;&gt;FlareOn&lt;/a&gt; challenges.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples. For this I will solve &lt;a href=&#34;#references&#34;&gt;FlareOn&lt;/a&gt; challenges.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -46,9 +45,7 @@
       <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
       
       <guid>/posts/qiling-scripting-and-simple-re-task/</guid>
-      <description>What is Qiling From the author&amp;rsquo;s website:
- Qiling is an advanced binary emulation framework, with the following features:
- Cross platform: Windows, MacOS, Linux, BSD Cross architecture: X86, X86_64, Arm, Arm64, Mips Multiple file formats: PE, MachO, ELF Emulate &amp;amp; sandbox machine code in a isolated environment Supports cross architecture and platform debugging capabilities Provide high level API to setup &amp;amp; configure the sandbox Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc) Allow dynamic hotpatch on-the-fly running code, including the loaded library True framework in Python, making it easy to build customized security analysis tools on top  Qiling is backed by Unicorn engine.</description>
+      <description>Note about qiling and basic usage</description>
     </item>
     
     <item>
@@ -147,6 +144,15 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       <description>Hi all!
 I created this blog mostly for sharing some interesting stuff from topics of my interests, like:
  reversing (mostly Windows binaries), development, my repo script demos - how to use them.  Most of my notes are created in note-like style - not without the reason -&amp;gt; it can be mine note which I decided to share. Each series should have individual tag with additional helper tags for better searching.</description>
+    </item>
+    
+    <item>
+      <title>Contact me / Social Media</title>
+      <link>/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/contact/</guid>
+      <description> [E-Mail] [Twitter] [Github] [Reddit] [BuyMeACoffee]  </description>
     </item>
     
   </channel>

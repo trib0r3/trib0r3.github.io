@@ -1,165 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
 	<meta name="generator" content="Hugo 0.74.3" />
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="trib0r3 ">
-<meta name="description" content="Just r3verse it!" />
-<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming" />
+  
+    <title>REhex — Personal blog about reverse-engineering</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Personal blog about reverse-engineering" />
+<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
 <meta name="robots" content="noodp" />
-<meta name="theme-color" content="" />
 <link rel="canonical" href="/" />
 
 
-    <title>
-        
-            trib0r3&#39;s blog  — Make reversing fun again! 
-        
-    </title>
 
 
+<link rel="stylesheet" href="/assets/style.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
-    type="text/css">
-
-
-
-<link rel="stylesheet" href="/main.min.753fac8f03736f0edc9be411eb20cee875dd7bb8e73c8155fbf6a629c863f4ca.css">
-
-
-    
-        <link rel="stylesheet" type="text/css" href="/style.css">
-    
-
-
-
-
-
-<meta itemprop="name" content="trib0r3&#39;s blog">
-<meta itemprop="description" content="Fan of reversing">
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="/"/>
-
-<meta name="twitter:title" content="trib0r3&#39;s blog"/>
-<meta name="twitter:description" content="Fan of reversing"/>
+  <link rel="stylesheet" href="/assets/green.css">
 
 
 
 
 
 
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.ico">
 
 
 
-<link rel="alternate" type="application/rss+xml" href="/index.xml" title="trib0r3's blog" />
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="https://trib0r3.github.io" />
+
+<meta name="twitter:creator" content="trib0r3" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="REhex">
+<meta property="og:description" content="Personal blog about reverse-engineering" />
+<meta property="og:url" content="/" />
+<meta property="og:site_name" content="REhex" />
+
+  
+    <meta property="og:image" content="/favicon.ico">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="REhex" />
+
+
+
 
 
 
 
 <meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
-<meta property="og:title" content="trib0r3&#39;s blog" />
-<meta property="og:description" content="Fan of reversing" />
+<meta property="og:title" content="REhex" />
+<meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/" />
-<meta property="og:image" content="/"/>
-<meta property="og:updated_time" content="2020-07-26T15:31:42+02:00" /><meta property="og:site_name" content="trib0r3&#39;s blog" />
+<meta property="og:updated_time" content="2020-07-26T15:31:42+02:00" /><meta property="og:site_name" content="REhex" />
 
 
-    </head>
+</head>
+<body class="">
 
-    <body class="dark-theme">
-        <div class="container">
-            <header class="header">
-    <span class="header__inner">
-        <a href="/" style="text-decoration: none;">
-    <div class="logo">
-        
-            <span class="logo__mark">></span>
-            <span class="logo__text">trib0r3&#39;s blog</span>
-            <span class="logo__cursor" style=
-                  "
-                   
-                   ">
-            </span>
-        
-    </div>
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    REhex
+  </div>
 </a>
 
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tags">#tags</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/contact">Contact</a></li>
+        
+      
+      
+    
 
-        <span class="header__right">
-            
-                <nav class="menu">
-    <ul class="menu__inner"><li><a href="/tags">#tags</a></li><li><a href="/about">About</a></li><li><a href="/posts">Blog</a></li>
-    </ul>
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tags">#tags</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/contact">Contact</a></li>
+      
+    
+    
+  </ul>
 </nav>
 
-                <span class="menu-trigger">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                    </svg>
-                </span>
-            
-
-            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
-  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
-</svg>
-</span>
-        </span>
-    </span>
+  
 </header>
 
 
-            <div class="content">
-                
-    <main aria-role="main">
-        <div>
-            <h1>trib0r3&#39;s blog</h1>
-                <p>Just r3verse it!</p>
-                <div>
-                    &nbsp; <a href="mailto:trib0r3@criptext.com" target="_blank" rel="noopener" title="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a> &nbsp;&nbsp; <a href="https://twitter.com/trib0r3" target="_blank" rel="noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a> &nbsp;&nbsp; <a href="https://github.com/trib0r3" target="_blank" rel="noopener" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a> &nbsp;&nbsp; <a href="https://www.reddit.com/user/sskx" target="_blank" rel="noopener" title="Reddit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" ><path d="M2.204 14.049c-.06.276-.091.56-.091.847 0 3.443 4.402 6.249 9.814 6.249 5.41 0 9.812-2.804 9.812-6.249 0-.274-.029-.546-.082-.809l-.015-.032c-.021-.055-.029-.11-.029-.165-.302-1.175-1.117-2.241-2.296-3.103-.045-.016-.088-.039-.126-.07-.026-.02-.045-.042-.067-.064-1.792-1.234-4.356-2.008-7.196-2.008-2.815 0-5.354.759-7.146 1.971-.014.018-.029.033-.049.049-.039.033-.084.06-.13.075-1.206.862-2.042 1.937-2.354 3.123 0 .058-.014.114-.037.171l-.008.015zm9.773 5.441c-1.794 0-3.057-.389-3.863-1.197-.173-.174-.173-.457 0-.632.176-.165.46-.165.635 0 .63.629 1.685.943 3.228.943 1.542 0 2.591-.3 3.219-.929.165-.164.45-.164.629 0 .165.18.165.465 0 .645-.809.808-2.065 1.198-3.862 1.198l.014-.028zm-3.606-7.573c-.914 0-1.677.765-1.677 1.677 0 .91.763 1.65 1.677 1.65s1.651-.74 1.651-1.65c0-.912-.739-1.677-1.651-1.677zm7.233 0c-.914 0-1.678.765-1.678 1.677 0 .91.764 1.65 1.678 1.65s1.651-.74 1.651-1.65c0-.912-.739-1.677-1.651-1.677zm4.548-1.595c1.037.833 1.8 1.821 2.189 2.904.45-.336.719-.864.719-1.449 0-1.002-.815-1.816-1.818-1.816-.399 0-.778.129-1.09.363v-.002zM2.711 9.963c-1.003 0-1.817.816-1.817 1.818 0 .543.239 1.048.644 1.389.401-1.079 1.172-2.053 2.213-2.876-.302-.21-.663-.329-1.039-.329v-.002zm9.217 12.079c-5.906 0-10.709-3.205-10.709-7.142 0-.275.023-.544.068-.809C.494 13.598 0 12.729 0 11.777c0-1.496 1.227-2.713 2.725-2.713.674 0 1.303.246 1.797.682 1.856-1.191 4.357-1.941 7.112-1.992l1.812-5.524.404.095s.016 0 .016.002l4.223.993c.344-.798 1.138-1.36 2.065-1.36 1.229 0 2.231 1.004 2.231 2.234 0 1.232-1.003 2.234-2.231 2.234s-2.23-1.004-2.23-2.23l-3.851-.912-1.467 4.477c2.65.105 5.047.854 6.844 2.021.494-.464 1.144-.719 1.833-.719 1.498 0 2.718 1.213 2.718 2.711 0 .987-.54 1.886-1.378 2.365.029.255.059.494.059.749-.015 3.938-4.806 7.143-10.72 7.143l-.034.009zm8.179-19.187c-.74 0-1.34.599-1.34 1.338 0 .738.6 1.34 1.34 1.34.732 0 1.33-.6 1.33-1.334 0-.733-.598-1.332-1.347-1.332l.017-.012z"/></svg></a> &nbsp;&nbsp; <a href="https://www.buymeacoffee.com/trib0r3" target="_blank" rel="noopener" title="Buymeacoffee"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.898 0L5.682 2.799H3.877v2.523h.695L5.277 9.8H4.172l1.46 8.23.938-.01L7.512 24h8.918l.062-.4.88-5.58.888.01 1.46-8.231h-1.056l.705-4.477h.756V2.8h-1.918L16.99 0H6.898zm.528.805h9.043l.771 1.78H6.652l.774-1.78zm-2.75 2.797H19.32v.92H4.676v-.92zm.453 6.998h13.635l-1.176 6.62-5.649-.06-5.636.06-1.174-6.62z"/></svg></a> &nbsp;
-                </div>
-        </div>
-    </main>
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+    
 
-            </div>
+    
+    
+      
+    
+    
 
-            
-                <footer class="footer">
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>&copy; 2020</span>
-            
-                <span><a href="/">trib0r3</a></span>
-            
-            <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
-            <span> <a href="/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
-        </div>
-    </div>
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
-            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
-        </div>
-    </div>
-</footer>
-
-            
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/0-frida-playgrounds/">[0x0] FRIDA Playground</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-07-26
+          </span>
+          
         </div>
 
         
+          <span class="post-tags">
+            
+            #<a href="/tags/frida/">frida</a>&nbsp;
+            
+            #<a href="/tags/frida-playground/">frida-playground</a>&nbsp;
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+          </span>
+        
+
+        
+          <img src="/img/thumb/fridaplayground-0.png" class="post-cover" alt="[0x0] FRIDA Playground" />
+        
+
+        <div class="post-content">
+          
+          
+          <!-- raw HTML omitted -->
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/0-frida-playgrounds/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/frida-cheatsheet/">Frida Cheatsheet</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-07-26
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/tools/binary-analysis/">tools/binary-analysis</a>&nbsp;
+            
+            #<a href="/tags/cheatsheet/">cheatsheet</a>&nbsp;
+            
+            #<a href="/tags/frida/">frida</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/frida-cheatsheet/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/nothing-is-lost-in-the-internet/">Nothing Is Lost in the Internet</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-06-14
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/google-hacking/">google-hacking</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <!-- raw HTML omitted -->
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/nothing-is-lost-in-the-internet/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/qiling-scripting-and-simple-re-task/">Qiling Scripting and Simple RE Task</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-05-21
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+            #<a href="/tags/binary-instrumentation/">binary-instrumentation</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/qiling-scripting-and-simple-re-task/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/comparision-of-re-tools/">Comparision of Reverse-Engineering Tools</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-04-19
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+            #<a href="/tags/binja/">binja</a>&nbsp;
+            
+            #<a href="/tags/ida/">ida</a>&nbsp;
+            
+            #<a href="/tags/radare2/">radare2</a>&nbsp;
+            
+            #<a href="/tags/ghidra/">ghidra</a>&nbsp;
+            
+          </span>
+        
+
+        
+          <img src="/img/thumb/decomp-versus.png" class="post-cover" alt="Comparision of Reverse-Engineering Tools" />
+        
+
+        <div class="post-content">
+          
+          
+          <!-- raw HTML omitted -->
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/comparision-of-re-tools/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+      <span class="button next">
+        <a href="/page/2/">
+          <span class="button__text">Older posts</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
 
 
-<script type="text/javascript" src="/bundle.min.4a69500057d68129e88f497d354afe68422eb56de6d15e45dbe2190858ea5a76bfcb096406f992984b241db45f47388ac57ab0376e3b32125bef7a8a6d0f06c4.js" integrity="sha512-SmlQAFfWgSnoj0l9NUr&#43;aEIutW3m0V5F2&#43;IZCFjqWna/ywlkBvmSmEskHbRfRziKxXqwN247MhJb73qKbQ8GxA=="></script>
 
+  
+</div>
 
-
-    </body>
+</body>
 </html>

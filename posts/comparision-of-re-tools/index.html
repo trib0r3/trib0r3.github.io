@@ -1,66 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="trib0r3 ">
+<head>
+  
+    <title>Comparision of Reverse-Engineering Tools :: REhex — Personal blog about reverse-engineering</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.
 " />
-<meta name="keywords" content="reverse-engineerns, re, asm, C&#43;&#43;, programming, re, binja, ida, radare2, ghidra" />
+<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
 <meta name="robots" content="noodp" />
-<meta name="theme-color" content="" />
 <link rel="canonical" href="/posts/comparision-of-re-tools/" />
 
 
-    <title>
-        
-            Comparision of Reverse-Engineering Tools :: trib0r3&#39;s blog  — Make reversing fun again!
-        
-    </title>
 
 
+<link rel="stylesheet" href="/assets/style.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
-    type="text/css">
-
-
-
-<link rel="stylesheet" href="/main.min.753fac8f03736f0edc9be411eb20cee875dd7bb8e73c8155fbf6a629c863f4ca.css">
-
-
-    
-        <link rel="stylesheet" type="text/css" href="/style.css">
-    
-
-
-
-
-
-<meta itemprop="name" content="Comparision of Reverse-Engineering Tools">
-<meta itemprop="description" content="Let&rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.">
-<meta itemprop="datePublished" content="2020-04-19T12:12:00+02:00" />
-<meta itemprop="dateModified" content="2020-04-19T12:12:00+02:00" />
-<meta itemprop="wordCount" content="1329">
-<meta itemprop="image" content="/img/thumb/decomp-versus.png">
-
-
-
-<meta itemprop="keywords" content="re,binja,ida,radare2,ghidra," />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="/img/thumb/decomp-versus.png"/>
-
-<meta name="twitter:title" content="Comparision of Reverse-Engineering Tools"/>
-<meta name="twitter:description" content="Let&rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2."/>
+  <link rel="stylesheet" href="/assets/green.css">
 
 
 
 
 
 
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
 
-    <meta property="article:published_time" content="2020-04-19 12:12:00 &#43;0200 CEST" />
+  <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="https://trib0r3.github.io" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Comparision of Reverse-Engineering Tools :: REhex">
+<meta property="og:description" content="Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.
+" />
+<meta property="og:url" content="/posts/comparision-of-re-tools/" />
+<meta property="og:site_name" content="Comparision of Reverse-Engineering Tools" />
+
+  <meta property="og:image" content="/img/thumb/decomp-versus.png">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2020-04-19 12:12:00 &#43;0200 CEST" />
+
+
+
 
 
 
@@ -73,90 +67,120 @@
 <meta property="og:description" content="Let&rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/comparision-of-re-tools/" />
-<meta property="og:image" content="/img/thumb/decomp-versus.png" />
 <meta property="article:published_time" content="2020-04-19T12:12:00+02:00" />
-<meta property="article:modified_time" content="2020-04-19T12:12:00+02:00" /><meta property="og:site_name" content="trib0r3&#39;s blog" />
+<meta property="article:modified_time" content="2020-04-19T12:12:00+02:00" /><meta property="og:site_name" content="REhex" />
 
 
-    </head>
+</head>
+<body class="">
 
-    <body class="dark-theme">
-        <div class="container">
-            <header class="header">
-    <span class="header__inner">
-        <a href="/" style="text-decoration: none;">
-    <div class="logo">
-        
-            <span class="logo__mark">></span>
-            <span class="logo__text">trib0r3&#39;s blog</span>
-            <span class="logo__cursor" style=
-                  "
-                   
-                   ">
-            </span>
-        
-    </div>
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    REhex
+  </div>
 </a>
 
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tags">#tags</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/contact">Contact</a></li>
+        
+      
+      
+    
 
-        <span class="header__right">
-            
-                <nav class="menu">
-    <ul class="menu__inner"><li><a href="/tags">#tags</a></li><li><a href="/about">About</a></li><li><a href="/posts">Blog</a></li>
-    </ul>
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tags">#tags</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/contact">Contact</a></li>
+      
+    
+    
+  </ul>
 </nav>
 
-                <span class="menu-trigger">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                    </svg>
-                </span>
-            
-
-            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
-  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
-</svg>
-</span>
-        </span>
-    </span>
+  
 </header>
 
 
-            <div class="content">
-                
-    <main class="post">
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/comparision-of-re-tools/">Comparision of Reverse-Engineering Tools</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2020-04-19 [Updated: 2020-04-19]
+      </span>
+    
+    
+  </div>
 
-        <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/re/">re</a>&nbsp;
+    
+    #<a href="/tags/binja/">binja</a>&nbsp;
+    
+    #<a href="/tags/ida/">ida</a>&nbsp;
+    
+    #<a href="/tags/radare2/">radare2</a>&nbsp;
+    
+    #<a href="/tags/ghidra/">ghidra</a>&nbsp;
+    
+  </span>
+  
 
-            
+  
+    <img src="/img/thumb/decomp-versus.png" class="post-cover" alt="Comparision of Reverse-Engineering Tools" />
+  
 
-            </p>
-        </div>
+  
 
-        <article>
-            <h1 class="post-title">
-                <a href="/posts/comparision-of-re-tools/">Comparision of Reverse-Engineering Tools</a>
-            </h1>
-
-            
-                <img src="/img/thumb/decomp-versus.png" class="post-cover" />
-            
-
-            <div class="post-content">
-                <p>Let&rsquo;s compare the most populare reverse-egineering with strong focus on <strong>personal</strong> usage: <em>BinaryNinja</em>, <em>Ghidra</em>, <em>IDA</em> and <em>radare2</em>.</p>
+  <div class="post-content"><div>
+        <p>Let&rsquo;s compare the most populare reverse-egineering with strong focus on <strong>personal</strong> usage: <em>BinaryNinja</em>, <em>Ghidra</em>, <em>IDA</em> and <em>radare2</em>.</p>
 <p>Hopefully this post will help you to find tools worth choosing as primary reverse engineering tool.</p>
-<h2 id="scoring-rules">Scoring rules</h2>
+<h2 id="scoring-rules">Scoring rules<a href="#scoring-rules" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>To be fair during my analysis I developed simple score system. For each feature product can specific amount of points:</p>
 <ol>
 <li><strong>1.0</strong> (<code>+</code>) - given feature is available and fully operational.</li>
 <li><strong>0.5</strong> (<code>~</code>) - feature is partially available, you need to install plugin to achieve it or pay for extra license.</li>
 <li><strong>0.0</strong> (<code>-</code>)- feature is not available at all.</li>
 </ol>
-<h2 id="comparision">Comparision</h2>
+<h2 id="comparision">Comparision<a href="#comparision" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>For detailed description of features go to corresponding chapters below.</p>
 <p><strong>[Bracketed]</strong> character means that in my opinion specified tool is the &ldquo;best&rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.</p>
 <pre><code>|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
@@ -171,7 +195,7 @@
 <li><strong>Patching</strong> - ability to assemble code without using the hex-editor.</li>
 <li><strong>IDA Home</strong> - currently this version is not published yet, but this is just a limited IDA Pro version, so I will rate it based on my previous experiences with IDA Pro (for limitation list go to <a href="#references">References</a>).</li>
 </ol>
-<h3 id="price">Price</h3>
+<h3 id="price">Price<a href="#price" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:</p>
 <ul>
 <li><a href="https://cloud.binary.ninja/">BinaryNinja Cloud</a> - Binary Ninja Personal in browser, but without debugger and plugins support.</li>
@@ -180,23 +204,23 @@
 <blockquote>
 <p>To be 100% honest, BinaryNinja also have <a href="https://binary.ninja/demo/">standalone demo</a>, but it is more limited than cloud version, so I decided to ignore it.</p>
 </blockquote>
-<h3 id="score">Score</h3>
+<h3 id="score">Score<a href="#score" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>Just remember to not blindly follow my scoring! This blog post is about my subjective point of view. If you want to know, which tool I like the most -&gt; jump to the <a href="#summary">summary</a>.</p>
-<h3 id="cross-platform">Cross platform</h3>
+<h3 id="cross-platform">Cross platform<a href="#cross-platform" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>From my perspective disassembly tool should be cross-platform, it is very annoying when you can&rsquo;t <strong>easily</strong> install your tool on any operating system, specially when you are not staying with one favourite whole time (like me - I&rsquo;m the user of OSX, Linux &amp; Windows).</p>
 <p>Unfortunatelly <em>IDA</em> is &ldquo;not the best&rdquo; here, because you need to specify on what kind of operating system you are going to use it :/</p>
 <blockquote>
 <p>Don&rsquo;t understand me wrong: you can disassemble Linux binaries on Windows and veice versa. But  it means that if you decide to buy it in version for Windows, then you will receive IDA install files only for Windows.</p>
 </blockquote>
 <p>The absolute winner is <em>radare2</em>, this tool you can run on almost anything (probably you can even run it on your washing machine).</p>
-<h3 id="multi-arch-support-multiple-cpu-families">Multi-arch (support multiple CPU families)</h3>
+<h3 id="multi-arch-support-multiple-cpu-families">Multi-arch (support multiple CPU families)<a href="#multi-arch-support-multiple-cpu-families" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>You never know when you will have change architecture of analysed software, probably you will do the most of analysis for x86 or ARM, but it is good to be ready for any kind of analysis, especially when you are paying for some tools.</p>
 <p>Once again <em>IDA</em> is not cheap and supports only 1 architecture for each home license.</p>
 <p><em>radare2</em> supports probably the biggest amount of architectures by default.</p>
 <blockquote>
 <p><strong>Note:</strong> the rest of tools probably requires only install of some plugin to support extra architecture - IDA Home is an exception.</p>
 </blockquote>
-<h3 id="decompiler">Decompiler</h3>
+<h3 id="decompiler">Decompiler<a href="#decompiler" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/ghidra.png" alt="Ghidra Decompiler"></p>
 <p>Probably the most desired feature in every disassembly product. Unfortunatelly <em>IDA Home</em> won&rsquo;t have it built-in in this price and you need to pay full-price to get it (and this is very expensive toy).</p>
 <blockquote>
@@ -206,7 +230,7 @@
 <p>But anyway <em>Ghidra</em> seems to have the best decompiler at this moment (even better that <em>HexRays</em>): with support for C++ classes, etc. Definately the strongest feature of <em>Ghidra</em>.</p>
 <p>For <em>Binja</em> it is relatively fresh stuff (it is available from version 2.0), so hopefully it will be similarly good as <em>Ghidra</em> (binja-devs we are waiting for support of classes!).</p>
 <p>Finally <del>r2</del> <em>Cutter</em> have some decompiler, but seems to prefer to use ghidra&rsquo;s decompiler with as pretty good integration.</p>
-<h3 id="debugger">Debugger</h3>
+<h3 id="debugger">Debugger<a href="#debugger" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/ida-debugger.png" alt="IDA Debugger"></p>
 <p>IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.</p>
 <blockquote>
@@ -215,7 +239,7 @@
 <blockquote>
 <p><strong>Update:</strong> actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)</p>
 </blockquote>
-<h3 id="plugins">Plugins</h3>
+<h3 id="plugins">Plugins<a href="#plugins" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/binja-plugins.png" alt="BinaryNinja - plugins"></p>
 <p>Here I had very simple requirements: plugin API must be available <strong>AND</strong> used language must be up to date.</p>
 <p><em>Ghidra</em> failed here, because it is using <em>Java</em> or <em>Python2</em> (<em>Jython</em> to be honest). Just no.</p>
@@ -223,7 +247,7 @@
 <blockquote>
 <p><em>BinaryNinja</em> and <em>radare2</em> have plugin managers which helps you to install plugins &amp; keep them updated.</p>
 </blockquote>
-<h3 id="signatures">Signatures</h3>
+<h3 id="signatures">Signatures<a href="#signatures" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/ida-lumina.png" alt="IDA Lumina"></p>
 <p>Every dissasembly tool should have some mechanism for detecing commonly known functions and actually all of mentioned tools have such ability:</p>
 <ul>
@@ -232,20 +256,20 @@
 <li>IDA Home - <a href="https://www.hex-rays.com/products/ida/tech/flirt/in_depth/">FLIRT</a>, support for Lumina server is not known is not known yet;</li>
 <li>Radare2 - zignatures(<code>iz?</code>) + FLIRT.</li>
 </ul>
-<h3 id="patching">Patching</h3>
+<h3 id="patching">Patching<a href="#patching" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/binja-transform.png" alt="BinaryNinja - code transorm"></p>
 <p>From my perspective <em>Binja</em> contains the best user interface for this (you can invert jumps, xor pieces of code, etc just by few clicks), pretty good interface is in <em>Cutter</em>, ofc if you are masochist you can everything in radare2 ;)</p>
 <p>In IDA patching is theorethically possible, but I won&rsquo;t recommend it - much easier is to easier code in built-in hex editor than with very limited <em>Assemble code</em> feature.</p>
-<h3 id="symbolic-contants">Symbolic contants</h3>
+<h3 id="symbolic-contants">Symbolic contants<a href="#symbolic-contants" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p><img src="/img/ida-sym-const.png" alt="IDA Symbolic onstants"></p>
 <p>Useful when you are analysing Windows binaries, just replace ugly int with more meaningful name.</p>
-<h2 id="summary">Summary</h2>
+<h2 id="summary">Summary<a href="#summary" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>From my perspective if you are just looking for your 1st tool to begin with in reverse engineering, then I would recommend you <em>Ghidra</em> (I know, it&rsquo;s ugly - but it&rsquo;s free), then you can start thinking about buying i.e <em>BinaryNinja</em>.</p>
 <p>Personally I very like <em>BinaryNinja</em> - for the interface and incoming features, it seems to become very good tool in the near feature. I can&rsquo;t also don&rsquo;t recommend <em>radare2</em> which is very powerful, but this tool requires a little bit more attention.</p>
 <p><img src="/img/r2-learning.png" alt=""></p>
 <p>I don&rsquo;t think that <em>IDA Home</em> is worth of waiting (it will be available in May), because it seems to be very limited in comparision to other tools - I can change my mind onluif it will contain <em>HexRays Decompiler</em> built-in in home version.</p>
 <p>I hope this article will help you find your new favourite tool - if you have different opinion: please, share it in the comments :)</p>
-<h2 id="references">References</h2>
+<h2 id="references">References<a href="#references" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ol>
 <li><a href="https://binary.ninja/">Binary Ninja</a></li>
 <li><a href="https://www.ghidra-sre.org/">Ghidra</a></li>
@@ -253,55 +277,41 @@
 <li><a href="https://rada.re/">radare2</a> &amp; <a href="https://cutter.re/">Cutter</a></li>
 <li>Light Saber icon by <a href="http://delapouite.com">Delapouite</a> under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></li>
 </ol>
-            </div>
-        </article>
+      </div></div>
 
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
         <hr />
-
-        <div class="post-info">
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/re">re</a></span><span class="tag"><a href="/tags/binja">binja</a></span><span class="tag"><a href="/tags/ida">ida</a></span><span class="tag"><a href="/tags/radare2">radare2</a></span><span class="tag"><a href="/tags/ghidra">ghidra</a></span>
-                </p>
-
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1329 Words</p>
-
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-04-19 12:12 &#43;0200</p>
-        </div>
-        <hr />
-        <div id="sharebuttons" class="thin">
-            <script>document.write('<a href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'"target="_blank"title="Facebook"style="display:inline-block;vertical-align:middle;width:2em;height:2em;border-radius:10%;background:#3b5998;"><svg style="display:block;fill:#fff;height:44%;margin:28% auto;" viewBox="0 -256 864 1664"><path transform="matrix(1,0,0,-1,-95,1280)" d="M 959,1524 V 1260 H 802 q -86,0 -116,-36 -30,-36 -30,-108 V 927 H 949 L 910,631 H 656 V -128 H 350 V 631 H 95 v 296 h 255 v 218 q 0,186 104,288.5 104,102.5 277,102.5 147,0 228,-12 z" /></svg></a> <a href="https://twitter.com/share?url='+encodeURIComponent(document.URL)+'&text='+encodeURIComponent(document.title)+'"target="_blank"title="Twitter"style="display:inline-block;vertical-align:middle;width:2em;height:2em;border-radius:10%;background:#1b95e0;"><svg style="display:block;fill:#fff;height:36%;margin:32% auto;" viewBox="0 -256 1576 1280"><path transform="matrix(1,0,0,-1,-44,1024)" d="m 1620,1128 q -67,-98 -162,-167 1,-14 1,-42 0,-130 -38,-259.5 Q 1383,530 1305.5,411 1228,292 1121,200.5 1014,109 863,54.5 712,0 540,0 269,0 44,145 q 35,-4 78,-4 225,0 401,138 -105,2 -188,64.5 -83,62.5 -114,159.5 33,-5 61,-5 43,0 85,11 Q 255,532 181.5,620.5 108,709 108,826 v 4 q 68,-38 146,-41 -66,44 -105,115 -39,71 -39,154 0,88 44,163 Q 275,1072 448.5,982.5 622,893 820,883 q -8,38 -8,74 0,134 94.5,228.5 94.5,94.5 228.5,94.5 140,0 236,-102 109,21 205,78 -37,-115 -142,-178 93,10 186,50 z" /></svg></a> <a href="https://www.reddit.com/submit?url='+encodeURIComponent(document.URL)+'&title='+encodeURIComponent(document.title)+'"target="_blank"title="Reddit"style="display:inline-block;vertical-align:middle;width:2em;height:2em;border-radius:10%;background:#ff4500;"><svg style="display:block;fill:#fff;height:46%;margin:26% auto;" viewBox="0 -256 1792 1692"><path transform="matrix(1,0,0,-1,0,1280)" d="m 1792,690 q 0,-58 -29,-105.5 -30,-47.5 -80,-72.5 12,-46 12,-96 0,-155 -106,-287 Q 1482,-3 1298,-79.5 1114,-156 898,-156 682,-156 498.5,-79.5 315,-3 208.5,129 102,261 102,416 q 0,47 11,94 Q 62,535 31,583.5 0,632 0,690 q 0,82 58,140.5 58,58.5 141,58.5 85,0 145,-63 218,152 515,162 l 116,521 q 3,13 15,21 12,8 26,5 l 369,-81 q 18,37 54,60 36,22 79,22 62,0 106,-43 44,-44 44,-106 0,-62 -44,-106 -44,-44 -106,-44 -62,0 -105,44 -44,43 -44,105 l -334,74 -104,-472 q 300,-9 519,-160 58,61 143,61 83,0 141,-58.5 58,-58.5 58,-140.5 z M 418,491 q 0,-62 43.5,-106 43.5,-44 105.5,-44 62,0 106,44 44,44 44,106 0,62 -44,105.5 Q 629,640 567,640 506,640 462,596 418,552 418,491 z m 810,-355 q 11,11 11,26 0,15 -11,26 -10,10 -25,10 -15,0 -26,-10 -41,-42 -121,-62 -80,-20 -160,-20 -80,0 -160,20 -80,20 -121,62 -11,10 -26,10 -15,0 -25,-10 Q 553,178 553,162.5 553,147 564,136 607,93 682.5,68 758,43 805,38.5 852,34 896,34 q 44,0 91,4.5 47,4.5 123,29.5 75,25 118,68 z m -3,205 q 62,0 106,44 43,44 43,106 0,61 -44,105 -44,44 -105,44 -62,0 -106,-43.5 -44,-43.5 -44,-105.5 0,-62 44,-106 44,-44 106,-44 z" /></svg></a> <a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl='+encodeURIComponent(document.URL)+'&title='+encodeURIComponent(document.title)+'&caption='+encodeURIComponent(document.querySelector('meta[name=description]')?document.querySelector('meta[name=description]').content:'')+'"target="_blank"title="Tumblr"style="display:inline-block;vertical-align:middle;width:2em;height:2em;border-radius:10%;background:#39455f;"><svg style="display:block;fill:#fff;height:44%;margin:28% auto;" viewBox="0 -256 956 1664"><path transform="matrix(1,0,0,-1,-68,1280)" d="m 944,207 80,-237 q -23,-35 -111,-66 -88,-31 -177,-32 -104,-2 -190.5,26 Q 459,-74 403,-28 347,18 308,78 269,138 252.5,198 236,258 236,316 V 860 H 68 v 215 q 72,26 129,70 57,43 91,90 34,46 58,102 24,55 34,99 10,43 15,88 1,5 4.5,9 3.5,3 7.5,3 H 651 V 1112 H 984 V 860 H 650 V 342 q 0,-30 6.5,-56 Q 663,260 679,233.5 695,207 728.5,192 762,177 810,178 q 78,2 134,29 z" /></svg></a> <a href="https://plus.google.com/share?url='+encodeURIComponent(document.URL)+'"target="_blank"title="Google+"style="display:inline-block;vertical-align:middle;width:2em;height:2em;border-radius:10%;background:#dd4b39;"><svg style="display:block;fill:#fff;height:38%;margin:31% auto;" viewBox="0 -256 2304 1466"><path transform="matrix(1,0,0,-1,0,1117)" d="M 1437,623 Q 1437,415 1350,252.5 1263,90 1102,-1.5 941,-93 733,-93 584,-93 448,-35 312,23 214,121 116,219 58,355 0,491 0,640 q 0,149 58,285 58,136 156,234 98,98 234,156 136,58 285,58 286,0 491,-192 L 1025,990 Q 908,1103 733,1103 610,1103 505.5,1041 401,979 340,872.5 279,766 279,640 279,514 340,407.5 401,301 505.5,239 610,177 733,177 q 83,0 152.5,23 69.5,23 114.5,57.5 45,34.5 78.5,78.5 33.5,44 49,83 15.5,39 21.5,74 H 733 v 252 h 692 q 12,-63 12,-122 z m 867,122 V 535 H 2095 V 326 h -210 v 209 h -209 v 210 h 209 v 209 h 210 V 745 h 209 z" /></svg></a>');</script>
-        </div>
-
+    </div>
+    <div class="pagination__buttons">
         
-            <div class="pagination">
-                <div class="pagination__title">
-                    <span class="pagination__title-h">Read other posts</span>
-                    <hr />
-                </div>
-
-                <div class="pagination__buttons">
-                    
-                        <span class="button previous">
-                            <a href="/posts/qiling-scripting-and-simple-re-task/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Qiling Scripting and Simple RE Task</span>
-                            </a>
-                        </span>
-                    
-
-                    
-                        <span class="button next">
-                            <a href="/posts/writeup-securinets2020-warmup/">
-                                <span class="button__text">Writeup - Securinets2020 Warmup</span>
-                                <span class="button__icon">→</span>
-                            </a>
-                        </span>
-                    
-                </div>
-            </div>
+        <span class="button previous">
+            <a href="/posts/qiling-scripting-and-simple-re-task/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Qiling Scripting and Simple RE Task</span>
+            </a>
+        </span>
         
-            <div id="comments" class="thin">
-                <div id="disqus_thread"></div>
+        
+        <span class="button next">
+            <a href="/posts/writeup-securinets2020-warmup/">
+                <span class="button__text">Writeup - Securinets2020 Warmup</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+<hr>
+<div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -321,42 +331,33 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-            </div>
-    </main>
 
-            </div>
 
-            
-                <footer class="footer">
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>&copy; 2020</span>
-            
-                <span><a href="/">trib0r3</a></span>
-            
-            <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
-            <span> <a href="/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
-        </div>
-    </div>
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
-            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
-        </div>
-    </div>
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
 </footer>
 
-            
-        </div>
-
-        
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
 
 
-<script type="text/javascript" src="/bundle.min.4a69500057d68129e88f497d354afe68422eb56de6d15e45dbe2190858ea5a76bfcb096406f992984b241db45f47388ac57ab0376e3b32125bef7a8a6d0f06c4.js" integrity="sha512-SmlQAFfWgSnoj0l9NUr&#43;aEIutW3m0V5F2&#43;IZCFjqWna/ywlkBvmSmEskHbRfRziKxXqwN247MhJb73qKbQ8GxA=="></script>
 
+  
+</div>
 
-
-    </body>
+</body>
 </html>
