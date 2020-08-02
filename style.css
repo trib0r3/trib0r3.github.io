@@ -1,42 +1,4 @@
-.logo__cursor {
-    background: #7ec699;
-  }
-
-a {
-  text-decoration: none; /* no underline */
-}
-
-article a {
-  text-decoration: underline;
-}
-
-a:hover {
-  color: #7ec699;
-}
-
-.post-tags-list {
-  display: flex;
-}
-
-.post-tag {
-  padding: 5px 5px 5px 5px;
-}
-
-pre code {
-  font-size: small;
-  font-family: Menlo, Consolas,Monaco,andale mono,ubuntu mono,monospace;
-}
-
-p {
-  font-size: initial;
-}
-
-code[class*="language-"] {
-  font-size: small;
-}
-
-
-/* Sharing buttons */
-div #sharebuttons {
-  text-align: center;
+blockquote {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

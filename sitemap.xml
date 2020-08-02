@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/posts/247ctf-the-secret-lock/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/re/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/writeups/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/z3/</loc>
+    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/0-frida-playgrounds/</loc>
     <lastmod>2020-07-26T15:31:42+02:00</lastmod>
   </url>
@@ -14,26 +49,6 @@
   
   <url>
     <loc>/tags/frida-playground/</loc>
-    <lastmod>2020-07-26T15:31:42+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
-    <lastmod>2020-07-26T15:31:42+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/re/</loc>
-    <lastmod>2020-07-26T15:31:42+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-07-26T15:31:42+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-07-26T15:31:42+02:00</lastmod>
   </url>
   
@@ -99,11 +114,6 @@
   
   <url>
     <loc>/posts/writeup-securinets2020-warmup/</loc>
-    <lastmod>2020-03-28T08:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/writeups/</loc>
     <lastmod>2020-03-28T08:00:00+01:00</lastmod>
   </url>
   
@@ -191,6 +201,10 @@
   
   <url>
     <loc>/tags/tools/binary-analysis/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/writeups/247ctf/</loc>
   </url>
   
 </urlset>
