@@ -176,11 +176,11 @@
 <p>After you have account you need to download client and activate account with your API key (follow the instuctions from web service).</p>
 <h2 id="2-verify-that-tunnel-works">2. Verify that tunnel works<a href="#2-verify-that-tunnel-works" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Create ngrok config file (under <code>~/.ngrok2/ngrok.yml</code>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">authtoken</span>: &lt;YOUR_TOKEN_HERE&gt;
-<span style="color:#66d9ef">tunnels</span>:
-        <span style="color:#66d9ef">sshglob</span>:
-                <span style="color:#66d9ef">proto</span>: tcp
-                <span style="color:#66d9ef">addr</span>: <span style="color:#ae81ff">22</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">authtoken</span>: <span style="color:#ae81ff">&lt;YOUR_TOKEN_HERE&gt;</span>
+<span style="color:#f92672">tunnels</span>:
+        <span style="color:#f92672">sshglob</span>:
+                <span style="color:#f92672">proto</span>: <span style="color:#ae81ff">tcp</span>
+                <span style="color:#f92672">addr</span>: <span style="color:#ae81ff">22</span>
 </code></pre></div><p>Above config setups tunnel <code>sshglob</code> which forwards locally hosted <code>tcp/22</code> - in this case SSH service. You should change these values according to your needs.</p>
 <p>Now you can try to start ngrok <code>ngrok start sshglob</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ngrok by @inconshreveable                                                            (Ctrl+C to quit)
