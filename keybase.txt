@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/trib0r3
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://rehex.ninja
+  * I am trib0r3 (https://keybase.io/trib0r3) on keybase.
+  * I have a public key ASA5TAqCEXU7gjm4Quuk-cqc4kOUUHL8NEFMPuN3ZJtPqwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120394c0a8211753b8239b842eba4f9ca9ce243945072fc34414c3ee377649b4fab0a",
+      "host": "keybase.io",
+      "kid": "0120394c0a8211753b8239b842eba4f9ca9ce243945072fc34414c3ee377649b4fab0a",
+      "uid": "d66430065029d8383912e6aef8a8d619",
+      "username": "trib0r3"
+    },
+    "merkle_root": {
+      "ctime": 1602689008,
+      "hash": "c604e448cb24132a4e936985c51b2233b6155c18dade57f185e4954c4697a3290bb9fe9a37018b4d2c983ec3f5b082a1774663080796fd7e401f35903a05f629",
+      "hash_meta": "ed0979f83d2e58f4383929d1da42cbfeee5290f7d66ef0f34ac8752e60ff118c",
+      "seqno": 17826154
+    },
+    "service": {
+      "entropy": "8ru7D+qSSfHnq3yuLrh9UV4A",
+      "hostname": "rehex.ninja",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.5.0"
+  },
+  "ctime": 1602689047,
+  "expire_in": 504576000,
+  "prev": "96a846af0a92e5aaf6880be44c6fa6af0cf6d4b0d9cff780f7849dda91b02d02",
+  "seqno": 11,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgOUwKghF1O4I5uELrpPnKnOJDlFBy/DRBTD7jd2SbT6sKp3BheWxvYWTESpcCC8QglqhGrwqS5ar2iAvkTG+mrwz21LDZz/eA94Sd2pGwLQLEICseNRdFtsG1BykDWCOb4GSNeNyxjBsi594BN98MiQ8xAgHCo3NpZ8RAkCbi8/v/y5cXgwD7s3G8a8C480J+eja4d6bBBL4BmemxY9NHf4oiHkuKEK6pO/Qniejk8NkUkwS6JxY8h5JzCahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIBtOipWWea+R47WTlvRthItIQUwYx25WZE/DtZr1riMco3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/trib0r3
+
+==================================================================
