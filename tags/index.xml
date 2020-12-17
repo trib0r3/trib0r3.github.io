@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 02 Aug 2020 12:32:42 +0200</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Dec 2020 19:04:08 +0200</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>binja</title>
+      <link>/tags/binja/</link>
+      <pubDate>Thu, 17 Dec 2020 19:04:08 +0200</pubDate>
+      
+      <guid>/tags/binja/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>re</title>
       <link>/tags/re/</link>
@@ -77,15 +86,6 @@
       <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
       
       <guid>/tags/binary-instrumentation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>binja</title>
-      <link>/tags/binja/</link>
-      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
-      
-      <guid>/tags/binja/</guid>
       <description></description>
     </item>
     
