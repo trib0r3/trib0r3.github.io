@@ -217,7 +217,7 @@ FLAG <span style="color:#f92672">=</span> []
 <li>binary - what is obvious;</li>
 <li>Rootfs - which should match target architecture.</li>
 </ul>
-<p>In my case environment variable <code>$QILING_ROOTFS</code> points to <code>$QILING_REPO_DIR/examples/rootfs</code>, above mentioned is a linux x86 binary so we are selecting <code>x68_linux</code>:</p>
+<p>In my case environment variable <code>$QILING_ROOTFS</code> points to <code>$QILING_REPO_DIR/examples/rootfs</code>, above mentioned is a linux x86 binary so we are selecting <code>x86_linux</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> qiling <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> environ
 
@@ -246,7 +246,7 @@ ql<span style="color:#f92672">.</span>filter <span style="color:#f92672">=</span
 <p>Finally you can run it with python and see the flag:</p>
 <p><img src="/img/qiling-flag.png" alt="flag"></p>
 <h2 id="closing-notes">Closing notes<a href="#closing-notes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>Qiling is definately great framework, very simple to use and very powerful. Definately worth to try :)</p>
+<p>Qiling is definitely great framework, very simple to use and very powerful. Definately worth to try :)</p>
 <h2 id="references">References<a href="#references" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ol>
 <li><a href="https://github.com/qilingframework/qiling">Qiling Github</a></li>
