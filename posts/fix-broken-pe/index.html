@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>!e Fix Broken PE :: REhex — Personal blog about reverse-engineering</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/fix-broken-pe/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/green.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="https://rehex.ninja" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="!e Fix Broken PE :: REhex">
+<meta property="og:description" content="" />
+<meta property="og:url" content="/posts/fix-broken-pe/" />
+<meta property="og:site_name" content="!e Fix Broken PE" />
+
+  
+    <meta property="og:image" content="/favicon.ico">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-18 12:12:00 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+
+
+<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
+<meta property="og:title" content="!e Fix Broken PE" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/fix-broken-pe/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-18T12:12:00&#43;02:00" />
+<meta property="article:modified_time" content="2021-04-18T12:12:00&#43;02:00" /><meta property="og:site_name" content="REhex" />
+
+
+
+</head>
+<body class="">
+
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    REhex
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tags">#tags</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/contact">Contact</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tags">#tags</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/contact">Contact</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/fix-broken-pe/">!e Fix Broken PE</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-18 [Updated: 2021-04-18]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/re/">re</a>&nbsp;
+    
+    #<a href="/tags/pe/">pe</a>&nbsp;
+    
+    #<a href="/tags/note/">note</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="tools">Tools<a href="#tools" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://github.com/hasherezade/pe-bear-releases">PE-Bear</a></li>
+<li><a href="https://www.ntcore.com/?page_id=388">CFF Explorer</a></li>
+<li><a href="https://mh-nexus.de/en/hxd/">HxD - hex editor</a></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a href="#troubleshooting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="case-0-broken-headers">Case 0: Broken headers<a href="#case-0-broken-headers" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<blockquote>
+<p>Assumtion: you have dumped PE file with broken headers (i. e <code>MZ PE</code> magic bytes are gone).</p>
+</blockquote>
+<ol>
+<li>Open <em>dump.bin</em> in hex editor</li>
+<li>Find reference parameter (use <a href="https://github.com/corkami/pics">corkami-pics</a>) which is probably not overwritten:
+<ol>
+<li><code>Machine</code>, for 32bit: <code>4c 01</code></li>
+</ol>
+</li>
+<li>Open good binary (for example unpacker exe) in hex editor:
+<ol>
+<li>Find the same reference parameter</li>
+<li>Copy all bytes before it</li>
+<li>Go back to broken binary</li>
+</ol>
+</li>
+<li>Paste bytes into <em>dump.bin</em> into all bytes before refence bytes.</li>
+<li><a href="#fix-misalligned-sections">Re-allign sections if necessary</a>.</li>
+</ol>
+<h3 id="case-1-this-app-cant-run-on-your-pc">CASE 1: This app can't run on your PC<a href="#case-1-this-app-cant-run-on-your-pc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="/img/.broken-pe.assets/image1.png" alt=""></p>
+<p><strong>What it really means</strong>: loader can't load it, so you also won't be able to load it into the debugger.</p>
+<p><strong>Resolution</strong>: manual headers fixing is required</p>
+<ol>
+<li>Open file wit <em>PE-Bear</em> or <em>CFF explorer</em></li>
+<li>Verify the state of binary, if it is in the mapped state (loaded into the process), then you might need to unmap it; otherwise:</li>
+<li>Review Optional Headers:
+<ul>
+<li>look for red markings</li>
+<li>if some address is pointing into to not existing section in <em>Section Headers</em> → null it
+<img src="/img/.broken-pe.assets/image2.png" alt=""></li>
+</ul>
+</li>
+<li>Review <em>Section Headers</em>:
+<ul>
+<li>if <em>address</em> is highlighted with red color, then it means that sections are misaligned, you need to review binary in hex editor and start offset of the section manually</li>
+<li>if size is highlighted with red color, then you might need to shrink it or expand it will i.e null-pad (in hex editor)
+<img src="/img/.broken-pe.assets/image3.png" alt=""></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>NOTE: Additional actions might be required!</p>
+<p>If you are modifying size of section which is between other sections, then you might need to modify RA of the next sections!</p>
+</blockquote>
+<h3 id="case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect">CASE 2: The application has failed to start because its side-by-side configuration is incorrect<a href="#case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="/img/.broken-pe.assets/image4.png" alt=""></p>
+<p><strong>What it really means</strong>: Configuration file required to load is malformed.</p>
+<p><strong>Resolution</strong>: You need to replace configuration with the valid one.</p>
+<p>Some binaries are using special configuration files to load binary located in <em>Resources/Configuration Files/1.</em> To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:</p>
+<p><strong>Default configuration.xml</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+<span style="color:#f92672">&lt;assembly</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:asm.v1&#34;</span> <span style="color:#a6e22e">manifestVersion=</span><span style="color:#e6db74">&#34;1.0&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;assemblyIdentity</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0.0.0&#34;</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;MyApplication.app&#34;</span><span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;trustInfo</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:asm.v2&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;security&gt;</span>
+      <span style="color:#f92672">&lt;requestedPrivileges</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:asm.v3&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;requestedExecutionLevel</span> <span style="color:#a6e22e">level=</span><span style="color:#e6db74">&#34;asInvoker&#34;</span> <span style="color:#a6e22e">uiAccess=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;/requestedPrivileges&gt;</span>
+    <span style="color:#f92672">&lt;/security&gt;</span>
+  <span style="color:#f92672">&lt;/trustInfo&gt;</span>
+<span style="color:#f92672">&lt;/assembly&gt;</span>
+</code></pre></div><h3 id="case-3-programexe-has-stopped-working">CASE 3: program.exe has stopped working<a href="#case-3-programexe-has-stopped-working" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="/img/.broken-pe.assets/image5.png" alt=""></p>
+<p><strong>What it really means</strong>: System was able to load PE into the memory and execute it, but execution failed for some reason.</p>
+<p><strong>Resolution</strong>: Analyze the issue with debugger and resolve it.</p>
+<p>This is very common error and might indicate:</p>
+<ul>
+<li>misaligned/missing sections;</li>
+<li>programming error, like not handled exception etc;</li>
+<li>other.</li>
+</ul>
+<p>To solve it you should open the program with debugger and analyze the conditions which are creating this error. </p>
+<h2 id="fix-misalligned-sections">Fix misalligned sections<a href="#fix-misalligned-sections" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Make sure that you have binary which is:</p>
+<ul>
+<li>dumped,</li>
+<li>with fixed PE headers,</li>
+<li>unmapped.</li>
+</ul>
+<p>![ScreenShot 2020-01-20 at 07.34.41](/img/.broken-pe.assets/ScreenShot 2020-01-20 at 08.48.16.png)</p>
+<h3 id="auto">Auto<a href="#auto" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="with-pe_unmapper">With pe_unmapper<a href="#with-pe_unmapper" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p><a href="https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper">Github</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># pe_unmapper.exe &lt;in_file&gt;      &lt;base&gt;  &lt;opt: out&gt;</span>
+&gt; pe_unmapper.exe _02660000.mem 02660000 payload.dll
+</code></pre></div><h4 id="manual">Manual<a href="#manual" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>Open binary in hex editor</li>
+<li>Go to the 1st section (on example above to <code>0x1000</code>)</li>
+<li>Section should start in this place, nulls should be before.</li>
+<li>Append nulls starting from last null seen before 1st section (<code>0xfdf</code>) to section start address (inconclusive) (<code>0x1000</code>)</li>
+<li>Save.</li>
+<li>Review in <em>PE Bear</em>:
+<ol>
+<li><code>Sections</code> &gt; <code>Section Headers</code> should no longer be marked as read.</li>
+<li>if <code>Section Headers </code> &gt; <code>Image Base</code> is the same as dumped section address (if not, set it to dumped section address).</li>
+</ol>
+</li>
+</ol>
+<p><img src="/img/.broken-pe.assets/image-20200120085607174.png" alt="image-20200120085607174"></p>
+<p><img src="/img/.broken-pe.assets/image-20200120090648279.png" alt="image-20200120090648279"></p>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="/posts/protip-binary-ninja-side-view/">
+                <span class="button__text">[HINT] BinaryNinja: how to view 2 IL views at the same time</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+<hr>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
