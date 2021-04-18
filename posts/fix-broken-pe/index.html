@@ -195,7 +195,7 @@
 <li><a href="#fix-misalligned-sections">Re-allign sections if necessary</a>.</li>
 </ol>
 <h3 id="case-1-this-app-cant-run-on-your-pc">CASE 1: This app can't run on your PC<a href="#case-1-this-app-cant-run-on-your-pc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p><img src="/img/.broken-pe.assets/image1.png" alt=""></p>
+<p><img src="/img/broken-pe/image1.png" alt=""></p>
 <p><strong>What it really means</strong>: loader can't load it, so you also won't be able to load it into the debugger.</p>
 <p><strong>Resolution</strong>: manual headers fixing is required</p>
 <ol>
@@ -205,14 +205,14 @@
 <ul>
 <li>look for red markings</li>
 <li>if some address is pointing into to not existing section in <em>Section Headers</em> → null it
-<img src="/img/.broken-pe.assets/image2.png" alt=""></li>
+<img src="/img/broken-pe/image2.png" alt=""></li>
 </ul>
 </li>
 <li>Review <em>Section Headers</em>:
 <ul>
 <li>if <em>address</em> is highlighted with red color, then it means that sections are misaligned, you need to review binary in hex editor and start offset of the section manually</li>
 <li>if size is highlighted with red color, then you might need to shrink it or expand it will i.e null-pad (in hex editor)
-<img src="/img/.broken-pe.assets/image3.png" alt=""></li>
+<img src="/img/broken-pe/image3.png" alt=""></li>
 </ul>
 </li>
 </ol>
@@ -221,7 +221,7 @@
 <p>If you are modifying size of section which is between other sections, then you might need to modify RA of the next sections!</p>
 </blockquote>
 <h3 id="case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect">CASE 2: The application has failed to start because its side-by-side configuration is incorrect<a href="#case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p><img src="/img/.broken-pe.assets/image4.png" alt=""></p>
+<p><img src="/img/broken-pe/image4.png" alt=""></p>
 <p><strong>What it really means</strong>: Configuration file required to load is malformed.</p>
 <p><strong>Resolution</strong>: You need to replace configuration with the valid one.</p>
 <p>Some binaries are using special configuration files to load binary located in <em>Resources/Configuration Files/1.</em> To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:</p>
@@ -238,7 +238,7 @@
   <span style="color:#f92672">&lt;/trustInfo&gt;</span>
 <span style="color:#f92672">&lt;/assembly&gt;</span>
 </code></pre></div><h3 id="case-3-programexe-has-stopped-working">CASE 3: program.exe has stopped working<a href="#case-3-programexe-has-stopped-working" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p><img src="/img/.broken-pe.assets/image5.png" alt=""></p>
+<p><img src="/img/broken-pe/image5.png" alt=""></p>
 <p><strong>What it really means</strong>: System was able to load PE into the memory and execute it, but execution failed for some reason.</p>
 <p><strong>Resolution</strong>: Analyze the issue with debugger and resolve it.</p>
 <p>This is very common error and might indicate:</p>
@@ -255,7 +255,7 @@
 <li>with fixed PE headers,</li>
 <li>unmapped.</li>
 </ul>
-<p>![ScreenShot 2020-01-20 at 07.34.41](/img/.broken-pe.assets/ScreenShot 2020-01-20 at 08.48.16.png)</p>
+<p>![ScreenShot 2020-01-20 at 07.34.41](/img/broken-pe/ScreenShot 2020-01-20 at 08.48.16.png)</p>
 <h3 id="auto">Auto<a href="#auto" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <h4 id="with-pe_unmapper">With pe_unmapper<a href="#with-pe_unmapper" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <p><a href="https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper">Github</a></p>
@@ -275,8 +275,8 @@
 </ol>
 </li>
 </ol>
-<p><img src="/img/.broken-pe.assets/image-20200120085607174.png" alt="image-20200120085607174"></p>
-<p><img src="/img/.broken-pe.assets/image-20200120090648279.png" alt="image-20200120090648279"></p>
+<p><img src="/img/broken-pe/image-20200120085607174.png" alt="image-20200120085607174"></p>
+<p><img src="/img/broken-pe/image-20200120090648279.png" alt="image-20200120090648279"></p>
       </div></div>
 
   
