@@ -7,13 +7,40 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 18 Apr 2021 12:12:00 +0200</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 May 2021 14:40:06 +0100</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cheatsheet</title>
+      <link>/tags/cheatsheet/</link>
+      <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
+      
+      <guid>/tags/cheatsheet/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>note</title>
       <link>/tags/note/</link>
-      <pubDate>Sun, 18 Apr 2021 12:12:00 +0200</pubDate>
+      <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
       
       <guid>/tags/note/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>radare2</title>
+      <link>/tags/radare2/</link>
+      <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
+      
+      <guid>/tags/radare2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rizin</title>
+      <link>/tags/rizin/</link>
+      <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
+      
+      <guid>/tags/rizin/</guid>
       <description></description>
     </item>
     
@@ -81,15 +108,6 @@
     </item>
     
     <item>
-      <title>cheatsheet</title>
-      <link>/tags/cheatsheet/</link>
-      <pubDate>Sun, 26 Jul 2020 15:25:42 +0200</pubDate>
-      
-      <guid>/tags/cheatsheet/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>google-hacking</title>
       <link>/tags/google-hacking/</link>
       <pubDate>Sun, 14 Jun 2020 09:42:17 +0200</pubDate>
@@ -122,15 +140,6 @@
       <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
       
       <guid>/tags/ida/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>radare2</title>
-      <link>/tags/radare2/</link>
-      <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
-      
-      <guid>/tags/radare2/</guid>
       <description></description>
     </item>
     

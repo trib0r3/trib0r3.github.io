@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>!e radare2 / rizin cheatsheet :: REhex — Personal blog about reverse-engineering</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="radare2 / rizin cheatsheet
+" />
+<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/radare2-rizin-cheatsheet/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="https://rehex.ninja" />
+
+<meta name="twitter:creator" content="trib0r3" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="!e radare2 / rizin cheatsheet :: REhex">
+<meta property="og:description" content="radare2 / rizin cheatsheet
+" />
+<meta property="og:url" content="/posts/radare2-rizin-cheatsheet/" />
+<meta property="og:site_name" content="!e radare2 / rizin cheatsheet" />
+
+  
+    <meta property="og:image" content="/favicon.ico">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-05-03 14:40:06 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
+<meta property="og:title" content="!e radare2 / rizin cheatsheet" />
+<meta property="og:description" content="radare2 / rizin cheatsheet" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/radare2-rizin-cheatsheet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-03T14:40:06&#43;01:00" />
+<meta property="article:modified_time" content="2021-05-03T14:40:06&#43;01:00" /><meta property="og:site_name" content="REhex" />
+
+
+
+</head>
+<body class="">
+
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    REhex
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tags">#tags</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/contact">Contact</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tags">#tags</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/contact">Contact</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/radare2-rizin-cheatsheet/">!e radare2 / rizin cheatsheet</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-05-03 [Updated: 2021-05-03]
+      </span>
+    
+    
+    <span class="post-author">::
+      trib0r3
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/radare2/">radare2</a>&nbsp;
+    
+    #<a href="/tags/rizin/">rizin</a>&nbsp;
+    
+    #<a href="/tags/cheatsheet/">cheatsheet</a>&nbsp;
+    
+    #<a href="/tags/note/">note</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>radare2 / rizin cheatsheet</p>
+<blockquote>
+<p>Warning: This cheatsheet was originally created for r2, but it should still be compatibile for rizin</p>
+</blockquote>
+<ul>
+<li><a href="https://rada.re">radare2</a></li>
+<li><a href="https://rizin.re">rizin</a></li>
+</ul>
+<h2 id="debugging">Debugging<a href="#debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h4 id="manage-file">Manage file<a href="#manage-file" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># open in debug mode</span>
+r2 -d $FILE
+
+doo <span style="color:#75715e"># re-open file in debug mode</span>
+ood <span style="color:#75715e"># /</span>
+</code></pre></div><h4 id="flow-control">Flow control<a href="#flow-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># display / set breakpoint</span>
+db <span style="color:#f92672">[</span>flag/addr<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># continue to breakpoint</span>
+dc
+
+<span style="color:#75715e"># continue until addr / flag (without setting breakpoint)</span>
+dcu &lt;flag/addr&gt;
+
+<span style="color:#75715e"># break on syscall name / value</span>
+dcs &lt;syscall&gt;
+
+<span style="color:#75715e"># step into N instructions</span>
+ds <span style="color:#f92672">[</span>N<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># step over N instructions</span>
+dso <span style="color:#f92672">[</span>N<span style="color:#f92672">]</span>
+</code></pre></div><h3 id="reverse-debugging">Reverse debugging<a href="#reverse-debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dts?
+
+<span style="color:#75715e"># select some point</span>
+db sym.foo
+
+<span style="color:#75715e"># store point in time / start recording?</span>
+dts+
+dc
+
+<span style="color:#75715e"># go to the previous instruction</span>
+dsb
+
+<span style="color:#75715e"># write / read ALL trace sessions to / from disk</span>
+dtst sessions.dbg
+dtsf sessions.dbg
+</code></pre></div><h4 id="read-values">Read values<a href="#read-values" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># show registers</span>
+drr
+
+<span style="color:#75715e"># show stack contents</span>
+pxr @ rsp!32
+</code></pre></div><h4 id="scripting-hooks">Scripting (hooks)<a href="#scripting-hooks" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># auto-run command on breakpoint</span>
+db main  						<span style="color:#75715e"># set breakpoint</span>
+dbc main drr					<span style="color:#75715e"># set command on breakpoint </span>
+</code></pre></div><h4 id="custom-environment">Custom environment<a href="#custom-environment" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<blockquote>
+<p>Note that when first starting radare2 in debug mode, you will actually be debugging rarun2! <em>You need to first continue execution (dc)</em> which will leave you in the loader for the program itself.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># run program with custom environment</span>
+r2 -d rarun2 program<span style="color:#f92672">=</span>./&lt;program_name&gt; arg0<span style="color:#f92672">=</span>foo stdin<span style="color:#f92672">=</span>./&lt;some_file&gt; setenv<span style="color:#f92672">=</span>ENV_VAR<span style="color:#f92672">=</span>&lt;value&gt;
+</code></pre></div><p>==OR==</p>
+<pre><code class="language-rr2" data-lang="rr2">#!/usr/bin/rarun2
+program=./&lt;program_name&gt;
+arg0=foo
+stdin=./&lt;some_file&gt;
+setenv=ENV_VAR=&lt;value&gt;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">r2 -d rarun2 script.rr2
+</code></pre></div><h2 id="visual-debugging">Visual debugging<a href="#visual-debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>(Enter <code>V</code> command to enter or <code>VV</code> / <code>VV!</code>), with [p] / [P] you can change views)</p>
+</blockquote>
+<blockquote>
+<p>With <code>dm</code> you can check if you are still in loader code - search for <em>(</em>)*.</p>
+</blockquote>
+<ul>
+<li>[.] -&gt; seek to program counter</li>
+<li>[c] -&gt; toggle cursor</li>
+<li>[o] -&gt; toggle asm / pseudo</li>
+<li>[g] -&gt; seek to…</li>
+<li>[G] -&gt; seek to highlighted</li>
+<li>[u], [U] -&gt; undo / redo seek</li>
+<li><input checked="" disabled="" type="checkbox"> , <input checked="" disabled="" type="checkbox"> -&gt; xrefs from/to</li>
+<li>[B], [F2] -&gt; toggle breakpoint</li>
+<li>[s], [F7] -&gt; step into</li>
+<li>[S], [F8] -&gt; step over</li>
+<li>[F9] -&gt; continue</li>
+<li>[t] -&gt; tab managment</li>
+</ul>
+<h2 id="esil">ESIL<a href="#esil" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://monosource.gitbooks.io/radare2-explorations/content/tut3/tut3_-_esil.html">ESIL · Radare2 Explorations</a></li>
+<li><a href="https://radare.gitbooks.io/radare2book/content/disassembling/esil.html">ESIL · Radare2 Book</a></li>
+</ul>
+<pre><code class="language-radare2rc" data-lang="radare2rc">e asm.emu = true # esil comments
+e io.cache = true # write in memory cache
+</code></pre><h4 id="visual-mode">Visual mode<a href="#visual-mode" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li>[O] - toggle pseudocode / ESIL</li>
+</ul>
+<h4 id="commands">Commands<a href="#commands" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># check used registers by the function</span>
+aeaf
+</code></pre></div><h4 id="example-session">Example session<a href="#example-session" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aei 	<span style="color:#75715e"># init esil vm </span>
+aeim  <span style="color:#75715e"># init mem </span>
+aeip 	<span style="color:#75715e"># set esil vm pointer to current seek</span>
+aer	<span style="color:#75715e"># handle esil registers</span>
+
+<span style="color:#75715e"># example set value</span>
+aer eax<span style="color:#f92672">=</span>0x1234 <span style="color:#75715e">#</span>
+
+<span style="color:#75715e"># continue until eax is not greater than on start</span>
+<span style="color:#e6db74">&#34;aecue eax,0x1234,&gt;&#34;</span>
+</code></pre></div><h2 id="macros">Macros<a href="#macros" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><a href="https://radare.gitbooks.io/radare2book/content/scripting/macros.html">Macros · Radare2 Book</a></p>
+<p>Example session</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># set up relative breakpoints. one per cmp instruction*</span>
+db sym.check_code_int+0x00001289-0x00001265
+db sym.check_code_int+0x000012b7-0x00001265
+db sym.check_code_int+0x000012e2-0x00001265
+db sym.check_code_int+0x0000130d-0x00001265*#* *execute program*
+dc* <span style="color:#75715e"># input four digits (doesn&#39;t matter which ones)*</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">1</span>
+1*# define a macro that replaces the value *
+*# of ebx with the content of eax and stores it into a file*
+!rm ./crack_code
+<span style="color:#f92672">(</span>eax_replace, dr ebx<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>dr eax<span style="color:#e6db74">`</span> | tee -a crack_code, dc<span style="color:#f92672">)</span>*# use the macro*
+.<span style="color:#f92672">(</span>eax_replace <span style="color:#f92672">)</span>@@<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> 3*# show the results*
+!cat ./crack_code
+</code></pre></div><h2 id="malware-analysis">Malware Analysis<a href="#malware-analysis" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ob<span style="color:#f92672">=</span>  <span style="color:#75715e"># show open files</span>
+afl<span style="color:#f92672">=</span> <span style="color:#75715e"># list function ranges</span>
+aflt <span style="color:#75715e"># show function table</span>
+
+p<span style="color:#f92672">=</span>   <span style="color:#75715e"># show hist of entropy</span>
+p<span style="color:#f92672">==</span>  <span style="color:#75715e"># show hist entropy horizontal</span>
+</code></pre></div><h2 id="operations">Operations<a href="#operations" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h4 id="writing">Writing<a href="#writing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">r2 -w binary
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># write null-terminated string</span>
+wz <span style="color:#e6db74">&#34;hello there&#34;</span>
+psz <span style="color:#75715e"># print it</span>
+
+<span style="color:#75715e"># write number at offset</span>
+wx deadbeef @ 0x30
+p8 @ 0x30!4 <span style="color:#75715e"># print</span>
+</code></pre></div><h4 id="write-in-block">Write in block<a href="#write-in-block" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wo?
+
+<span style="color:#75715e"># write bytes in sequence starting from 42, incrementing by 3</span>
+woe <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">3</span> @ edi!32
+
+<span style="color:#75715e"># xor block of memory by 41</span>
+wx <span style="color:#ae81ff">41</span> @ esp!32
+</code></pre></div><h4 id="visual-mode-1">Visual mode<a href="#visual-mode-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li>[TAB] -&gt; switch between columns</li>
+<li>[c] -&gt; toggle cursor mode</li>
+<li>[i] -&gt; enter <em>insert</em> mode</li>
+<li>[A] -&gt; assemble binary:
+<ul>
+<li>enter your asm,</li>
+<li>instructions can be separated with <code>;</code>,</li>
+<li>press [Enter] and [y] to save changes.</li>
+</ul>
+</li>
+</ul>
+<h4 id="copypaste">Copy/Paste<a href="#copypaste" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>Enter to <em>visual mode</em>.</li>
+<li>Enable cursor mode with [c].</li>
+<li>Press [Shift] to select area to copy, ten press [y].</li>
+<li>Go to desired place and press [Y] to paste copied data.</li>
+</ol>
+<h4 id="code-analysis">Code analysis<a href="#code-analysis" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>Enter to <em>Visual mode</em>.</li>
+<li>Seek to piece of code for analysis</li>
+<li>Enter [d], then [f] for define function.</li>
+</ol>
+<h2 id="references--furtker-reading">References / Furtker Reading<a href="#references--furtker-reading" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://monosource.gitbooks.io/radare2-explorations/content/">Introduction · Radare2 Explorations</a></li>
+<li><a href="https://radare.gitbooks.io/radare2book/content/">Introduction · Radare2 Book</a></li>
+</ul>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="/posts/fix-broken-pe/">
+                <span class="button__text">!e Fix Broken PE</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+<hr>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

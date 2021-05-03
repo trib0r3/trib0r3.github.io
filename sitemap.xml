@@ -2,25 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/posts/fix-broken-pe/</loc>
-    <lastmod>2021-04-18T12:12:00+02:00</lastmod>
+    <loc>/posts/radare2-rizin-cheatsheet/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/tags/cheatsheet/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
   </url><url>
     <loc>/tags/note/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/tags/radare2/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/tags/rizin/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
+  </url><url>
+    <loc>/posts/fix-broken-pe/</loc>
     <lastmod>2021-04-18T12:12:00+02:00</lastmod>
   </url><url>
     <loc>/tags/pe/</loc>
     <lastmod>2021-04-18T12:12:00+02:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2021-04-18T12:12:00+02:00</lastmod>
-  </url><url>
     <loc>/tags/re/</loc>
-    <lastmod>2021-04-18T12:12:00+02:00</lastmod>
-  </url><url>
-    <loc>/</loc>
-    <lastmod>2021-04-18T12:12:00+02:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2021-04-18T12:12:00+02:00</lastmod>
   </url><url>
     <loc>/posts/protip-binary-ninja-side-view/</loc>
@@ -47,9 +59,6 @@
     <loc>/tags/frida-playground/</loc>
     <lastmod>2020-07-26T15:31:42+02:00</lastmod>
   </url><url>
-    <loc>/tags/cheatsheet/</loc>
-    <lastmod>2020-07-26T15:25:42+02:00</lastmod>
-  </url><url>
     <loc>/posts/frida-cheatsheet/</loc>
     <lastmod>2020-07-26T15:25:42+02:00</lastmod>
   </url><url>
@@ -72,9 +81,6 @@
     <lastmod>2020-04-19T12:12:00+02:00</lastmod>
   </url><url>
     <loc>/tags/ida/</loc>
-    <lastmod>2020-04-19T12:12:00+02:00</lastmod>
-  </url><url>
-    <loc>/tags/radare2/</loc>
     <lastmod>2020-04-19T12:12:00+02:00</lastmod>
   </url><url>
     <loc>/tags/ctf/</loc>
