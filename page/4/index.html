@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.82.1" />
+	<meta name="generator" content="Hugo 0.83.1" />
   
     <title>REhex — Personal blog about reverse-engineering</title>
   
@@ -147,6 +147,51 @@
     
     
 
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/disable-aslr/">Disable Aslr</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-01-18
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+            #<a href="/tags/asm/">asm</a>&nbsp;
+            
+            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
+            
+            #<a href="/tags/windows/">windows</a>&nbsp;
+            
+            #<a href="/tags/linux/">linux</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/disable-aslr/">Read more →</a>
+        </div>
+        
+      </div>
     
       <div class="post on-list">
         <h1 class="post-title">

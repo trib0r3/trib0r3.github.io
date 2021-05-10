@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tools on REhex</title>
+    <link>/tags/tools/</link>
+    <description>Recent content in tools on REhex</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 10 May 2021 17:12:00 +0200</lastBuildDate><atom:link href="/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>!e Fix MITM Proxy</title>
+      <link>/posts/mitmproxy/</link>
+      <pubDate>Mon, 10 May 2021 17:12:00 +0200</pubDate>
+      
+      <guid>/posts/mitmproxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Frida Cheatsheet</title>
+      <link>/posts/frida-cheatsheet/</link>
+      <pubDate>Sun, 26 Jul 2020 15:25:42 +0200</pubDate>
+      
+      <guid>/posts/frida-cheatsheet/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

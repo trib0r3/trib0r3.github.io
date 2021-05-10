@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.82.1" />
+	<meta name="generator" content="Hugo 0.83.1" />
   
     <title>REhex — Personal blog about reverse-engineering</title>
   
@@ -147,6 +147,49 @@
     
     
 
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/writeup-securinets2020-warmup/">Writeup - Securinets2020 Warmup</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-03-28
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/writeups/">writeups</a>&nbsp;
+            
+            #<a href="/tags/ctf/">ctf</a>&nbsp;
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          Warmup  Warmup : Welcome to securinets CTF
+In this task we are dealing with very simple function main:
+undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined <em>)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h.<em>0_4</em> = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(</em>(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/writeup-securinets2020-warmup/">Read more →</a>
+        </div>
+        
+      </div>
     
       <div class="post on-list">
         <h1 class="post-title">
@@ -305,51 +348,6 @@ $ python snake.py <strong><strong><strong><strong><em><strong>.</strong> _______
         <div>
           <a class="read-more button"
             href="/posts/unmap-pe-manually/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/disable-aslr/">Disable Aslr</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-01-18
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/asm/">asm</a>&nbsp;
-            
-            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
-            
-            #<a href="/tags/windows/">windows</a>&nbsp;
-            
-            #<a href="/tags/linux/">linux</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/disable-aslr/">Read more →</a>
         </div>
         
       </div>

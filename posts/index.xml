@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 03 May 2021 14:40:06 +0100</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 May 2021 17:12:00 +0200</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>!e Fix MITM Proxy</title>
+      <link>/posts/mitmproxy/</link>
+      <pubDate>Mon, 10 May 2021 17:12:00 +0200</pubDate>
+      
+      <guid>/posts/mitmproxy/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>!e radare2 / rizin cheatsheet</title>
       <link>/posts/radare2-rizin-cheatsheet/</link>
