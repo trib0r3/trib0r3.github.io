@@ -150,6 +150,53 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="/posts/comparision-of-re-tools/">Comparision of Reverse-Engineering Tools</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2020-04-19
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/re/">re</a>&nbsp;
+            
+            #<a href="/tags/binja/">binja</a>&nbsp;
+            
+            #<a href="/tags/ida/">ida</a>&nbsp;
+            
+            #<a href="/tags/radare2/">radare2</a>&nbsp;
+            
+            #<a href="/tags/ghidra/">ghidra</a>&nbsp;
+            
+          </span>
+        
+
+        
+          <img src="/img/thumb/decomp-versus.png" class="post-cover" alt="Comparision of Reverse-Engineering Tools" />
+        
+
+        <div class="post-content">
+          
+          
+          <!-- raw HTML omitted -->
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/comparision-of-re-tools/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="/posts/writeup-securinets2020-warmup/">Writeup - Securinets2020 Warmup</a>
         </h1>
         <div class="post-meta">
@@ -307,47 +354,6 @@ $ python snake.py <strong><strong><strong><strong><em><strong>.</strong> _______
         <div>
           <a class="read-more button"
             href="/posts/expose-any-port-with-ngrok/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/unmap-pe-manually/">Unmap PE Manually</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-01-25
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
-            
-            #<a href="/tags/asm/">asm</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &gt; Sections &gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/unmap-pe-manually/">Read more →</a>
         </div>
         
       </div>

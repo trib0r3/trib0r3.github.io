@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 01 Feb 2020 13:53:37 +0100</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 12:32:42 +0200</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pwn&gt; ret2libc by example</title>
+      <link>/posts/ret2libc/</link>
+      <pubDate>Tue, 01 Jun 2021 12:32:42 +0200</pubDate>
+      
+      <guid>/posts/ret2libc/</guid>
+      <description>&lt;p&gt;How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Expose Any Port With Ngrok</title>
       <link>/posts/expose-any-port-with-ngrok/</link>
