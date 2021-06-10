@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Disable Aslr :: REhex — Personal blog about reverse-engineering</title>
+    <title>Disable Aslr :: REhex</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/style.css">
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
 
   <link rel="shortcut icon" href="/favicon.ico">
 
@@ -31,17 +31,19 @@
 
 <meta name="twitter:card" content="summary" />
 
-  <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:creator" content="" />
 
-<meta name="twitter:creator" content="" />
 
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Disable Aslr :: REhex">
+<meta property="og:title" content="Disable Aslr">
 <meta property="og:description" content="Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF." />
 <meta property="og:url" content="/posts/disable-aslr/" />
-<meta property="og:site_name" content="Disable Aslr" />
+<meta property="og:site_name" content="REhex" />
 
   
     <meta property="og:image" content="/favicon.ico">
@@ -73,7 +75,7 @@
 
 
 </head>
-<body class="">
+<body class="blue">
 
 
 <div class="container full headings--one-size">
@@ -88,7 +90,9 @@
 </a>
 
     </div>
-    <div class="menu-trigger">menu</div>
+    
+      <div class="menu-trigger">menu</div>
+    
   </div>
   
     <nav class="menu">
@@ -276,6 +280,8 @@ aaa
 
 <script src="/assets/main.js"></script>
 <script src="/assets/prism.js"></script>
+
+
 
 
 

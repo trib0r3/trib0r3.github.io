@@ -15,6 +15,117 @@
       
       <guid>/posts/fix-broken-pe/</guid>
       <description></description>
+      <content>&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hasherezade/pe-bear-releases&#34;&gt;PE-Bear&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ntcore.com/?page_id=388&#34;&gt;CFF Explorer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mh-nexus.de/en/hxd/&#34;&gt;HxD - hex editor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+&lt;h3 id=&#34;case-0-broken-headers&#34;&gt;Case 0: Broken headers&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Assumtion: you have dumped PE file with broken headers (i. e &lt;code&gt;MZ PE&lt;/code&gt; magic bytes are gone).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;em&gt;dump.bin&lt;/em&gt; in hex editor&lt;/li&gt;
+&lt;li&gt;Find reference parameter (use &lt;a href=&#34;https://github.com/corkami/pics&#34;&gt;corkami-pics&lt;/a&gt;) which is probably not overwritten:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Machine&lt;/code&gt;, for 32bit: &lt;code&gt;4c 01&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Open good binary (for example unpacker exe) in hex editor:
+&lt;ol&gt;
+&lt;li&gt;Find the same reference parameter&lt;/li&gt;
+&lt;li&gt;Copy all bytes before it&lt;/li&gt;
+&lt;li&gt;Go back to broken binary&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Paste bytes into &lt;em&gt;dump.bin&lt;/em&gt; into all bytes before refence bytes.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#fix-misalligned-sections&#34;&gt;Re-allign sections if necessary&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;case-1-this-app-cant-run-on-your-pc&#34;&gt;CASE 1: This app can&#39;t run on your PC&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: loader can&#39;t load it, so you also won&#39;t be able to load it into the debugger.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: manual headers fixing is required&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open file wit &lt;em&gt;PE-Bear&lt;/em&gt; or &lt;em&gt;CFF explorer&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Verify the state of binary, if it is in the mapped state (loaded into the process), then you might need to unmap it; otherwise:&lt;/li&gt;
+&lt;li&gt;Review Optional Headers:
+&lt;ul&gt;
+&lt;li&gt;look for red markings&lt;/li&gt;
+&lt;li&gt;if some address is pointing into to not existing section in &lt;em&gt;Section Headers&lt;/em&gt; → null it
+&lt;img src=&#34;/img/broken-pe/image2.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Review &lt;em&gt;Section Headers&lt;/em&gt;:
+&lt;ul&gt;
+&lt;li&gt;if &lt;em&gt;address&lt;/em&gt; is highlighted with red color, then it means that sections are misaligned, you need to review binary in hex editor and start offset of the section manually&lt;/li&gt;
+&lt;li&gt;if size is highlighted with red color, then you might need to shrink it or expand it will i.e null-pad (in hex editor)
+&lt;img src=&#34;/img/broken-pe/image3.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE: Additional actions might be required!&lt;/p&gt;
+&lt;p&gt;If you are modifying size of section which is between other sections, then you might need to modify RA of the next sections!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect&#34;&gt;CASE 2: The application has failed to start because its side-by-side configuration is incorrect&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: Configuration file required to load is malformed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: You need to replace configuration with the valid one.&lt;/p&gt;
+&lt;p&gt;Some binaries are using special configuration files to load binary located in &lt;em&gt;Resources/Configuration Files/1.&lt;/em&gt; To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Default configuration.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; standalone=&amp;#34;yes&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;manifestVersion=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assemblyIdentity&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0.0.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;MyApplication.app&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;trustInfo&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v2&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;security&amp;gt;&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;requestedPrivileges&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v3&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;requestedExecutionLevel&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;level=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;asInvoker&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;uiAccess=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/requestedPrivileges&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/security&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/trustInfo&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;case-3-programexe-has-stopped-working&#34;&gt;CASE 3: program.exe has stopped working&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: System was able to load PE into the memory and execute it, but execution failed for some reason.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: Analyze the issue with debugger and resolve it.&lt;/p&gt;
+&lt;p&gt;This is very common error and might indicate:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;misaligned/missing sections;&lt;/li&gt;
+&lt;li&gt;programming error, like not handled exception etc;&lt;/li&gt;
+&lt;li&gt;other.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To solve it you should open the program with debugger and analyze the conditions which are creating this error. &lt;/p&gt;
+&lt;h2 id=&#34;fix-misalligned-sections&#34;&gt;Fix misalligned sections&lt;/h2&gt;
+&lt;p&gt;Make sure that you have binary which is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dumped,&lt;/li&gt;
+&lt;li&gt;with fixed PE headers,&lt;/li&gt;
+&lt;li&gt;unmapped.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;![ScreenShot 2020-01-20 at 07.34.41](/img/broken-pe/ScreenShot 2020-01-20 at 08.48.16.png)&lt;/p&gt;
+&lt;h3 id=&#34;auto&#34;&gt;Auto&lt;/h3&gt;
+&lt;h4 id=&#34;with-pe_unmapper&#34;&gt;With pe_unmapper&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pe_unmapper.exe &amp;lt;in_file&amp;gt;      &amp;lt;base&amp;gt;  &amp;lt;opt: out&amp;gt;&lt;/span&gt;
+&amp;gt; pe_unmapper.exe _02660000.mem 02660000 payload.dll
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;manual&#34;&gt;Manual&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Open binary in hex editor&lt;/li&gt;
+&lt;li&gt;Go to the 1st section (on example above to &lt;code&gt;0x1000&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Section should start in this place, nulls should be before.&lt;/li&gt;
+&lt;li&gt;Append nulls starting from last null seen before 1st section (&lt;code&gt;0xfdf&lt;/code&gt;) to section start address (inconclusive) (&lt;code&gt;0x1000&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Save.&lt;/li&gt;
+&lt;li&gt;Review in &lt;em&gt;PE Bear&lt;/em&gt;:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Sections&lt;/code&gt; &amp;gt; &lt;code&gt;Section Headers&lt;/code&gt; should no longer be marked as read.&lt;/li&gt;
+&lt;li&gt;if &lt;code&gt;Section Headers &lt;/code&gt; &amp;gt; &lt;code&gt;Image Base&lt;/code&gt; is the same as dumped section address (if not, set it to dumped section address).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image-20200120085607174.png&#34; alt=&#34;image-20200120085607174&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image-20200120090648279.png&#34; alt=&#34;image-20200120090648279&#34;&gt;&lt;/p&gt;</content>
     </item>
     
   </channel>

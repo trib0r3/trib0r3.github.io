@@ -15,6 +15,112 @@
       
       <guid>/posts/comparision-of-re-tools/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;</description>
+      <content>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Hopefully this post will help you to find tools worth choosing as primary reverse engineering tool.&lt;/p&gt;
+&lt;h2 id=&#34;scoring-rules&#34;&gt;Scoring rules&lt;/h2&gt;
+&lt;p&gt;To be fair during my analysis I developed simple score system. For each feature product can specific amount of points:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;1.0&lt;/strong&gt; (&lt;code&gt;+&lt;/code&gt;) - given feature is available and fully operational.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;0.5&lt;/strong&gt; (&lt;code&gt;~&lt;/code&gt;) - feature is partially available, you need to install plugin to achieve it or pay for extra license.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;0.0&lt;/strong&gt; (&lt;code&gt;-&lt;/code&gt;)- feature is not available at all.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;comparision&#34;&gt;Comparision&lt;/h2&gt;
+&lt;p&gt;For detailed description of features go to corresponding chapters below.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[Bracketed]&lt;/strong&gt; character means that in my opinion specified tool is the &amp;ldquo;best&amp;rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
+|:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:|
+| BinaryNinja 2.0.2097 |  $150 |  7.0  |        +       |       +       |            +           |     +    |       +      |        +        |      [+]      |          -         |
+|     Ghidra 9.1.2     |  Free |  6.5  |        +       |       +       |           [+]          |     -    |       ~      |        +        |       +       |          +         |
+|      IDA Home(4)     |  $365 |  6.0  |  ~ (1/license) | ~ (1/license) | ~ (extra-paid feature) |    [+]   |       +      |       [+]       |       ~       |          +         |
+|    radare2/Cutter    |  Free |  7.0  |       [+]      |      [+]      |            +           |     +    |       +      |        +        |       +       |          -         |
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Plugins&lt;/strong&gt; - support for modern, updated programming languages.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Signatures&lt;/strong&gt; - built-in signatures with option to add own.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Patching&lt;/strong&gt; - ability to assemble code without using the hex-editor.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IDA Home&lt;/strong&gt; - currently this version is not published yet, but this is just a limited IDA Pro version, so I will rate it based on my previous experiences with IDA Pro (for limitation list go to &lt;a href=&#34;#references&#34;&gt;References&lt;/a&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;price&#34;&gt;Price&lt;/h3&gt;
+&lt;p&gt;Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloud.binary.ninja/&#34;&gt;BinaryNinja Cloud&lt;/a&gt; - Binary Ninja Personal in browser, but without debugger and plugins support.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.hex-rays.com/products/ida/support/download_freeware/&#34;&gt;IDA Freeware 7.0&lt;/a&gt; - free version of IDA, with a lot of limitations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To be 100% honest, BinaryNinja also have &lt;a href=&#34;https://binary.ninja/demo/&#34;&gt;standalone demo&lt;/a&gt;, but it is more limited than cloud version, so I decided to ignore it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;score&#34;&gt;Score&lt;/h3&gt;
+&lt;p&gt;Just remember to not blindly follow my scoring! This blog post is about my subjective point of view. If you want to know, which tool I like the most -&amp;gt; jump to the &lt;a href=&#34;#summary&#34;&gt;summary&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;cross-platform&#34;&gt;Cross platform&lt;/h3&gt;
+&lt;p&gt;From my perspective disassembly tool should be cross-platform, it is very annoying when you can&amp;rsquo;t &lt;strong&gt;easily&lt;/strong&gt; install your tool on any operating system, specially when you are not staying with one favourite whole time (like me - I&amp;rsquo;m the user of OSX, Linux &amp;amp; Windows).&lt;/p&gt;
+&lt;p&gt;Unfortunatelly &lt;em&gt;IDA&lt;/em&gt; is &amp;ldquo;not the best&amp;rdquo; here, because you need to specify on what kind of operating system you are going to use it :/&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t understand me wrong: you can disassemble Linux binaries on Windows and veice versa. But  it means that if you decide to buy it in version for Windows, then you will receive IDA install files only for Windows.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The absolute winner is &lt;em&gt;radare2&lt;/em&gt;, this tool you can run on almost anything (probably you can even run it on your washing machine).&lt;/p&gt;
+&lt;h3 id=&#34;multi-arch-support-multiple-cpu-families&#34;&gt;Multi-arch (support multiple CPU families)&lt;/h3&gt;
+&lt;p&gt;You never know when you will have change architecture of analysed software, probably you will do the most of analysis for x86 or ARM, but it is good to be ready for any kind of analysis, especially when you are paying for some tools.&lt;/p&gt;
+&lt;p&gt;Once again &lt;em&gt;IDA&lt;/em&gt; is not cheap and supports only 1 architecture for each home license.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;radare2&lt;/em&gt; supports probably the biggest amount of architectures by default.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the rest of tools probably requires only install of some plugin to support extra architecture - IDA Home is an exception.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;decompiler&#34;&gt;Decompiler&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ghidra.png&#34; alt=&#34;Ghidra Decompiler&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Probably the most desired feature in every disassembly product. Unfortunatelly &lt;em&gt;IDA Home&lt;/em&gt; won&amp;rsquo;t have it built-in in this price and you need to pay full-price to get it (and this is very expensive toy).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I really hate to hate IDA, because I like this tool, but IDA have also another disadvantage (without hex-rays): local variables doesn&amp;rsquo;t support types.&lt;/p&gt;
+&lt;p&gt;This actually affects all plugins using i.e ghidra decompiler - if you have binary where some structure is created in the context of local variable, then you have to manually rename variables - even if definition of its structure is known for you.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;But anyway &lt;em&gt;Ghidra&lt;/em&gt; seems to have the best decompiler at this moment (even better that &lt;em&gt;HexRays&lt;/em&gt;): with support for C++ classes, etc. Definately the strongest feature of &lt;em&gt;Ghidra&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For &lt;em&gt;Binja&lt;/em&gt; it is relatively fresh stuff (it is available from version 2.0), so hopefully it will be similarly good as &lt;em&gt;Ghidra&lt;/em&gt; (binja-devs we are waiting for support of classes!).&lt;/p&gt;
+&lt;p&gt;Finally &lt;del&gt;r2&lt;/del&gt; &lt;em&gt;Cutter&lt;/em&gt; have some decompiler, but seems to prefer to use ghidra&amp;rsquo;s decompiler with as pretty good integration.&lt;/p&gt;
+&lt;h3 id=&#34;debugger&#34;&gt;Debugger&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-debugger.png&#34; alt=&#34;IDA Debugger&#34;&gt;&lt;/p&gt;
+&lt;p&gt;IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; radare2 developed something called ESIL - very useful features for emulating code, analysis. Unfortunatelly it can&amp;rsquo;t run code handled by operating system (APIs).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;plugins&#34;&gt;Plugins&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/binja-plugins.png&#34; alt=&#34;BinaryNinja - plugins&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here I had very simple requirements: plugin API must be available &lt;strong&gt;AND&lt;/strong&gt; used language must be up to date.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Ghidra&lt;/em&gt; failed here, because it is using &lt;em&gt;Java&lt;/em&gt; or &lt;em&gt;Python2&lt;/em&gt; (&lt;em&gt;Jython&lt;/em&gt; to be honest). Just no.&lt;/p&gt;
+&lt;p&gt;I really like &lt;em&gt;radare2&lt;/em&gt; API, because it is just radare syntax :P Then binja API seems to be very intuitive, IDA contains the most complex API.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;BinaryNinja&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt; have plugin managers which helps you to install plugins &amp;amp; keep them updated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;signatures&#34;&gt;Signatures&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-lumina.png&#34; alt=&#34;IDA Lumina&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Every dissasembly tool should have some mechanism for detecing commonly known functions and actually all of mentioned tools have such ability:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BinaryNinja - own &amp;ldquo;&lt;a href=&#34;https://binary.ninja/2020/03/11/signature-libraries.html&#34;&gt;Signatures&lt;/a&gt;&amp;rdquo; engine (I will work on support for FLIRT);&lt;/li&gt;
+&lt;li&gt;Ghidra - own signatures engine + FLIRT support (plugin required);&lt;/li&gt;
+&lt;li&gt;IDA Home - &lt;a href=&#34;https://www.hex-rays.com/products/ida/tech/flirt/in_depth/&#34;&gt;FLIRT&lt;/a&gt;, support for Lumina server is not known is not known yet;&lt;/li&gt;
+&lt;li&gt;Radare2 - zignatures(&lt;code&gt;iz?&lt;/code&gt;) + FLIRT.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;patching&#34;&gt;Patching&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/binja-transform.png&#34; alt=&#34;BinaryNinja - code transorm&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From my perspective &lt;em&gt;Binja&lt;/em&gt; contains the best user interface for this (you can invert jumps, xor pieces of code, etc just by few clicks), pretty good interface is in &lt;em&gt;Cutter&lt;/em&gt;, ofc if you are masochist you can everything in radare2 ;)&lt;/p&gt;
+&lt;p&gt;In IDA patching is theorethically possible, but I won&amp;rsquo;t recommend it - much easier is to easier code in built-in hex editor than with very limited &lt;em&gt;Assemble code&lt;/em&gt; feature.&lt;/p&gt;
+&lt;h3 id=&#34;symbolic-contants&#34;&gt;Symbolic contants&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-sym-const.png&#34; alt=&#34;IDA Symbolic onstants&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Useful when you are analysing Windows binaries, just replace ugly int with more meaningful name.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;From my perspective if you are just looking for your 1st tool to begin with in reverse engineering, then I would recommend you &lt;em&gt;Ghidra&lt;/em&gt; (I know, it&amp;rsquo;s ugly - but it&amp;rsquo;s free), then you can start thinking about buying i.e &lt;em&gt;BinaryNinja&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Personally I very like &lt;em&gt;BinaryNinja&lt;/em&gt; - for the interface and incoming features, it seems to become very good tool in the near feature. I can&amp;rsquo;t also don&amp;rsquo;t recommend &lt;em&gt;radare2&lt;/em&gt; which is very powerful, but this tool requires a little bit more attention.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/r2-learning.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t think that &lt;em&gt;IDA Home&lt;/em&gt; is worth of waiting (it will be available in May), because it seems to be very limited in comparision to other tools - I can change my mind onluif it will contain &lt;em&gt;HexRays Decompiler&lt;/em&gt; built-in in home version.&lt;/p&gt;
+&lt;p&gt;I hope this article will help you find your new favourite tool - if you have different opinion: please, share it in the comments :)&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://binary.ninja/&#34;&gt;Binary Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ghidra-sre.org/&#34;&gt;Ghidra&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.hex-rays.com/products/ida-home-is-coming/&#34;&gt;IDA Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rada.re/&#34;&gt;radare2&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://cutter.re/&#34;&gt;Cutter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Light Saber icon by &lt;a href=&#34;http://delapouite.com&#34;&gt;Delapouite&lt;/a&gt; under &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC BY 3.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
     </item>
     
   </channel>

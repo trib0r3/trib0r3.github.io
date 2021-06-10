@@ -7,32 +7,45 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 01 Jun 2021 12:32:42 +0200</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Jun 2021 15:32:42 +0200</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>linux</title>
       <link>/tags/linux/</link>
-      <pubDate>Tue, 01 Jun 2021 12:32:42 +0200</pubDate>
+      <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
       
       <guid>/tags/linux/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>pwn</title>
-      <link>/tags/pwn/</link>
-      <pubDate>Tue, 01 Jun 2021 12:32:42 +0200</pubDate>
-      
-      <guid>/tags/pwn/</guid>
-      <description></description>
+      <content></content>
     </item>
     
     <item>
       <title>note</title>
       <link>/tags/note/</link>
-      <pubDate>Mon, 10 May 2021 17:12:00 +0200</pubDate>
+      <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
       
       <guid>/tags/note/</guid>
       <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>/tags/pwn/</link>
+      <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
+      
+      <guid>/tags/pwn/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>pwntools</title>
+      <link>/tags/pwntools/</link>
+      <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
+      
+      <guid>/tags/pwntools/</guid>
+      <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -42,6 +55,7 @@
       
       <guid>/tags/tools/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -51,6 +65,7 @@
       
       <guid>/tags/cheatsheet/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -60,6 +75,7 @@
       
       <guid>/tags/radare2/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -69,6 +85,7 @@
       
       <guid>/tags/rizin/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -78,6 +95,7 @@
       
       <guid>/tags/pe/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -87,6 +105,7 @@
       
       <guid>/tags/re/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -96,6 +115,7 @@
       
       <guid>/tags/binja/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -105,6 +125,7 @@
       
       <guid>/tags/writeups/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -114,6 +135,7 @@
       
       <guid>/tags/z3/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -123,6 +145,7 @@
       
       <guid>/tags/frida/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -132,6 +155,7 @@
       
       <guid>/tags/frida-playground/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -141,6 +165,7 @@
       
       <guid>/tags/google-hacking/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -150,6 +175,7 @@
       
       <guid>/tags/binary-instrumentation/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -159,6 +185,7 @@
       
       <guid>/tags/ghidra/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -168,6 +195,7 @@
       
       <guid>/tags/ida/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -177,6 +205,7 @@
       
       <guid>/tags/ctf/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -186,6 +215,7 @@
       
       <guid>/tags/htb/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -195,6 +225,7 @@
       
       <guid>/tags/dev/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -204,6 +235,7 @@
       
       <guid>/tags/asm/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -213,6 +245,7 @@
       
       <guid>/tags/malware-analysis/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -222,6 +255,7 @@
       
       <guid>/tags/windows/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -231,6 +265,7 @@
       
       <guid>/tags/bear2md/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -240,6 +275,7 @@
       
       <guid>/tags/tools/binary-analysis/</guid>
       <description></description>
+      <content></content>
     </item>
     
     <item>
@@ -249,6 +285,7 @@
       
       <guid>/tags/writeups/247ctf/</guid>
       <description></description>
+      <content></content>
     </item>
     
   </channel>

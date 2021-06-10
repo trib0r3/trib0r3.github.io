@@ -3,7 +3,7 @@
 <head>
 	<meta name="generator" content="Hugo 0.83.1" />
   
-    <title>REhex — Personal blog about reverse-engineering</title>
+    <title>REhex</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="/style.css">
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
 
   <link rel="shortcut icon" href="/favicon.ico">
 
@@ -32,9 +32,11 @@
 
 <meta name="twitter:card" content="summary" />
 
-  <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:creator" content="trib0r3" />
 
-<meta name="twitter:creator" content="trib0r3" />
 
 
 <meta property="og:locale" content="en" />
@@ -72,7 +74,7 @@
 
 
 </head>
-<body class="">
+<body class="blue">
 
 
 <div class="container full headings--one-size">
@@ -87,7 +89,9 @@
 </a>
 
     </div>
-    <div class="menu-trigger">menu</div>
+    
+      <div class="menu-trigger">menu</div>
+    
   </div>
   
     <nav class="menu">
@@ -150,6 +154,49 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="/posts/scanf-and-hateful-dot/">pwn&gt; scanf and hateful dot</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-06-10
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/pwn/">pwn</a>&nbsp;
+            
+            #<a href="/tags/linux/">linux</a>&nbsp;
+            
+            #<a href="/tags/pwntools/">pwntools</a>&nbsp;
+            
+            #<a href="/tags/note/">note</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <p>How to bypass the stack canary with <code>.</code> (dot) and <code>scanf</code>.</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/scanf-and-hateful-dot/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="/posts/ret2libc/">pwn&gt; ret2libc by example</a>
         </h1>
         <div class="post-meta">
@@ -166,6 +213,10 @@
             
             #<a href="/tags/linux/">linux</a>&nbsp;
             
+            #<a href="/tags/pwntools/">pwntools</a>&nbsp;
+            
+            #<a href="/tags/note/">note</a>&nbsp;
+            
           </span>
         
 
@@ -174,7 +225,7 @@
         <div class="post-content">
           
           
-          <!-- raw HTML omitted -->
+          <p>How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example.</p>
           
           
         </div>
@@ -235,7 +286,7 @@
             2021-05-03
           </span>
           
-            <span class="post-author">::trib0r3</span>
+            <span class="post-author">:: trib0r3</span>
           
         </div>
 
@@ -258,7 +309,7 @@
         <div class="post-content">
           
           
-          <!-- raw HTML omitted -->
+          <p>radare2 / rizin cheatsheet</p>
           
           
         </div>
@@ -312,45 +363,6 @@
         
       </div>
     
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/protip-binary-ninja-side-view/">[HINT] BinaryNinja: how to view 2 IL views at the same time</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-12-17
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/binja/">binja</a>&nbsp;
-            
-          </span>
-        
-
-        
-          <img src="/img/thumb/binja-refl.png" class="post-cover" alt="[HINT] BinaryNinja: how to view 2 IL views at the same time" />
-        
-
-        <div class="post-content">
-          
-          
-          <!-- raw HTML omitted -->
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/protip-binary-ninja-side-view/">Read more →</a>
-        </div>
-        
-      </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -383,6 +395,8 @@
 
 <script src="/assets/main.js"></script>
 <script src="/assets/prism.js"></script>
+
+
 
 
 

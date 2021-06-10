@@ -15,6 +15,117 @@
       
       <guid>/posts/fix-broken-pe/</guid>
       <description></description>
+      <content>&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hasherezade/pe-bear-releases&#34;&gt;PE-Bear&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ntcore.com/?page_id=388&#34;&gt;CFF Explorer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mh-nexus.de/en/hxd/&#34;&gt;HxD - hex editor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+&lt;h3 id=&#34;case-0-broken-headers&#34;&gt;Case 0: Broken headers&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Assumtion: you have dumped PE file with broken headers (i. e &lt;code&gt;MZ PE&lt;/code&gt; magic bytes are gone).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;em&gt;dump.bin&lt;/em&gt; in hex editor&lt;/li&gt;
+&lt;li&gt;Find reference parameter (use &lt;a href=&#34;https://github.com/corkami/pics&#34;&gt;corkami-pics&lt;/a&gt;) which is probably not overwritten:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Machine&lt;/code&gt;, for 32bit: &lt;code&gt;4c 01&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Open good binary (for example unpacker exe) in hex editor:
+&lt;ol&gt;
+&lt;li&gt;Find the same reference parameter&lt;/li&gt;
+&lt;li&gt;Copy all bytes before it&lt;/li&gt;
+&lt;li&gt;Go back to broken binary&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Paste bytes into &lt;em&gt;dump.bin&lt;/em&gt; into all bytes before refence bytes.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#fix-misalligned-sections&#34;&gt;Re-allign sections if necessary&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;case-1-this-app-cant-run-on-your-pc&#34;&gt;CASE 1: This app can&#39;t run on your PC&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: loader can&#39;t load it, so you also won&#39;t be able to load it into the debugger.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: manual headers fixing is required&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open file wit &lt;em&gt;PE-Bear&lt;/em&gt; or &lt;em&gt;CFF explorer&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Verify the state of binary, if it is in the mapped state (loaded into the process), then you might need to unmap it; otherwise:&lt;/li&gt;
+&lt;li&gt;Review Optional Headers:
+&lt;ul&gt;
+&lt;li&gt;look for red markings&lt;/li&gt;
+&lt;li&gt;if some address is pointing into to not existing section in &lt;em&gt;Section Headers&lt;/em&gt; → null it
+&lt;img src=&#34;/img/broken-pe/image2.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Review &lt;em&gt;Section Headers&lt;/em&gt;:
+&lt;ul&gt;
+&lt;li&gt;if &lt;em&gt;address&lt;/em&gt; is highlighted with red color, then it means that sections are misaligned, you need to review binary in hex editor and start offset of the section manually&lt;/li&gt;
+&lt;li&gt;if size is highlighted with red color, then you might need to shrink it or expand it will i.e null-pad (in hex editor)
+&lt;img src=&#34;/img/broken-pe/image3.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE: Additional actions might be required!&lt;/p&gt;
+&lt;p&gt;If you are modifying size of section which is between other sections, then you might need to modify RA of the next sections!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;case-2-the-application-has-failed-to-start-because-its-side-by-side-configuration-is-incorrect&#34;&gt;CASE 2: The application has failed to start because its side-by-side configuration is incorrect&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: Configuration file required to load is malformed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: You need to replace configuration with the valid one.&lt;/p&gt;
+&lt;p&gt;Some binaries are using special configuration files to load binary located in &lt;em&gt;Resources/Configuration Files/1.&lt;/em&gt; To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Default configuration.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; standalone=&amp;#34;yes&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;manifestVersion=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assemblyIdentity&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0.0.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;MyApplication.app&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;trustInfo&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v2&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;security&amp;gt;&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;requestedPrivileges&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v3&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;requestedExecutionLevel&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;level=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;asInvoker&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;uiAccess=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/requestedPrivileges&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/security&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/trustInfo&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;case-3-programexe-has-stopped-working&#34;&gt;CASE 3: program.exe has stopped working&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What it really means&lt;/strong&gt;: System was able to load PE into the memory and execute it, but execution failed for some reason.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: Analyze the issue with debugger and resolve it.&lt;/p&gt;
+&lt;p&gt;This is very common error and might indicate:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;misaligned/missing sections;&lt;/li&gt;
+&lt;li&gt;programming error, like not handled exception etc;&lt;/li&gt;
+&lt;li&gt;other.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To solve it you should open the program with debugger and analyze the conditions which are creating this error. &lt;/p&gt;
+&lt;h2 id=&#34;fix-misalligned-sections&#34;&gt;Fix misalligned sections&lt;/h2&gt;
+&lt;p&gt;Make sure that you have binary which is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dumped,&lt;/li&gt;
+&lt;li&gt;with fixed PE headers,&lt;/li&gt;
+&lt;li&gt;unmapped.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;![ScreenShot 2020-01-20 at 07.34.41](/img/broken-pe/ScreenShot 2020-01-20 at 08.48.16.png)&lt;/p&gt;
+&lt;h3 id=&#34;auto&#34;&gt;Auto&lt;/h3&gt;
+&lt;h4 id=&#34;with-pe_unmapper&#34;&gt;With pe_unmapper&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pe_unmapper.exe &amp;lt;in_file&amp;gt;      &amp;lt;base&amp;gt;  &amp;lt;opt: out&amp;gt;&lt;/span&gt;
+&amp;gt; pe_unmapper.exe _02660000.mem 02660000 payload.dll
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;manual&#34;&gt;Manual&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Open binary in hex editor&lt;/li&gt;
+&lt;li&gt;Go to the 1st section (on example above to &lt;code&gt;0x1000&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Section should start in this place, nulls should be before.&lt;/li&gt;
+&lt;li&gt;Append nulls starting from last null seen before 1st section (&lt;code&gt;0xfdf&lt;/code&gt;) to section start address (inconclusive) (&lt;code&gt;0x1000&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Save.&lt;/li&gt;
+&lt;li&gt;Review in &lt;em&gt;PE Bear&lt;/em&gt;:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Sections&lt;/code&gt; &amp;gt; &lt;code&gt;Section Headers&lt;/code&gt; should no longer be marked as read.&lt;/li&gt;
+&lt;li&gt;if &lt;code&gt;Section Headers &lt;/code&gt; &amp;gt; &lt;code&gt;Image Base&lt;/code&gt; is the same as dumped section address (if not, set it to dumped section address).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image-20200120085607174.png&#34; alt=&#34;image-20200120085607174&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/broken-pe/image-20200120090648279.png&#34; alt=&#34;image-20200120090648279&#34;&gt;&lt;/p&gt;</content>
     </item>
     
     <item>
@@ -24,6 +135,107 @@
       
       <guid>/posts/247ctf-the-secret-lock/</guid>
       <description></description>
+      <content>&lt;h2 id=&#34;about-247ctf1&#34;&gt;About &lt;a href=&#34;https://247ctf.com/&#34;&gt;247CTF&lt;/a&gt;&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The 247/CTF is a security Capture The Flag (CTF) learning environment. The platform contains a number of hacking challenges where you can test your skills across web, cryptography, networking, reversing and exploitation by solving problems to recover flags.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Or generally saying it is the platform which hosts CTF challs for whole year :)&lt;/p&gt;
+&lt;h2 id=&#34;task---the-secret-lock&#34;&gt;Task - The Secret Lock&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Can you reverse the secret combination to open the lock and recover the flag?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The single HTML page is given with digital lock:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;it have 40 fields&lt;/li&gt;
+&lt;li&gt;each field have 501 available values (0-500)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/img/.247ctf-the-secret-lock.assets/secret-lock.png&#34; alt=&#34;Lock&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;By looking into the code we can quickly identify the code section, because it is written in plain-text in the single &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; block. Below you can see the main unlocking logic:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;onChange&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;();
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;checkFlag&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;textContent&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {};
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;len&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rows&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;len&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rows&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;querySelector&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.is-selected .text&amp;#39;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;textContent&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;checkFlag&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;){
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;LOCKED&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;classList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;verified&amp;#39;&lt;/span&gt;);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Object.&lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;/* stripped for readibillity */&lt;/span&gt;)) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;idx&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; (String.&lt;span style=&#34;color:#a6e22e&#34;&gt;fromCharCode&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;idx&lt;/span&gt;]));
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;classList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;verified&amp;#39;&lt;/span&gt;);
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is the unlocking summary:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;On each digit change the &lt;code&gt;onChange()&lt;/code&gt; function is called.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getCode()&lt;/code&gt; is run, it returns the integer value.&lt;/li&gt;
+&lt;li&gt;Code is checked in &lt;code&gt;checkFlag()&lt;/code&gt; which runs a lot of algebraic expressions (120 to be precise). I stripped them to improve the readibillity.&lt;/li&gt;
+&lt;li&gt;If all checks are passed, then each value is treated as ascii character and it&amp;rsquo;s passed to &lt;em&gt;result&lt;/em&gt; value.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Like I mentioned before - we have big block of conditions which needs to be met, you can find short snippet below (I used visual-code to quickly get rid of &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; operators and put each expression in new line).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;234&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2332&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;114&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;38&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;33&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;34&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;98&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;38&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;248&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;18&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2694&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;19&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;9813&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;34&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;72&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4950&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5143&lt;/span&gt;) 
+((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2759&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can notice a lot of expressions -&amp;gt; &lt;del&gt;we can&amp;rsquo;t&lt;/del&gt; don&amp;rsquo;t want to solve it manually - we need to write a script.&lt;/p&gt;
+&lt;p&gt;Expressions are utilizing different operations, so we can&amp;rsquo;t simply parse them in python, it is better to use some specialized tool like &lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;z3-solver&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; z3 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Solver()
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# We are creating the bit represenation of int32, 40 = len(FLAG)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# I&amp;#39;m using vectors not ints, because ints are not supporting XOR&lt;/span&gt;
+flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag{:02}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
+    z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;)
+    &lt;span style=&#34;color:#75715e&#34;&gt;# z.add(i &amp;gt; 30, i &amp;lt; 127) potential optimization&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# copy-paste the conditions&lt;/span&gt;
+z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
+z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;234&lt;/span&gt;) 
+&lt;span style=&#34;color:#75715e&#34;&gt;### ---[Stripped conditions]---&lt;/span&gt;
+z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Check if  z3 can solve the problem&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;check() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sat&amp;#34;&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# now we can create the model and evaluate it to &amp;#34;real&amp;#34; values&lt;/span&gt;
+    model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;model()
+    solution &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
+        solution &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(int(model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluate(f)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;as_long()))
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(solution)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will give as a flag :)&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://247ctf.com/&#34;&gt;247CTF&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;z3-solver&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Boolean_satisfiability_problem&#34;&gt;SAT problem&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
     </item>
     
     <item>
@@ -33,6 +245,33 @@
       
       <guid>/posts/0-frida-playgrounds/</guid>
       <description>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;</description>
+      <content>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;
+&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
+&lt;p&gt;If you want to learn more about frida, then I suggest you to check my &lt;a href=&#34;/posts/frida-cheatsheet/&#34;&gt;notes/cheatsheet&lt;/a&gt; or frida&amp;rsquo;s &lt;a href=&#34;https://frida.re/docs/home/&#34;&gt;docs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Check tag &lt;a href=&#34;/tags/frida-playground/&#34;&gt;#frida-playground&lt;/a&gt; for all posts.&lt;/p&gt;
+&lt;h2 id=&#34;lab-setup&#34;&gt;Lab Setup&lt;/h2&gt;
+&lt;p&gt;My environment:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;host machine - the place where I&amp;rsquo;m writing scripts, run scripts, etc&lt;/li&gt;
+&lt;li&gt;guest vms - machines where ctf binaries are run:
+&lt;ul&gt;
+&lt;li&gt;Windows10 (vbox)&lt;/li&gt;
+&lt;li&gt;REmnux (vbox)&lt;/li&gt;
+&lt;li&gt;Android (nox)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;planned-content&#34;&gt;Planned Content&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Game Hacking &amp;amp; &amp;ldquo;Cheats&amp;rdquo; Development for &lt;a href=&#34;https://store.steampowered.com/app/690040/SUPERHOT_MIND_CONTROL_DELETE/&#34;&gt;SUPERHOT: MIND CONTROL DELETE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Solve some &lt;a href=&#34;#references&#34;&gt;FlareOn&lt;/a&gt; challenges.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://frida.re&#34;&gt;Frida&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://flare-on.com/&#34;&gt;FlareOn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/posts/frida-cheatsheet/&#34;&gt;Cheatsheet&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
     </item>
     
     <item>
@@ -42,6 +281,96 @@
       
       <guid>/posts/qiling-scripting-and-simple-re-task/</guid>
       <description>Note about qiling and basic usage</description>
+      <content>&lt;h2 id=&#34;what-is-qiling&#34;&gt;What is Qiling&lt;/h2&gt;
+&lt;p&gt;From the author&amp;rsquo;s website:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Qiling is an advanced binary emulation framework, with the following features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cross platform: Windows, MacOS, Linux, BSD&lt;/li&gt;
+&lt;li&gt;Cross architecture: X86, X86_64, Arm, Arm64, Mips&lt;/li&gt;
+&lt;li&gt;Multiple file formats: PE, MachO, ELF&lt;/li&gt;
+&lt;li&gt;Emulate &amp;amp; sandbox machine code in a isolated environment&lt;/li&gt;
+&lt;li&gt;Supports cross architecture and platform debugging capabilities&lt;/li&gt;
+&lt;li&gt;Provide high level API to setup &amp;amp; configure the sandbox&lt;/li&gt;
+&lt;li&gt;Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc)&lt;/li&gt;
+&lt;li&gt;Allow dynamic hotpatch on-the-fly running code, including the loaded library&lt;/li&gt;
+&lt;li&gt;True framework in Python, making it easy to build customized security analysis tools on top&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Qiling is backed by &lt;a href=&#34;http://www.unicorn-engine.org&#34;&gt;Unicorn engine&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Or just saying shortly: this tool will allow you to run binary from one system to another, i.e you can run Windows PE on Mac.&lt;/p&gt;
+&lt;p&gt;Additionally you can also utilize its scripting ability to hook addresses, run only part of binary, etc. Check the &lt;a href=&#34;#references&#34;&gt;references&lt;/a&gt; to view project&amp;rsquo;s GitHub page and others.&lt;/p&gt;
+&lt;h2 id=&#34;simple-demo&#34;&gt;Simple demo&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s imagine that we have this simple task:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/task-code.png&#34; alt=&#34;Task&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Obviously flag is generated from the stack strings with some on-the-fly operations, we can very easly capture the flag by setting couple of breakpoints in the debugger at addresses: &lt;code&gt;0x804852e&lt;/code&gt; and &lt;code&gt;0x804853d&lt;/code&gt; and check the contents of &lt;em&gt;eax&lt;/em&gt; (notice that second part of the flag actually replaces the 1st part) or we can write simple script using Qiling:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
+
+EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
+ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
+FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+    addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
+    FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;my_sandbox&lt;/span&gt;(path, rootfs):
+    ql &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Qiling(path, rootfs)
+    
+    &lt;span style=&#34;color:#75715e&#34;&gt;# remove systrace logs&lt;/span&gt;
+    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+
+    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
+    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;)
+    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;run()
+
+    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+    my_sandbox(EXEC_FILE, ROOTFS)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Some explanation: Qiling for execution requires 2 things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;binary - what is obvious;&lt;/li&gt;
+&lt;li&gt;Rootfs - which should match target architecture.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In my case environment variable &lt;code&gt;$QILING_ROOTFS&lt;/code&gt; points to &lt;code&gt;$QILING_REPO_DIR/examples/rootfs&lt;/code&gt;, above mentioned is a linux x86 binary so we are selecting &lt;code&gt;x86_linux&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
+
+EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
+ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We want to &lt;del&gt;break&lt;/del&gt; hook at specified addresses, so we can achieve that by calling &lt;code&gt;hook_address(callback, address)&lt;/code&gt; I decided to reuse twice the same function, but you can create separate functions for that:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
+ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After everything is setup we can run the binary with &lt;code&gt;ql.run()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Our hook method reads the value from &lt;em&gt;eax&lt;/em&gt; register and saves it in global variable:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+    addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
+    FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice that we are reading twice the same amount of bytes (&lt;code&gt;ql.mem.read(addr_flag, 0x13)&lt;/code&gt;), so we need to truncate these array before printing it on the screen:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default Qiling displays &lt;code&gt;strace&lt;/code&gt; log, if you don&amp;rsquo;t want to see it or you want to see only logs from specific methods you can use filters (you need to change this variable before running the qiling):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mute strace log&lt;/span&gt;
+ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# display only &amp;#34;read&amp;#34; functions&lt;/span&gt;
+ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;read&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Notice&lt;/strong&gt;: the current version doesn&amp;rsquo;t have working properly filters, so you need to switch to &lt;code&gt;dev&lt;/code&gt; branch.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Finally you can run it with python and see the flag:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/qiling-flag.png&#34; alt=&#34;flag&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;closing-notes&#34;&gt;Closing notes&lt;/h2&gt;
+&lt;p&gt;Qiling is definitely great framework, very simple to use and very powerful. Definately worth to try :)&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/qilingframework/qiling&#34;&gt;Qiling Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;docs.google.com/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
     </item>
     
     <item>
@@ -51,6 +380,112 @@
       
       <guid>/posts/comparision-of-re-tools/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;</description>
+      <content>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Hopefully this post will help you to find tools worth choosing as primary reverse engineering tool.&lt;/p&gt;
+&lt;h2 id=&#34;scoring-rules&#34;&gt;Scoring rules&lt;/h2&gt;
+&lt;p&gt;To be fair during my analysis I developed simple score system. For each feature product can specific amount of points:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;1.0&lt;/strong&gt; (&lt;code&gt;+&lt;/code&gt;) - given feature is available and fully operational.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;0.5&lt;/strong&gt; (&lt;code&gt;~&lt;/code&gt;) - feature is partially available, you need to install plugin to achieve it or pay for extra license.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;0.0&lt;/strong&gt; (&lt;code&gt;-&lt;/code&gt;)- feature is not available at all.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;comparision&#34;&gt;Comparision&lt;/h2&gt;
+&lt;p&gt;For detailed description of features go to corresponding chapters below.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[Bracketed]&lt;/strong&gt; character means that in my opinion specified tool is the &amp;ldquo;best&amp;rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
+|:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:|
+| BinaryNinja 2.0.2097 |  $150 |  7.0  |        +       |       +       |            +           |     +    |       +      |        +        |      [+]      |          -         |
+|     Ghidra 9.1.2     |  Free |  6.5  |        +       |       +       |           [+]          |     -    |       ~      |        +        |       +       |          +         |
+|      IDA Home(4)     |  $365 |  6.0  |  ~ (1/license) | ~ (1/license) | ~ (extra-paid feature) |    [+]   |       +      |       [+]       |       ~       |          +         |
+|    radare2/Cutter    |  Free |  7.0  |       [+]      |      [+]      |            +           |     +    |       +      |        +        |       +       |          -         |
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Plugins&lt;/strong&gt; - support for modern, updated programming languages.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Signatures&lt;/strong&gt; - built-in signatures with option to add own.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Patching&lt;/strong&gt; - ability to assemble code without using the hex-editor.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IDA Home&lt;/strong&gt; - currently this version is not published yet, but this is just a limited IDA Pro version, so I will rate it based on my previous experiences with IDA Pro (for limitation list go to &lt;a href=&#34;#references&#34;&gt;References&lt;/a&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;price&#34;&gt;Price&lt;/h3&gt;
+&lt;p&gt;Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloud.binary.ninja/&#34;&gt;BinaryNinja Cloud&lt;/a&gt; - Binary Ninja Personal in browser, but without debugger and plugins support.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.hex-rays.com/products/ida/support/download_freeware/&#34;&gt;IDA Freeware 7.0&lt;/a&gt; - free version of IDA, with a lot of limitations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To be 100% honest, BinaryNinja also have &lt;a href=&#34;https://binary.ninja/demo/&#34;&gt;standalone demo&lt;/a&gt;, but it is more limited than cloud version, so I decided to ignore it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;score&#34;&gt;Score&lt;/h3&gt;
+&lt;p&gt;Just remember to not blindly follow my scoring! This blog post is about my subjective point of view. If you want to know, which tool I like the most -&amp;gt; jump to the &lt;a href=&#34;#summary&#34;&gt;summary&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;cross-platform&#34;&gt;Cross platform&lt;/h3&gt;
+&lt;p&gt;From my perspective disassembly tool should be cross-platform, it is very annoying when you can&amp;rsquo;t &lt;strong&gt;easily&lt;/strong&gt; install your tool on any operating system, specially when you are not staying with one favourite whole time (like me - I&amp;rsquo;m the user of OSX, Linux &amp;amp; Windows).&lt;/p&gt;
+&lt;p&gt;Unfortunatelly &lt;em&gt;IDA&lt;/em&gt; is &amp;ldquo;not the best&amp;rdquo; here, because you need to specify on what kind of operating system you are going to use it :/&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t understand me wrong: you can disassemble Linux binaries on Windows and veice versa. But  it means that if you decide to buy it in version for Windows, then you will receive IDA install files only for Windows.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The absolute winner is &lt;em&gt;radare2&lt;/em&gt;, this tool you can run on almost anything (probably you can even run it on your washing machine).&lt;/p&gt;
+&lt;h3 id=&#34;multi-arch-support-multiple-cpu-families&#34;&gt;Multi-arch (support multiple CPU families)&lt;/h3&gt;
+&lt;p&gt;You never know when you will have change architecture of analysed software, probably you will do the most of analysis for x86 or ARM, but it is good to be ready for any kind of analysis, especially when you are paying for some tools.&lt;/p&gt;
+&lt;p&gt;Once again &lt;em&gt;IDA&lt;/em&gt; is not cheap and supports only 1 architecture for each home license.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;radare2&lt;/em&gt; supports probably the biggest amount of architectures by default.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the rest of tools probably requires only install of some plugin to support extra architecture - IDA Home is an exception.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;decompiler&#34;&gt;Decompiler&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ghidra.png&#34; alt=&#34;Ghidra Decompiler&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Probably the most desired feature in every disassembly product. Unfortunatelly &lt;em&gt;IDA Home&lt;/em&gt; won&amp;rsquo;t have it built-in in this price and you need to pay full-price to get it (and this is very expensive toy).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I really hate to hate IDA, because I like this tool, but IDA have also another disadvantage (without hex-rays): local variables doesn&amp;rsquo;t support types.&lt;/p&gt;
+&lt;p&gt;This actually affects all plugins using i.e ghidra decompiler - if you have binary where some structure is created in the context of local variable, then you have to manually rename variables - even if definition of its structure is known for you.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;But anyway &lt;em&gt;Ghidra&lt;/em&gt; seems to have the best decompiler at this moment (even better that &lt;em&gt;HexRays&lt;/em&gt;): with support for C++ classes, etc. Definately the strongest feature of &lt;em&gt;Ghidra&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For &lt;em&gt;Binja&lt;/em&gt; it is relatively fresh stuff (it is available from version 2.0), so hopefully it will be similarly good as &lt;em&gt;Ghidra&lt;/em&gt; (binja-devs we are waiting for support of classes!).&lt;/p&gt;
+&lt;p&gt;Finally &lt;del&gt;r2&lt;/del&gt; &lt;em&gt;Cutter&lt;/em&gt; have some decompiler, but seems to prefer to use ghidra&amp;rsquo;s decompiler with as pretty good integration.&lt;/p&gt;
+&lt;h3 id=&#34;debugger&#34;&gt;Debugger&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-debugger.png&#34; alt=&#34;IDA Debugger&#34;&gt;&lt;/p&gt;
+&lt;p&gt;IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; radare2 developed something called ESIL - very useful features for emulating code, analysis. Unfortunatelly it can&amp;rsquo;t run code handled by operating system (APIs).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;plugins&#34;&gt;Plugins&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/binja-plugins.png&#34; alt=&#34;BinaryNinja - plugins&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here I had very simple requirements: plugin API must be available &lt;strong&gt;AND&lt;/strong&gt; used language must be up to date.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Ghidra&lt;/em&gt; failed here, because it is using &lt;em&gt;Java&lt;/em&gt; or &lt;em&gt;Python2&lt;/em&gt; (&lt;em&gt;Jython&lt;/em&gt; to be honest). Just no.&lt;/p&gt;
+&lt;p&gt;I really like &lt;em&gt;radare2&lt;/em&gt; API, because it is just radare syntax :P Then binja API seems to be very intuitive, IDA contains the most complex API.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;BinaryNinja&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt; have plugin managers which helps you to install plugins &amp;amp; keep them updated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;signatures&#34;&gt;Signatures&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-lumina.png&#34; alt=&#34;IDA Lumina&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Every dissasembly tool should have some mechanism for detecing commonly known functions and actually all of mentioned tools have such ability:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BinaryNinja - own &amp;ldquo;&lt;a href=&#34;https://binary.ninja/2020/03/11/signature-libraries.html&#34;&gt;Signatures&lt;/a&gt;&amp;rdquo; engine (I will work on support for FLIRT);&lt;/li&gt;
+&lt;li&gt;Ghidra - own signatures engine + FLIRT support (plugin required);&lt;/li&gt;
+&lt;li&gt;IDA Home - &lt;a href=&#34;https://www.hex-rays.com/products/ida/tech/flirt/in_depth/&#34;&gt;FLIRT&lt;/a&gt;, support for Lumina server is not known is not known yet;&lt;/li&gt;
+&lt;li&gt;Radare2 - zignatures(&lt;code&gt;iz?&lt;/code&gt;) + FLIRT.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;patching&#34;&gt;Patching&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/binja-transform.png&#34; alt=&#34;BinaryNinja - code transorm&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From my perspective &lt;em&gt;Binja&lt;/em&gt; contains the best user interface for this (you can invert jumps, xor pieces of code, etc just by few clicks), pretty good interface is in &lt;em&gt;Cutter&lt;/em&gt;, ofc if you are masochist you can everything in radare2 ;)&lt;/p&gt;
+&lt;p&gt;In IDA patching is theorethically possible, but I won&amp;rsquo;t recommend it - much easier is to easier code in built-in hex editor than with very limited &lt;em&gt;Assemble code&lt;/em&gt; feature.&lt;/p&gt;
+&lt;h3 id=&#34;symbolic-contants&#34;&gt;Symbolic contants&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ida-sym-const.png&#34; alt=&#34;IDA Symbolic onstants&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Useful when you are analysing Windows binaries, just replace ugly int with more meaningful name.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;From my perspective if you are just looking for your 1st tool to begin with in reverse engineering, then I would recommend you &lt;em&gt;Ghidra&lt;/em&gt; (I know, it&amp;rsquo;s ugly - but it&amp;rsquo;s free), then you can start thinking about buying i.e &lt;em&gt;BinaryNinja&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Personally I very like &lt;em&gt;BinaryNinja&lt;/em&gt; - for the interface and incoming features, it seems to become very good tool in the near feature. I can&amp;rsquo;t also don&amp;rsquo;t recommend &lt;em&gt;radare2&lt;/em&gt; which is very powerful, but this tool requires a little bit more attention.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/r2-learning.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t think that &lt;em&gt;IDA Home&lt;/em&gt; is worth of waiting (it will be available in May), because it seems to be very limited in comparision to other tools - I can change my mind onluif it will contain &lt;em&gt;HexRays Decompiler&lt;/em&gt; built-in in home version.&lt;/p&gt;
+&lt;p&gt;I hope this article will help you find your new favourite tool - if you have different opinion: please, share it in the comments :)&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://binary.ninja/&#34;&gt;Binary Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ghidra-sre.org/&#34;&gt;Ghidra&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.hex-rays.com/products/ida-home-is-coming/&#34;&gt;IDA Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rada.re/&#34;&gt;radare2&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://cutter.re/&#34;&gt;Cutter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Light Saber icon by &lt;a href=&#34;http://delapouite.com&#34;&gt;Delapouite&lt;/a&gt; under &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC BY 3.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
     </item>
     
     <item>
@@ -62,6 +497,57 @@
       <description>Warmup  Warmup : Welcome to securinets CTF
  In this task we are dealing with very simple function main:
 undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
+      <content>&lt;h1 id=&#34;warmup&#34;&gt;Warmup&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Warmup : Welcome to securinets CTF&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+    int64_t iVar1;
+    undefined8 uVar2;
+    uint32_t var_8h;
+    undefined8 var_4h;
+    
+    write(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
+    read(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x31&lt;/span&gt;);
+    iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(undefined &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)(iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20107f&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    strcpy(rsi, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+    uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+    memfrob(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
+    var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
+        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (int32_t)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
+                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
+        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+        printf(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);
+    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+        puts(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9d5&lt;/span&gt;);
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this function the &lt;code&gt;memfrob&lt;/code&gt; is used, from manual you can learn that this function is xoring buffer with key &lt;code&gt;42&lt;/code&gt;, solution:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [  &lt;span style=&#34;color:#ae81ff&#34;&gt;0x46&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x59&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x58&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;,
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5a&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x48&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x53&lt;/span&gt;]
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; a:
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   r&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(b&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;)
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; r
+[&lt;span style=&#34;color:#ae81ff&#34;&gt;108&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;51&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;116&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;115&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;119&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;52&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;114&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;109&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;49&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;116&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;117&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;112&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;98&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;111&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;121&lt;/span&gt;]
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([chr(c) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; r])
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;l3t&amp;#39;s_w4rm_1t_up_boy&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And execution:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Welcome to SECURINETS CTF
+l3t&amp;#39;s_w4rm_1t_up_boy
+Good job
+You can submit with securinets{l3t&amp;#39;s_w4rm_1t_up_boy}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
@@ -74,6 +560,159 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
  Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
  Overview We have got the python script that is waiting for some username and password:
 $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
+      <content>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;Short info about task:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ python snake.py
+
+___________.__               _________              __
+\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
+ |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
+ |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
+ |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
+               \/     \/          \/     \/     \/     \/    \/
+
+
+The Snake Created by 3XPL017
+Your number is 809
+Authentication required
+
+Enter your username
+QWE
+Wrong username try harder
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;
+&lt;h2 id=&#34;bypass-code&#34;&gt;Bypass code&lt;/h2&gt;
+&lt;p&gt;We can see partially obfuscated variables, that are later xored with some values, let&amp;rsquo;s try to get username.&lt;/p&gt;
+&lt;h3 id=&#34;username&#34;&gt;Username&lt;/h3&gt;
+&lt;p&gt;Username is combined from random dropped variables that are of course hex-encoded letters (i.e &lt;code&gt;db = &#39;\x6e&#39;&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong username try harder&amp;#39;&lt;/span&gt;
+    exit()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: {}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; python snake.py
+
+___________.__               _________              __
+\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
+  |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
+  |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
+  |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
+                \/     \/          \/     \/     \/     \/    \/
+
+
+The Snake Created by 3XPL017
+Your number is 351
+Authentication required
+
+====&amp;gt; Username: anaconda
+Enter your password
+PASSWORD
+Wrong password try harder
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yay, so the username is &lt;code&gt;anaconda&lt;/code&gt;, now we need to guess password.&lt;/p&gt;
+&lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
+            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This part is much harder, because every input which starts with &lt;code&gt;&#39;u&#39;&lt;/code&gt; is accepted (we can realize it by checking runtime to which letter input is compared). This is probably &amp;ldquo;programming mistake&amp;rdquo;, now we should guess what author wanted to achieve - what kind of verification.&lt;/p&gt;
+&lt;p&gt;We can also get all chars array (&lt;code&gt;[117, 100, 118, 118, 114, 106, 119, 97, 36, 36, 126, 114, 115, 125, 42, 115, 125, 42, 107, 42, 126, 124, 121, 118, 118]&lt;/code&gt;) and print this as string: &lt;code&gt;&amp;quot;udvvrjwa$$~rs}*s}*k*~|yvv&amp;quot;&lt;/code&gt;, but this is not our password :/&lt;/p&gt;
+&lt;p&gt;Making a step back, by ignoring loop where chars are incremented by &lt;code&gt;0xA&lt;/code&gt; we can read that chars is just a message: &lt;code&gt;&amp;quot;this is a troll&amp;quot;&lt;/code&gt;, so the real password is somewhere else.&lt;/p&gt;
+&lt;p&gt;We can also notice unused variable password: &lt;code&gt;password = [0x69, 0x74, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x65, 0x61, 0x73, 0x79]&lt;/code&gt;, but this is just another rabbit hole:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; password:
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;its not that easy&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With some additional prints we can notice that output and &lt;code&gt;lock = 5&lt;/code&gt; variable are the same:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
+==&amp;gt; keys: password!!
+==&amp;gt; auth: keep trying
+Your number is 774
+Lock 5
+==&amp;gt; chars1: udvvrjwa$$
+==&amp;gt; chars2: udvvrjwa$$~rs}*s}*k*~|yvv
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;My simplified code which gives above result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random 
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;print_array&lt;/span&gt;(name, chars):
+    r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
+        r &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;==&amp;gt; {}: {}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(name, r)
+
+chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;]
+keys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x64&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;]
+auth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x6b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x67&lt;/span&gt;]
+
+print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chains&amp;#34;&lt;/span&gt;, chains)
+print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;keys&amp;#34;&lt;/span&gt;, keys)
+print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;, auth)
+
+chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+
+lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3e8&lt;/span&gt;)
+lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; lock_pick
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Your number is &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock_pick)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Lock &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; keys:
+    keys_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; key
+    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(keys_encrypt)
+
+print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars1&amp;#34;&lt;/span&gt;, chars)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chains:
+    chains_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xA&lt;/span&gt;
+    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(chains_encrypt)
+print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars2&amp;#34;&lt;/span&gt;, chars)
+
+
+pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; chars
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
+            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After we delete &amp;lsquo;troll-part&amp;rsquo; of password we can check the flag : &lt;code&gt;HTB{anaconda:udvvrjwa$$}&lt;/code&gt; we will get a success.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;After we will make some understanding of all strings, variables and code we can get the flag, but to be clear: this is more like &lt;em&gt;try every possible flag&lt;/em&gt; challenge, than challenge which will allow you to learn something.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s just internet troll - but not very funny.&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -83,6 +722,17 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       
       <guid>/posts/ida-pro-plugins/</guid>
       <description>&lt;p&gt;Plugins worth installing&lt;/p&gt;</description>
+      <content>&lt;p&gt;Plugins worth installing&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/OALabs/FindYara&#34;&gt;FindYara&lt;/a&gt; - use yara rules for looking into binary&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/polymorf/findcrypt-yara&#34;&gt;Findcrypt YARA&lt;/a&gt; - find crypto structs with yara rules&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/vrtadmin/FIRST&#34;&gt;FIRST&lt;/a&gt; - community driven Lunsa function matching plugin&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/CheckPointSW/Karta&#34;&gt;Karta&lt;/a&gt; - open source lib functions matching&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/joxeankoret/diaphora&#34;&gt;Diaphora&lt;/a&gt; - diff binaries&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hasherezade/ida_ifl&#34;&gt;IDA IFL&lt;/a&gt; - interactive function list&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cseagle/blc&#34;&gt;blc&lt;/a&gt; - decompiler based on Ghidra&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://retdec.com/idaplugin/&#34;&gt;retdec&lt;/a&gt; - standalone decompiler&lt;/li&gt;
+&lt;/ul&gt;</content>
     </item>
     
     <item>
@@ -92,6 +742,43 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       
       <guid>/posts/unmap-pe-manually/</guid>
       <description>Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
+      <content>&lt;h2 id=&#34;prerequisities&#34;&gt;Prerequisities&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Make sure that you have dumped binary from memory&lt;/li&gt;
+&lt;li&gt;(optionally) Fix PE headers if necessary&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;unmap&#34;&gt;Unmap&lt;/h2&gt;
+&lt;h3 id=&#34;with-pe-bear&#34;&gt;With PE bear&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;em&gt;PE-bear&lt;/em&gt; &amp;gt; &lt;em&gt;Sections&lt;/em&gt; &amp;gt; &lt;em&gt;Section Headers&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Make sure that VA and VS matches RA and RS, so:
+&lt;ol&gt;
+&lt;li&gt;RA[i] = VA[i]&lt;/li&gt;
+&lt;li&gt;RS[i] = RA[i+1] - RA[i]&lt;/li&gt;
+&lt;li&gt;RS.reloc = 0&lt;/li&gt;
+&lt;li&gt;VS[i] = RS[i]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;If you see some red blocks it means that PE is probably misalligned, check: &lt;em&gt;Fix misalligned sections&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/unmap-pe.png&#34; alt=&#34;UnmapPE&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;fix-misalligned-sections&#34;&gt;Fix misalligned sections&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/img/unmap-hex1.png&#34; alt=&#34;Dump1&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open binary in hex editor&lt;/li&gt;
+&lt;li&gt;Go to the 1st section (on example above to &lt;code&gt;0x1000&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Section should start in this place, nulls should be before.&lt;/li&gt;
+&lt;li&gt;Append nulls starting from last null seen before 1st section (&lt;code&gt;0xfdf&lt;/code&gt;) to section start address (inconclusive) (&lt;code&gt;0x1000&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Save.&lt;/li&gt;
+&lt;li&gt;Review in &lt;em&gt;PE Bear&lt;/em&gt;:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Sections&lt;/code&gt; &amp;gt; &lt;code&gt;Section Headers&lt;/code&gt; should no longer be marked as read.&lt;/li&gt;
+&lt;li&gt;if &lt;code&gt;Section Headers &lt;/code&gt; &amp;gt; &lt;code&gt;Image Base&lt;/code&gt; is the same as dumped section address (if not, set it to dumped section address).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/unmap-hex2.png&#34; alt=&#34;Dump2&#34;&gt;&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -101,6 +788,38 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       
       <guid>/posts/disable-aslr/</guid>
       <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
+      <content>&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;radare2&#34;&gt;radare2&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
+dor aslr=no
+aaa
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
+&lt;h3 id=&#34;windows-7&#34;&gt;Windows 7&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;code&gt;RegEdit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Goto: &lt;code&gt;HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create new &lt;em&gt;value&lt;/em&gt; (not a key): &lt;code&gt;MoveImages&lt;/code&gt; with value &lt;code&gt;0&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Reboot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;windows-10&#34;&gt;Windows 10&lt;/h3&gt;
+&lt;h4 id=&#34;disable-aslr-per-file&#34;&gt;Disable ASLR per file&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;disable-aslr-by-default&#34;&gt;Disable ASLR by default&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Search in Windows for: “windows defender Security Center”&lt;/li&gt;
+&lt;li&gt;Click on the second icon from the bottom: “App &amp;amp; browser control”&lt;/li&gt;
+&lt;li&gt;Scroll to the bottom and click on: “Exploit protection settings”&lt;/li&gt;
+&lt;li&gt;Set “Force randomization for images “ to &lt;em&gt;OFF&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Reboot&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/&#34;&gt;Disable ASLR for Easier Malware Debugging With x64dbg and IDA Pro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/trietptm/b84ccad9db01f459ac7e&#34;&gt;Gist&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.reddit.com/r/ReverseEngineering/comments/bzn06z/disable_aslr_for_easier_malware_debugging_with/&#34;&gt;Disable ASLR For Easier Malware Debugging With x64dbg and IDA Pro (OALabs Quick Tip) : ReverseEngineering&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
     </item>
     
     <item>
@@ -110,6 +829,53 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       
       <guid>/posts/c&#43;&#43;-assembly/</guid>
       <description>Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
+      <content>&lt;h2 id=&#34;structures&#34;&gt;Structures&lt;/h2&gt;
+&lt;h3 id=&#34;c-struct-vs-c-class&#34;&gt;C struct vs C++ class&lt;/h3&gt;
+&lt;h4 id=&#34;c-struct&#34;&gt;C struct&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;functions are loosely correlated with paramaters,&lt;/li&gt;
+&lt;li&gt;parameters are usually passed via pointer,&lt;/li&gt;
+&lt;li&gt;it may look like array for struct with 2 identical parameters in struct,&lt;/li&gt;
+&lt;li&gt;for structures created dynamically look for &lt;code&gt;malloc&lt;/code&gt; with non-usual size.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;c-class&#34;&gt;C++ class&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Find constructor, it have always 1 argument (&lt;code&gt;this&lt;/code&gt; pointer -&amp;gt; &lt;code&gt;thiscall&lt;/code&gt;),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;main()&lt;/code&gt; function have initialization function &lt;code&gt;__main&lt;/code&gt; with ctor initlizers,&lt;/li&gt;
+&lt;li&gt;after creation of class with &lt;code&gt;new&lt;/code&gt; operator the class constructor is called (can be empty),&lt;/li&gt;
+&lt;li&gt;Methods are called with &lt;code&gt;thiscall&lt;/code&gt; convention.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;inheritance&#34;&gt;Inheritance&lt;/h3&gt;
+&lt;p&gt;Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#a6e22e&#34;&gt;Inherited&lt;/span&gt;(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+{
+  Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// this was assigned in class definition, not constructor
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;b;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inherited destructors contains destructors of base class:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Inherited(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+
+{
+  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;virtuals&#34;&gt;Virtuals&lt;/h3&gt;
+&lt;p&gt;Generally we have the same behaviour like in inheritance, but additionally we have also vtables.&lt;/p&gt;
+&lt;p&gt;The structures of classess contains 1 additional field (at offset 0): &lt;code&gt;vptr&lt;/code&gt; to &lt;code&gt;vtable&lt;/code&gt; structure containing pointers to all virtual methods in this class:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vtable_class_A&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_1&lt;/span&gt;();
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_2&lt;/span&gt;();
+  &lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://oalabs.openanalysis.net/2019/06/03/reverse-engineering-c-with-ida-pro-classes-constructors-and-structs/&#34;&gt;OA Labs&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
     </item>
     
   </channel>

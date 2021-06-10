@@ -16,6 +16,76 @@
       <guid>/posts/keep-your-md-notes-organized/</guid>
       <description>Journey of finding ideal note-taking app  TL;DR: If you want to transfer your bear notes to markdown goto Move your bear notes, if you want to emulate Bear multi-tagging check Multitagging support.
  Once upon a time I was using Bear.app for writing and organizing notes. It had really good features like multi-tagging and couple of other nice features like pseudo markdown support. Unfortunatelly a lot of things were bugged, developers slow in fixing them so I decided to move my notes from Bear to other platform.</description>
+      <content>&lt;h2 id=&#34;journey-of-finding-ideal-note-taking-app&#34;&gt;Journey of finding ideal note-taking app&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TL;DR: If you want to transfer your bear notes to markdown goto &lt;a href=&#34;#Moving-bear-notes&#34;&gt;Move your bear notes&lt;/a&gt;, if you want to emulate &lt;em&gt;Bear&lt;/em&gt; multi-tagging check &lt;a href=&#34;#multitagging-support&#34;&gt;Multitagging support&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Once upon a time I was using &lt;a href=&#34;https://bear.app&#34;&gt;Bear.app&lt;/a&gt; for writing and organizing notes. It had really good features like multi-tagging and couple of other nice features like pseudo markdown support. Unfortunatelly a lot of things were bugged, developers slow in fixing them so I decided to move my notes from &lt;em&gt;Bear&lt;/em&gt; to other platform.&lt;/p&gt;
+&lt;h3 id=&#34;requirements&#34;&gt;Requirements&lt;/h3&gt;
+&lt;p&gt;I wanted to have these features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WYSWIG (What You See Is What You Get) editor with only 1 pane,&lt;/li&gt;
+&lt;li&gt;Notes should be kept / written in Markdown,&lt;/li&gt;
+&lt;li&gt;Support image pasting from clipboard,&lt;/li&gt;
+&lt;li&gt;Sync,&lt;/li&gt;
+&lt;li&gt;Support for nested tags(1),&lt;/li&gt;
+&lt;li&gt;Support for multi-tagging(2).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;1-nested-tags&#34;&gt;(1) Nested tags&lt;/h4&gt;
+&lt;p&gt;We can have tree-like tags, i.e notes assigned to: &lt;code&gt;tag1/sub1&lt;/code&gt;, will be also visible in &lt;code&gt;tag1&lt;/code&gt;, but not in &lt;code&gt;tag2/sub1&lt;/code&gt; (defferent parent).&lt;/p&gt;
+&lt;h4 id=&#34;2-multi-tagging&#34;&gt;(2) Multi-tagging&lt;/h4&gt;
+&lt;p&gt;Notes can belong to multiple tags, so they should be visible from multiple tag sub-trees.&lt;/p&gt;
+&lt;h2 id=&#34;ideal-doesnt-exists-but&#34;&gt;Ideal doesn&amp;rsquo;t exists, but&amp;hellip;&lt;/h2&gt;
+&lt;p&gt;Finally I couldn&amp;rsquo;t find ideal substitute for &lt;em&gt;Bear&lt;/em&gt;, so I decided to move into some WYSWIG Markdown editor which will nicely present meta-data for multi-tagging - I will take care about the rest of mine requirements.&lt;/p&gt;
+&lt;p&gt;I decided to move to &lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; - it is not perfect, but it seems to work fine. Moving to editor based on directory tree (folders = tags) have one big disadvantage - we can&amp;rsquo;t have multiple tags (but nested tags are working nicely). I had idea how to overcome this issue.&lt;/p&gt;
+&lt;h3 id=&#34;prerequirements&#34;&gt;Prerequirements&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Clone my repo &lt;a href=&#34;https://github.com/trib0r3/bear2markdowntree&#34;&gt;bear2markdowntree&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Follow step (1) and (2) from &lt;em&gt;How to&lt;/em&gt; section.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;move-your-bear-notes&#34;&gt;Move your bear notes&lt;/h3&gt;
+&lt;p&gt;First of all I created a concept of &amp;ldquo;main tag&amp;rdquo;, so if note have multiple tags (i.e &lt;code&gt;tag1/sub1&lt;/code&gt; and &lt;code&gt;tag2/sub2&lt;/code&gt;) we have to choose which tag is more important to us. The &lt;em&gt;main tag&lt;/em&gt; will be actually translated into directory structure in your notes directory and saved there! The rest of the tags will be added into note as YAML meta-data.&lt;/p&gt;
+&lt;p&gt;For example: you have exported &lt;em&gt;bear&lt;/em&gt; note to &lt;code&gt;$BEAR_DIR/note.md&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
+
+My note
+
+#tag1/sub1 #tag2/sub2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After exporting this note with my script and selecting &lt;code&gt;#tag1/sub1&lt;/code&gt; as main tag, the note will be saved under &lt;code&gt;$NOTES_DIR/tag1/sub1/note.md&lt;/code&gt; and it will look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
+tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
+---
+# Note
+
+My note
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;demo&#34;&gt;Demo&lt;/h4&gt;
+&lt;p&gt;Before running &lt;code&gt;export-bear2typora.py&lt;/code&gt; don&amp;rsquo;t forget setup script by editing it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
+NOTE_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Notes/&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# output dir&lt;/span&gt;
+BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;BearNotes/&amp;#34;&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;# input dir&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in &lt;code&gt;tags&lt;/code&gt; array.&lt;/p&gt;
+&lt;p&gt;After this process you should have exported and fixed notes in your &lt;code&gt;BEAR_DIR&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;multitagging-support&#34;&gt;Multitagging support&lt;/h3&gt;
+&lt;p&gt;This topic is actually nicely described in &lt;a href=&#34;https://github.com/trib0r3/bear2markdowntree#multi-tagging-support&#34;&gt;README&lt;/a&gt;. We can emulate multi-tags structure by symbolic links (but with some problems on Windows and in Typora) or by creating special file which I called &lt;em&gt;index&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;This file should be (re)generated with &lt;code&gt;build-tags.py&lt;/code&gt; each time you decide to put some new file in your directory list.&lt;/p&gt;
+&lt;p&gt;Here you should edit only one variable (if you have &lt;code&gt;NOTES_DIR&lt;/code&gt; relative to home directory):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
+NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/Dropbox/Notes/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME:  add path to your Notes folder (relative to $HOME)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use absoulte path change code to:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Additionally if you don&amp;rsquo;t want to see some tags, you can add them here:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# WARNING: this feature is actually taking only subtag, &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  Ex#1: you have note with tag: &amp;#34;dev/python/code-snippets&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#    if you decide to ignore tag &amp;#34;dev&amp;#34;, then all subtags (&amp;#34;python&amp;#34;, &amp;#34;code-snippets&amp;#34;)  will be also ignored!&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  Ex#2: you have 2 notes with tags: note1: &amp;#39;q/w/e&amp;#39;, &amp;#39;e/w/q&amp;#39; (you have the same subtab &amp;#39;w&amp;#39;, but in totally different subtrees)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#    Ignoring tag &amp;#39;w&amp;#39; will affect BOTH subtrees, &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#    It isn&amp;#39;t possible to ignore subtag only from specified tree! Ignoring &amp;#34;q/w&amp;#34; will not work!&lt;/span&gt;
+IGNORE_TAGS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [] &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After running this script you should have &lt;code&gt;index.md&lt;/code&gt; file generated in your &lt;code&gt;NOTES_DIR&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;sync&#34;&gt;Sync&lt;/h3&gt;
+&lt;p&gt;This is the simplest step, just create &lt;a href=&#34;https://www.dropbox.com/&#34;&gt;Dropbox&lt;/a&gt; account, put your notes there and sync your notes across all devices!&lt;/p&gt;
+</content>
     </item>
     
   </channel>

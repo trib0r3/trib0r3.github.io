@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>re :: REhex — Personal blog about reverse-engineering</title>
+    <title>re :: REhex</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/style.css">
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
 
   <link rel="shortcut icon" href="/favicon.ico">
 
@@ -31,17 +31,19 @@
 
 <meta name="twitter:card" content="summary" />
 
-  <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:site" content="https://rehex.ninja" />
+  
+    <meta name="twitter:creator" content="" />
 
-<meta name="twitter:creator" content="" />
 
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="re :: REhex">
+<meta property="og:title" content="re">
 <meta property="og:description" content="" />
 <meta property="og:url" content="/tags/re/" />
-<meta property="og:site_name" content="re" />
+<meta property="og:site_name" content="REhex" />
 
   
     <meta property="og:image" content="/favicon.ico">
@@ -71,7 +73,7 @@
 
 
 </head>
-<body class="">
+<body class="blue">
 
 
 <div class="container full headings--one-size">
@@ -86,7 +88,9 @@
 </a>
 
     </div>
-    <div class="menu-trigger">menu</div>
+    
+      <div class="menu-trigger">menu</div>
+    
   </div>
   
     <nav class="menu">
@@ -252,7 +256,7 @@
         <div class="post-content">
           
           
-          <!-- raw HTML omitted -->
+          <p>Hello, this is the very first post of my new series where I will show the big potential of <a href="#references">frida</a> on practical examples.</p>
           
           
         </div>
@@ -336,7 +340,7 @@
         <div class="post-content">
           
           
-          <!-- raw HTML omitted -->
+          <p>Let&rsquo;s compare the most populare reverse-egineering with strong focus on <strong>personal</strong> usage: <em>BinaryNinja</em>, <em>Ghidra</em>, <em>IDA</em> and <em>radare2</em>.</p>
           
           
         </div>
@@ -378,8 +382,8 @@
           
           
           Warmup  Warmup : Welcome to securinets CTF
-In this task we are dealing with very simple function main:
-undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined <em>)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h.<em>0_4</em> = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(</em>(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
+ In this task we are dealing with very simple function main:
+undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
           
           
         </div>
@@ -421,9 +425,9 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
           
           
           [re] Snake (10) Description Short info about task:
-Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
-Overview We have got the python script that is waiting for some username and password:
-$ python snake.py <strong><strong><strong><strong><em><strong>.</strong> _________ __ _</em> <em><strong>/| |</strong> ____ / <em><strong><strong>/ ____ _____ | | __ ____ | | | | _/ __ \ _</strong></strong> \ / _</em> \ | |/ // __ \ | | | Y \ <strong><em>/ / \ | / __ | &lt;\ <em><strong>/ |</strong></em></em>| |</strong></em>| /_</strong> &gt; /</strong></strong></strong>_ /___| (____ /__|_ ___ &gt; / / / / / / / The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let’s look into code to get more info about how to get username and password.
+ Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
+ Overview We have got the python script that is waiting for some username and password:
+$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &lt;\ ___/ |____| |___| /\___ &gt; /_______ /___| (____ /__|_ \___ &gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&rsquo;s look into code to get more info about how to get username and password.
           
           
         </div>
@@ -460,7 +464,7 @@ $ python snake.py <strong><strong><strong><strong><em><strong>.</strong> _______
         <div class="post-content">
           
           
-          <!-- raw HTML omitted -->
+          <p>Plugins worth installing</p>
           
           
         </div>
@@ -639,6 +643,8 @@ $ python snake.py <strong><strong><strong><strong><em><strong>.</strong> _______
 
 <script src="/assets/main.js"></script>
 <script src="/assets/prism.js"></script>
+
+
 
 
 

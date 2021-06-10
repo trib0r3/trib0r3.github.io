@@ -15,6 +15,33 @@
       
       <guid>/posts/0-frida-playgrounds/</guid>
       <description>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;</description>
+      <content>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;
+&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
+&lt;p&gt;If you want to learn more about frida, then I suggest you to check my &lt;a href=&#34;/posts/frida-cheatsheet/&#34;&gt;notes/cheatsheet&lt;/a&gt; or frida&amp;rsquo;s &lt;a href=&#34;https://frida.re/docs/home/&#34;&gt;docs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Check tag &lt;a href=&#34;/tags/frida-playground/&#34;&gt;#frida-playground&lt;/a&gt; for all posts.&lt;/p&gt;
+&lt;h2 id=&#34;lab-setup&#34;&gt;Lab Setup&lt;/h2&gt;
+&lt;p&gt;My environment:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;host machine - the place where I&amp;rsquo;m writing scripts, run scripts, etc&lt;/li&gt;
+&lt;li&gt;guest vms - machines where ctf binaries are run:
+&lt;ul&gt;
+&lt;li&gt;Windows10 (vbox)&lt;/li&gt;
+&lt;li&gt;REmnux (vbox)&lt;/li&gt;
+&lt;li&gt;Android (nox)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;planned-content&#34;&gt;Planned Content&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Game Hacking &amp;amp; &amp;ldquo;Cheats&amp;rdquo; Development for &lt;a href=&#34;https://store.steampowered.com/app/690040/SUPERHOT_MIND_CONTROL_DELETE/&#34;&gt;SUPERHOT: MIND CONTROL DELETE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Solve some &lt;a href=&#34;#references&#34;&gt;FlareOn&lt;/a&gt; challenges.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://frida.re&#34;&gt;Frida&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://flare-on.com/&#34;&gt;FlareOn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/posts/frida-cheatsheet/&#34;&gt;Cheatsheet&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
     </item>
     
   </channel>
