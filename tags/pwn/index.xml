@@ -7,7 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 10 Jun 2021 15:32:42 +0200</lastBuildDate><atom:link href="/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jun 2021 21:32:42 +0200</lastBuildDate><atom:link href="/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pwn&gt; Finding the libc version</title>
+      <link>/posts/identifying-libc/</link>
+      <pubDate>Mon, 14 Jun 2021 21:32:42 +0200</pubDate>
+      
+      <guid>/posts/identifying-libc/</guid>
+      <description>&lt;p&gt;How to find the libc version without having its local copy.&lt;/p&gt;</description>
+      <content>&lt;p&gt;How to find the libc version without having its local copy.&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;Todays scenario is similar to the one described in my &lt;a href=&#34;/posts/ret2libc&#34;&gt;previous artice&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we have the binary vulnerable to &lt;em&gt;ret2libc&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;we managed to leak the address of puts in memory&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;but&lt;/strong&gt; we don&amp;rsquo;t have the libc given, so we can&amp;rsquo;t calculate the offsets in memory&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Leak the address of &lt;em&gt;any function&lt;/em&gt; in memory&lt;/li&gt;
+&lt;li&gt;Go to libc database &lt;a href=&#34;https://libc.blukat.me/&#34;&gt;1&lt;/a&gt; or &lt;a href=&#34;https://libc.nullbyte.cat/&#34;&gt;2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fill the form with function name and last 3 characters of address and press search&lt;/li&gt;
+&lt;li&gt;Download provided libc binary or use the offsets provided by database&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/libc.png&#34; alt=&#34;libc&#34;&gt;&lt;/p&gt;</content>
+    </item>
+    
     <item>
       <title>pwn&gt; scanf and hateful dot</title>
       <link>/posts/scanf-and-hateful-dot/</link>
@@ -40,7 +65,7 @@
     sum();
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with &lt;a href=&#34;/posts/ret2libc.md&#34;&gt;ret2libc&lt;/a&gt; and lead to gaining the shell. But there is one big problem - stack canary:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with &lt;a href=&#34;/posts/ret2libc&#34;&gt;ret2libc&lt;/a&gt; and lead to gaining the shell. But there is one big problem - stack canary:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;overwriting stack canary will cause exception&lt;/li&gt;
 &lt;li&gt;we can&amp;rsquo;t brute-force the stack cookie (program is not giving us such possibility)&lt;/li&gt;

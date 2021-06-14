@@ -199,7 +199,7 @@
     sum();
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div><p>Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with <a href="/posts/ret2libc.md">ret2libc</a> and lead to gaining the shell. But there is one big problem - stack canary:</p>
+</code></pre></div><p>Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with <a href="/posts/ret2libc">ret2libc</a> and lead to gaining the shell. But there is one big problem - stack canary:</p>
 <ul>
 <li>overwriting stack canary will cause exception</li>
 <li>we can&rsquo;t brute-force the stack cookie (program is not giving us such possibility)</li>
@@ -299,6 +299,13 @@ Your sum: -927731552656979245053132275199986367576898552986957876550810741571740
         <hr />
     </div>
     <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="/posts/identifying-libc/">
+                <span class="button__icon">←</span>
+                <span class="button__text">pwn&gt; Finding the libc version</span>
+            </a>
+        </span>
         
         
         <span class="button next">

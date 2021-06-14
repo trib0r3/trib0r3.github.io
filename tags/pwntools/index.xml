@@ -40,7 +40,7 @@
     sum();
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with &lt;a href=&#34;/posts/ret2libc.md&#34;&gt;ret2libc&lt;/a&gt; and lead to gaining the shell. But there is one big problem - stack canary:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above code obviously trusts user input and allows to overwrite arbritrary data which can be weaponized with &lt;a href=&#34;/posts/ret2libc&#34;&gt;ret2libc&lt;/a&gt; and lead to gaining the shell. But there is one big problem - stack canary:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;overwriting stack canary will cause exception&lt;/li&gt;
 &lt;li&gt;we can&amp;rsquo;t brute-force the stack cookie (program is not giving us such possibility)&lt;/li&gt;
