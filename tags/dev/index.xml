@@ -67,7 +67,7 @@ mysuper_bot &lt;span style=&#34;color:#75715e&#34;&gt;# replace &amp;#34;mysuper
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; telegram
 
 bot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; telegram&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Bot(token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getUpdates())
+print(bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getUpdates())
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Copy &lt;code&gt;chat_id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Create script &lt;code&gt;tsend.py&lt;/code&gt;:&lt;/li&gt;
@@ -80,7 +80,7 @@ chat_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=
 raw_msg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; argv[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;replace(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#34;&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;replace(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;tcp://&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;#34;tcp://0.tcp.ngrok.io:10361&amp;#34;&lt;/span&gt;
 ip,port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_msg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt;)
 
-message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{ip}:{port}&amp;#39;&lt;/span&gt;
+message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;ip&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;port&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
 bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send_message(chat_id&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;chat_id, text&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;message)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;7&#34;&gt;
 &lt;li&gt;Check if you are able to send message to you from your bot by typing &lt;code&gt;python3 tsend.py hello&lt;/code&gt;.&lt;/li&gt;

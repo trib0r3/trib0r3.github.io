@@ -7,7 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 14 Jun 2021 21:32:42 +0200</lastBuildDate><atom:link href="/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Writeup - Cosy Casino</title>
+      <link>/posts/writeup-cosy-casino/</link>
+      <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
+      
+      <guid>/posts/writeup-cosy-casino/</guid>
+      <description></description>
+      <content>&lt;blockquote&gt;
+&lt;p&gt;Welcome to Cosy Casino. Try your luck to win a bunch of 💎 and become a millionaire! Be careful not to be addicted though.. Rules: No smoking, no guns and no pets are allowed inside the Casino, especially canaries..&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;general-hints&#34;&gt;General Hints&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Gallopsled/pwntools&#34;&gt;pwntools&lt;/a&gt; lib is your friend&lt;/li&gt;
+&lt;li&gt;copy-pasted code tends to be vulnerable if pasted incorrectly ;)&lt;/li&gt;
+&lt;li&gt;check where stack variables of threat functions are located&lt;/li&gt;
+&lt;li&gt;remember that you can always patch the local binary to make your life easier&lt;/li&gt;
+&lt;li&gt;sometimes the only way to bypass the canary is to forge own canary&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;writeup&#34;&gt;Writeup&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This task is still live, so the writeup is available only in &lt;a href=&#34;https://link-to-cyberchef&#34;&gt;encrypted form&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Use flag from challenge to read the writeup, public version of writeup will be released after this task will be retired.&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+    </item>
+    
     <item>
       <title>pwn&gt; Finding the libc version</title>
       <link>/posts/identifying-libc/</link>
@@ -490,7 +515,7 @@ raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data[&lt;s
 
 leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ljust(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fill missing bytes with zeroes&lt;/span&gt;
 leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(leaked_puts)
-pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Leaked puts: {leaked_puts:x}&amp;#39;&lt;/span&gt;)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Leaked puts: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;leaked_puts&lt;span style=&#34;color:#e6db74&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 
 
 pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)

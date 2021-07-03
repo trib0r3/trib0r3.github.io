@@ -306,7 +306,7 @@ api <span style="color:#f92672">=</span> script<span style="color:#f92672">.</sp
     <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
         <span style="color:#66d9ef">continue</span>
 
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Pin: {x}&#34;</span>)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Pin: </span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
     <span style="color:#66d9ef">break</span>
 
 </code></pre></div><h2 id="reuse-the-binary-code">Reuse the binary code<a href="#reuse-the-binary-code" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
@@ -342,7 +342,7 @@ script <span style="color:#f92672">=</span> session<span style="color:#f92672">.
 </span><span style="color:#e6db74">});
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span> <span style="color:#f92672">%</span> int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">16</span>))
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_message</span>(message, data):
-    <span style="color:#66d9ef">print</span>(message)
+    print(message)
 script<span style="color:#f92672">.</span>on(<span style="color:#960050;background-color:#1e0010">‘</span>message<span style="color:#960050;background-color:#1e0010">’</span>, on_message)
 script<span style="color:#f92672">.</span>load()
 sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
@@ -489,7 +489,7 @@ script <span style="color:#f92672">=</span> session<span style="color:#f92672">.
 script<span style="color:#f92672">.</span>load()
 
 api <span style="color:#f92672">=</span> script<span style="color:#f92672">.</span>exports
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;starting HTTP server...&#34;</span>)
+print(<span style="color:#e6db74">&#34;starting HTTP server...&#34;</span>)
 api<span style="color:#f92672">.</span>http_server()
 
 <span style="color:#75715e"># keep the server alive now</span>

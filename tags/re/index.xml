@@ -206,7 +206,7 @@ z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Solver()
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# We are creating the bit represenation of int32, 40 = len(FLAG)&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# I&amp;#39;m using vectors not ints, because ints are not supporting XOR&lt;/span&gt;
-flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag{:02}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
+flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{:02}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
     z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;)
     &lt;span style=&#34;color:#75715e&#34;&gt;# z.add(i &amp;gt; 30, i &amp;lt; 127) potential optimization&lt;/span&gt;
@@ -219,16 +219,16 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# Check if  z3 can solve the problem&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;check() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sat&amp;#34;&lt;/span&gt;:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
+    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# now we can create the model and evaluate it to &amp;#34;real&amp;#34; values&lt;/span&gt;
     model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;model()
     solution &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
         solution &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(int(model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluate(f)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;as_long()))
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(solution)
+        print(solution)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
+    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will give as a flag :)&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
@@ -308,10 +308,10 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
 
 EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
-ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
+ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
 FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
     addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
     FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
 
@@ -326,7 +326,7 @@ FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
     ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;run()
 
     flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+    print(flag)
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
     my_sandbox(EXEC_FILE, ROOTFS)
@@ -340,18 +340,18 @@ FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
 
 EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
-ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
+ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We want to &lt;del&gt;break&lt;/del&gt; hook at specified addresses, so we can achieve that by calling &lt;code&gt;hook_address(callback, address)&lt;/code&gt; I decided to reuse twice the same function, but you can create separate functions for that:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
 ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;) 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After everything is setup we can run the binary with &lt;code&gt;ql.run()&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Our hook method reads the value from &lt;em&gt;eax&lt;/em&gt; register and saves it in global variable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
     addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
     FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice that we are reading twice the same amount of bytes (&lt;code&gt;ql.mem.read(addr_flag, 0x13)&lt;/code&gt;), so we need to truncate these array before printing it on the screen:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+    print(flag)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default Qiling displays &lt;code&gt;strace&lt;/code&gt; log, if you don&amp;rsquo;t want to see it or you want to see only logs from specific methods you can use filters (you need to change this variable before running the qiling):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mute strace log&lt;/span&gt;
 ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
@@ -504,9 +504,9 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 &lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
 {
-    int64_t iVar1;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
     undefined8 uVar2;
-    uint32_t var_8h;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32_t&lt;/span&gt; var_8h;
     undefined8 var_4h;
     
     write(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
@@ -518,10 +518,10 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
     uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
     memfrob(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
     var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
-        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (int32_t)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
-                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
-        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
+        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
+                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
+        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
     }
     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
         printf(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);
@@ -600,12 +600,12 @@ Wrong username try harder
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong username try harder&amp;#39;&lt;/span&gt;
+    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong username try harder&amp;#39;&lt;/span&gt;
     exit()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: {}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
+print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; python snake.py
@@ -632,10 +632,10 @@ Wrong password try harder
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
+            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
             &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
         &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
+            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
             exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This part is much harder, because every input which starts with &lt;code&gt;&#39;u&#39;&lt;/code&gt; is accepted (we can realize it by checking runtime to which letter input is compared). This is probably &amp;ldquo;programming mistake&amp;rdquo;, now we should guess what author wanted to achieve - what kind of verification.&lt;/p&gt;
@@ -665,7 +665,7 @@ Lock 5
     r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
         r &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;==&amp;gt; {}: {}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(name, r)
+    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;==&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(name, r)
 
 chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;]
 keys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x64&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;]
@@ -683,8 +683,8 @@ lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span styl
 lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
 lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; lock_pick
 
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Your number is &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock_pick)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Lock &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock)
+print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Your number is &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock_pick)
+print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Lock &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock)
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; keys:
     keys_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; key
@@ -699,13 +699,13 @@ print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars2&amp;#34;&l
 
 pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; chars
+    print chars
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
+            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
             &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
         &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
+            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
             exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After we delete &amp;lsquo;troll-part&amp;rsquo; of password we can check the flag : &lt;code&gt;HTB{anaconda:udvvrjwa$$}&lt;/code&gt; we will get a success.&lt;/p&gt;

@@ -85,7 +85,7 @@ z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Solver()
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# We are creating the bit represenation of int32, 40 = len(FLAG)&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# I&amp;#39;m using vectors not ints, because ints are not supporting XOR&lt;/span&gt;
-flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag{:02}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
+flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{:02}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
     z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;)
     &lt;span style=&#34;color:#75715e&#34;&gt;# z.add(i &amp;gt; 30, i &amp;lt; 127) potential optimization&lt;/span&gt;
@@ -98,16 +98,16 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# Check if  z3 can solve the problem&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;check() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sat&amp;#34;&lt;/span&gt;:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
+    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# now we can create the model and evaluate it to &amp;#34;real&amp;#34; values&lt;/span&gt;
     model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;model()
     solution &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
         solution &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(int(model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluate(f)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;as_long()))
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(solution)
+        print(solution)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
+    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will give as a flag :)&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;

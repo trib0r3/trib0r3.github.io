@@ -241,7 +241,7 @@ z <span style="color:#f92672">=</span> Solver()
 
 <span style="color:#75715e"># We are creating the bit represenation of int32, 40 = len(FLAG)</span>
 <span style="color:#75715e"># I&#39;m using vectors not ints, because ints are not supporting XOR</span>
-flag <span style="color:#f92672">=</span> [BitVec(<span style="color:#e6db74">&#39;flag{:02}&#39;</span><span style="color:#f92672">.</span>format(i), <span style="color:#ae81ff">32</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">40</span>)]
+flag <span style="color:#f92672">=</span> [BitVec(<span style="color:#e6db74">&#39;flag</span><span style="color:#e6db74">{:02}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(i), <span style="color:#ae81ff">32</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">40</span>)]
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> flag:
     z<span style="color:#f92672">.</span>add(i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">500</span>, i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">30</span>, i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">127</span>)
     <span style="color:#75715e"># z.add(i &gt; 30, i &lt; 127) potential optimization</span>
@@ -254,16 +254,16 @@ z<span style="color:#f92672">.</span>add((flag[<span style="color:#ae81ff">9</sp
 
 <span style="color:#75715e"># Check if  z3 can solve the problem</span>
 <span style="color:#66d9ef">if</span> z<span style="color:#f92672">.</span>check() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;sat&#34;</span>:
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;z3 can solve it&#34;</span>)
+    print(<span style="color:#e6db74">&#34;z3 can solve it&#34;</span>)
 
     <span style="color:#75715e"># now we can create the model and evaluate it to &#34;real&#34; values</span>
     model <span style="color:#f92672">=</span> z<span style="color:#f92672">.</span>model()
     solution <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
     <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> flag:
         solution <span style="color:#f92672">+=</span> chr(int(model<span style="color:#f92672">.</span>evaluate(f)<span style="color:#f92672">.</span>as_long()))
-        <span style="color:#66d9ef">print</span>(solution)
+        print(solution)
 <span style="color:#66d9ef">else</span>:
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;unsolvable&#34;</span>)
+    print(<span style="color:#e6db74">&#34;unsolvable&#34;</span>)
 </code></pre></div><p>This will give as a flag :)</p>
 <h2 id="references">References<a href="#references" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ul>

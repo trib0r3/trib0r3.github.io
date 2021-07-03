@@ -24,9 +24,9 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 &lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
 {
-    int64_t iVar1;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
     undefined8 uVar2;
-    uint32_t var_8h;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32_t&lt;/span&gt; var_8h;
     undefined8 var_4h;
     
     write(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
@@ -38,10 +38,10 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
     uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
     memfrob(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
     var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
-        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (int32_t)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
-                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint8_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((int64_t)(int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
-        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (int32_t)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
+        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
+                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
+        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
     }
     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
         printf(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);

@@ -2,25 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/tags/htb/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/tags/pwn/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/posts/writeup-cosy-casino/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
+    <loc>/tags/writeups/</loc>
+    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
+  </url><url>
     <loc>/tags/linux/</loc>
     <lastmod>2021-06-14T21:32:42+02:00</lastmod>
   </url><url>
     <loc>/tags/note/</loc>
     <lastmod>2021-06-14T21:32:42+02:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2021-06-14T21:32:42+02:00</lastmod>
-  </url><url>
-    <loc>/tags/pwn/</loc>
-    <lastmod>2021-06-14T21:32:42+02:00</lastmod>
-  </url><url>
     <loc>/posts/identifying-libc/</loc>
-    <lastmod>2021-06-14T21:32:42+02:00</lastmod>
-  </url><url>
-    <loc>/</loc>
-    <lastmod>2021-06-14T21:32:42+02:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2021-06-14T21:32:42+02:00</lastmod>
   </url><url>
     <loc>/posts/scanf-and-hateful-dot/</loc>
@@ -68,9 +77,6 @@
     <loc>/posts/247ctf-the-secret-lock/</loc>
     <lastmod>2020-08-02T12:32:42+02:00</lastmod>
   </url><url>
-    <loc>/tags/writeups/</loc>
-    <lastmod>2020-08-02T12:32:42+02:00</lastmod>
-  </url><url>
     <loc>/tags/z3/</loc>
     <lastmod>2020-08-02T12:32:42+02:00</lastmod>
   </url><url>
@@ -112,9 +118,6 @@
   </url><url>
     <loc>/posts/writeup-securinets2020-warmup/</loc>
     <lastmod>2020-03-28T08:00:00+01:00</lastmod>
-  </url><url>
-    <loc>/tags/htb/</loc>
-    <lastmod>2020-03-27T19:22:09+01:00</lastmod>
   </url><url>
     <loc>/posts/writeup-htb-snake/</loc>
     <lastmod>2020-03-27T19:22:09+01:00</lastmod>
