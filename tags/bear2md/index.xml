@@ -46,13 +46,13 @@
 &lt;h3 id=&#34;move-your-bear-notes&#34;&gt;Move your bear notes&lt;/h3&gt;
 &lt;p&gt;First of all I created a concept of &amp;ldquo;main tag&amp;rdquo;, so if note have multiple tags (i.e &lt;code&gt;tag1/sub1&lt;/code&gt; and &lt;code&gt;tag2/sub2&lt;/code&gt;) we have to choose which tag is more important to us. The &lt;em&gt;main tag&lt;/em&gt; will be actually translated into directory structure in your notes directory and saved there! The rest of the tags will be added into note as YAML meta-data.&lt;/p&gt;
 &lt;p&gt;For example: you have exported &lt;em&gt;bear&lt;/em&gt; note to &lt;code&gt;$BEAR_DIR/note.md&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
 
 My note
 
 #tag1/sub1 #tag2/sub2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After exporting this note with my script and selecting &lt;code&gt;#tag1/sub1&lt;/code&gt; as main tag, the note will be saved under &lt;code&gt;$NOTES_DIR/tag1/sub1/note.md&lt;/code&gt; and it will look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
 tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 ---
 # Note
@@ -60,7 +60,7 @@ tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 My note
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;demo&#34;&gt;Demo&lt;/h4&gt;
 &lt;p&gt;Before running &lt;code&gt;export-bear2typora.py&lt;/code&gt; don&amp;rsquo;t forget setup script by editing it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
 NOTE_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Notes/&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# output dir&lt;/span&gt;
 BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;BearNotes/&amp;#34;&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;# input dir&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in &lt;code&gt;tags&lt;/code&gt; array.&lt;/p&gt;
@@ -69,12 +69,12 @@ BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style
 &lt;p&gt;This topic is actually nicely described in &lt;a href=&#34;https://github.com/trib0r3/bear2markdowntree#multi-tagging-support&#34;&gt;README&lt;/a&gt;. We can emulate multi-tags structure by symbolic links (but with some problems on Windows and in Typora) or by creating special file which I called &lt;em&gt;index&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;This file should be (re)generated with &lt;code&gt;build-tags.py&lt;/code&gt; each time you decide to put some new file in your directory list.&lt;/p&gt;
 &lt;p&gt;Here you should edit only one variable (if you have &lt;code&gt;NOTES_DIR&lt;/code&gt; relative to home directory):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
 NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/Dropbox/Notes/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME:  add path to your Notes folder (relative to $HOME)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use absoulte path change code to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Additionally if you don&amp;rsquo;t want to see some tags, you can add them here:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# WARNING: this feature is actually taking only subtag, &lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#  Ex#1: you have note with tag: &amp;#34;dev/python/code-snippets&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#    if you decide to ignore tag &amp;#34;dev&amp;#34;, then all subtags (&amp;#34;python&amp;#34;, &amp;#34;code-snippets&amp;#34;)  will be also ignored!&lt;/span&gt;

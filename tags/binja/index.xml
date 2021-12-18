@@ -51,7 +51,7 @@
 &lt;h2 id=&#34;comparision&#34;&gt;Comparision&lt;/h2&gt;
 &lt;p&gt;For detailed description of features go to corresponding chapters below.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[Bracketed]&lt;/strong&gt; character means that in my opinion specified tool is the &amp;ldquo;best&amp;rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
 |:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:|
 | BinaryNinja 2.0.2097 |  $150 |  7.0  |        +       |       +       |            +           |     +    |       +      |        +        |      [+]      |          -         |
 |     Ghidra 9.1.2     |  Free |  6.5  |        +       |       +       |           [+]          |     -    |       ~      |        +        |       +       |          +         |

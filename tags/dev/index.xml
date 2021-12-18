@@ -26,14 +26,14 @@
 &lt;p&gt;After you have account you need to download client and activate account with your API key (follow the instuctions from web service).&lt;/p&gt;
 &lt;h2 id=&#34;2-verify-that-tunnel-works&#34;&gt;2. Verify that tunnel works&lt;/h2&gt;
 &lt;p&gt;Create ngrok config file (under &lt;code&gt;~/.ngrok2/ngrok.yml&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;authtoken&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;lt;YOUR_TOKEN_HERE&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;authtoken&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;lt;YOUR_TOKEN_HERE&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;tunnels&lt;/span&gt;:
         &lt;span style=&#34;color:#f92672&#34;&gt;sshglob&lt;/span&gt;:
                 &lt;span style=&#34;color:#f92672&#34;&gt;proto&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;tcp&lt;/span&gt;
                 &lt;span style=&#34;color:#f92672&#34;&gt;addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above config setups tunnel &lt;code&gt;sshglob&lt;/code&gt; which forwards locally hosted &lt;code&gt;tcp/22&lt;/code&gt; - in this case SSH service. You should change these values according to your needs.&lt;/p&gt;
 &lt;p&gt;Now you can try to start ngrok &lt;code&gt;ngrok start sshglob&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;ngrok by @inconshreveable                                                            (Ctrl+C to quit)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;ngrok by @inconshreveable                                                            (Ctrl+C to quit)
 
 Session Status                online
 Account                       whoami (Plan: Free)
@@ -49,7 +49,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 &lt;h2 id=&#34;3-bypass-random-port-issue&#34;&gt;3. Bypass random port issue&lt;/h2&gt;
 &lt;p&gt;If you run ngrok couple of times you should notice that every time you service is running at random port, to bypass this issue you can by a premium or make some additional steps presented below.&lt;/p&gt;
 &lt;h3 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install -y python3 python3-pip curl jq
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install -y python3 python3-pip curl jq
 pip3 install telegram
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;setup-telegram-bot&#34;&gt;Setup Telegram bot&lt;/h3&gt;
 &lt;p&gt;For myself I decided to create Telegram&lt;a href=&#34;#references&#34;&gt;[2]&lt;/a&gt; bot which will send me external hostname and random IP address. Ofc you need to have created Telegram account to follow next steps.&lt;/p&gt;
@@ -57,13 +57,13 @@ pip3 install telegram
 &lt;li&gt;Start conversation with telegram &lt;a href=&#34;https://t.me/botfather&#34;&gt;Botfather&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Type commands in Botfather conversation:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/newbot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/newbot
 mysuper_bot &lt;span style=&#34;color:#75715e&#34;&gt;# replace &amp;#34;mysuper&amp;#34; with your bot name&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Copy API key and start conversation with your bot&lt;/li&gt;
 &lt;li&gt;Type something in the chat &amp;amp; run the below code:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; telegram
 
 bot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; telegram&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Bot(token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;)
@@ -72,7 +72,7 @@ print(bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getUpdates())
 &lt;li&gt;Copy &lt;code&gt;chat_id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Create script &lt;code&gt;tsend.py&lt;/code&gt;:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; telegram
 
 bot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; telegram&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Bot(token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME your api key&lt;/span&gt;
@@ -95,7 +95,7 @@ bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send_message(chat_id&
 &lt;p&gt;Below script is designed to be run from cron, thanks to this solution it will be run automatically i.e every 5 minutes:
 &lt;code&gt;*/5 * * * * path/to/monitor.sh&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# monitor.sh&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# monitor.sh&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash&lt;/span&gt;
 
 NGROK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/usr/local/bin/ngrok&amp;#39;&lt;/span&gt;
@@ -174,13 +174,13 @@ OLD_STATUS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style
 &lt;h3 id=&#34;move-your-bear-notes&#34;&gt;Move your bear notes&lt;/h3&gt;
 &lt;p&gt;First of all I created a concept of &amp;ldquo;main tag&amp;rdquo;, so if note have multiple tags (i.e &lt;code&gt;tag1/sub1&lt;/code&gt; and &lt;code&gt;tag2/sub2&lt;/code&gt;) we have to choose which tag is more important to us. The &lt;em&gt;main tag&lt;/em&gt; will be actually translated into directory structure in your notes directory and saved there! The rest of the tags will be added into note as YAML meta-data.&lt;/p&gt;
 &lt;p&gt;For example: you have exported &lt;em&gt;bear&lt;/em&gt; note to &lt;code&gt;$BEAR_DIR/note.md&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
 
 My note
 
 #tag1/sub1 #tag2/sub2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After exporting this note with my script and selecting &lt;code&gt;#tag1/sub1&lt;/code&gt; as main tag, the note will be saved under &lt;code&gt;$NOTES_DIR/tag1/sub1/note.md&lt;/code&gt; and it will look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
 tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 ---
 # Note
@@ -188,7 +188,7 @@ tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 My note
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;demo&#34;&gt;Demo&lt;/h4&gt;
 &lt;p&gt;Before running &lt;code&gt;export-bear2typora.py&lt;/code&gt; don&amp;rsquo;t forget setup script by editing it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
 NOTE_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Notes/&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# output dir&lt;/span&gt;
 BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;BearNotes/&amp;#34;&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;# input dir&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in &lt;code&gt;tags&lt;/code&gt; array.&lt;/p&gt;
@@ -197,12 +197,12 @@ BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style
 &lt;p&gt;This topic is actually nicely described in &lt;a href=&#34;https://github.com/trib0r3/bear2markdowntree#multi-tagging-support&#34;&gt;README&lt;/a&gt;. We can emulate multi-tags structure by symbolic links (but with some problems on Windows and in Typora) or by creating special file which I called &lt;em&gt;index&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;This file should be (re)generated with &lt;code&gt;build-tags.py&lt;/code&gt; each time you decide to put some new file in your directory list.&lt;/p&gt;
 &lt;p&gt;Here you should edit only one variable (if you have &lt;code&gt;NOTES_DIR&lt;/code&gt; relative to home directory):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
 NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/Dropbox/Notes/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME:  add path to your Notes folder (relative to $HOME)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use absoulte path change code to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Additionally if you don&amp;rsquo;t want to see some tags, you can add them here:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# WARNING: this feature is actually taking only subtag, &lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#  Ex#1: you have note with tag: &amp;#34;dev/python/code-snippets&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#    if you decide to ignore tag &amp;#34;dev&amp;#34;, then all subtags (&amp;#34;python&amp;#34;, &amp;#34;code-snippets&amp;#34;)  will be also ignored!&lt;/span&gt;

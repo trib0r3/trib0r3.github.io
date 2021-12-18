@@ -23,7 +23,7 @@
 &lt;p&gt;If you know where this resource is placed (you know it&amp;rsquo;s url) the easiest method is to go to &lt;a href=&#34;https://archive.org/web/&#34;&gt;Web Archive&lt;/a&gt;, type your url and select a mirror from the timeline.&lt;/p&gt;
 &lt;h3 id=&#34;google-cache&#34;&gt;Google cache&lt;/h3&gt;
 &lt;p&gt;Of course not all Internet resources are mirrored, so it may happen that web archive doesn&amp;rsquo;t have saved url interesting for you. If your resource was deleted recently you can always search for it&amp;rsquo;s search browser &lt;em&gt;cached&lt;/em&gt; version, for google you need to type in search field:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;cache:&amp;lt;url&amp;gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;cache:&amp;lt;url&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also use other search browser to achieve similar results.&lt;/p&gt;
 &lt;h3 id=&#34;hunting-for-deleted-things&#34;&gt;Hunting for deleted things&lt;/h3&gt;
 &lt;p&gt;Finally if you don&amp;rsquo;t know your resource url you can also use other search browser than google, like &lt;a href=&#34;https://duckduckgo.com/&#34;&gt;DuckDuckGo&lt;/a&gt;. It may be useful, because google is removing dead url pretty quickly (it is also intentionally hiding some websites), so it is always good to use other search browsers.&lt;/p&gt;</content>

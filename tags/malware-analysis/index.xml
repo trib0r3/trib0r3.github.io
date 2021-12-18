@@ -62,9 +62,9 @@
       <guid>/posts/disable-aslr/</guid>
       <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
       <content>&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;radare2&#34;&gt;radare2&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
 dor aslr=no
 aaa
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
@@ -77,7 +77,7 @@ aaa
 &lt;/ol&gt;
 &lt;h3 id=&#34;windows-10&#34;&gt;Windows 10&lt;/h3&gt;
 &lt;h4 id=&#34;disable-aslr-per-file&#34;&gt;Disable ASLR per file&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;disable-aslr-by-default&#34;&gt;Disable ASLR by default&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;Search in Windows for: “windows defender Security Center”&lt;/li&gt;
@@ -120,7 +120,7 @@ aaa
 &lt;/ul&gt;
 &lt;h3 id=&#34;inheritance&#34;&gt;Inheritance&lt;/h3&gt;
 &lt;p&gt;Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#a6e22e&#34;&gt;Inherited&lt;/span&gt;(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#a6e22e&#34;&gt;Inherited&lt;/span&gt;(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
 {
   Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
   &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// this was assigned in class definition, not constructor
@@ -130,7 +130,7 @@ aaa
 }
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inherited destructors contains destructors of base class:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Inherited(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Inherited(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
 
 {
   &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
@@ -139,7 +139,7 @@ aaa
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;virtuals&#34;&gt;Virtuals&lt;/h3&gt;
 &lt;p&gt;Generally we have the same behaviour like in inheritance, but additionally we have also vtables.&lt;/p&gt;
 &lt;p&gt;The structures of classess contains 1 additional field (at offset 0): &lt;code&gt;vptr&lt;/code&gt; to &lt;code&gt;vtable&lt;/code&gt; structure containing pointers to all virtual methods in this class:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vtable_class_A&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vtable_class_A&lt;/span&gt; {
   &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_1&lt;/span&gt;();
   &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_2&lt;/span&gt;();
   &lt;span style=&#34;color:#75715e&#34;&gt;// ...

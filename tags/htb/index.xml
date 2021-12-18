@@ -56,7 +56,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ python snake.py
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
 
 ___________.__               _________              __
 \__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
@@ -78,7 +78,7 @@ Wrong username try harder
 &lt;p&gt;We can see partially obfuscated variables, that are later xored with some values, let&amp;rsquo;s try to get username.&lt;/p&gt;
 &lt;h3 id=&#34;username&#34;&gt;Username&lt;/h3&gt;
 &lt;p&gt;Username is combined from random dropped variables that are of course hex-encoded letters (i.e &lt;code&gt;db = &#39;\x6e&#39;&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
 
@@ -87,11 +87,11 @@ Wrong username try harder
     exit()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
 print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; python snake.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; python snake.py
 
 ___________.__               _________              __
 \__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
@@ -111,7 +111,7 @@ PASSWORD
 Wrong password try harder
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yay, so the username is &lt;code&gt;anaconda&lt;/code&gt;, now we need to guess password.&lt;/p&gt;
 &lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
@@ -125,7 +125,7 @@ Wrong password try harder
 &lt;p&gt;We can also get all chars array (&lt;code&gt;[117, 100, 118, 118, 114, 106, 119, 97, 36, 36, 126, 114, 115, 125, 42, 115, 125, 42, 107, 42, 126, 124, 121, 118, 118]&lt;/code&gt;) and print this as string: &lt;code&gt;&amp;quot;udvvrjwa$$~rs}*s}*k*~|yvv&amp;quot;&lt;/code&gt;, but this is not our password :/&lt;/p&gt;
 &lt;p&gt;Making a step back, by ignoring loop where chars are incremented by &lt;code&gt;0xA&lt;/code&gt; we can read that chars is just a message: &lt;code&gt;&amp;quot;this is a troll&amp;quot;&lt;/code&gt;, so the real password is somewhere else.&lt;/p&gt;
 &lt;p&gt;We can also notice unused variable password: &lt;code&gt;password = [0x69, 0x74, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x65, 0x61, 0x73, 0x79]&lt;/code&gt;, but this is just another rabbit hole:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; password:
 &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
@@ -133,7 +133,7 @@ Wrong password try harder
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s
 &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;its not that easy&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With some additional prints we can notice that output and &lt;code&gt;lock = 5&lt;/code&gt; variable are the same:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
 ==&amp;gt; keys: password!!
 ==&amp;gt; auth: keep trying
 Your number is 774
@@ -141,7 +141,7 @@ Lock 5
 ==&amp;gt; chars1: udvvrjwa$$
 ==&amp;gt; chars2: udvvrjwa$$~rs}*s}*k*~|yvv
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;My simplified code which gives above result:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random 
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;print_array&lt;/span&gt;(name, chars):

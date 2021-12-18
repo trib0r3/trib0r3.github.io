@@ -69,8 +69,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/fix-broken-pe/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-04-18T12:12:00&#43;02:00" />
-<meta property="article:modified_time" content="2021-04-18T12:12:00&#43;02:00" /><meta property="og:site_name" content="REhex" />
+<meta property="article:published_time" content="2021-04-18T12:12:00+02:00" />
+<meta property="article:modified_time" content="2021-04-18T12:12:00+02:00" /><meta property="og:site_name" content="REhex" />
 
 
 
@@ -230,7 +230,7 @@
 <p><strong>Resolution</strong>: You need to replace configuration with the valid one.</p>
 <p>Some binaries are using special configuration files to load binary located in <em>Resources/Configuration Files/1.</em> To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:</p>
 <p><strong>Default configuration.xml</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
 <span style="color:#f92672">&lt;assembly</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:asm.v1&#34;</span> <span style="color:#a6e22e">manifestVersion=</span><span style="color:#e6db74">&#34;1.0&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;assemblyIdentity</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0.0.0&#34;</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;MyApplication.app&#34;</span><span style="color:#f92672">/&gt;</span>
   <span style="color:#f92672">&lt;trustInfo</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:asm.v2&#34;</span><span style="color:#f92672">&gt;</span>
@@ -263,7 +263,7 @@
 <h3 id="auto">Auto<a href="#auto" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <h4 id="with-pe_unmapper">With pe_unmapper<a href="#with-pe_unmapper" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <p><a href="https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper">Github</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># pe_unmapper.exe &lt;in_file&gt;      &lt;base&gt;  &lt;opt: out&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># pe_unmapper.exe &lt;in_file&gt;      &lt;base&gt;  &lt;opt: out&gt;</span>
 &gt; pe_unmapper.exe _02660000.mem 02660000 payload.dll
 </code></pre></div><h4 id="manual">Manual<a href="#manual" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <ol>

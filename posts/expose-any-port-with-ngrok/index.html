@@ -71,8 +71,8 @@
 <meta property="og:description" content="How to expose any port to the Internet without exposing your private IP (for free)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/expose-any-port-with-ngrok/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-01T13:53:37&#43;01:00" />
-<meta property="article:modified_time" content="2020-02-01T13:53:37&#43;01:00" /><meta property="og:site_name" content="REhex" />
+<meta property="article:published_time" content="2020-02-01T13:53:37+01:00" />
+<meta property="article:modified_time" content="2020-02-01T13:53:37+01:00" /><meta property="og:site_name" content="REhex" />
 
 
 
@@ -181,14 +181,14 @@
 <p>After you have account you need to download client and activate account with your API key (follow the instuctions from web service).</p>
 <h2 id="2-verify-that-tunnel-works">2. Verify that tunnel works<a href="#2-verify-that-tunnel-works" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Create ngrok config file (under <code>~/.ngrok2/ngrok.yml</code>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">authtoken</span>: <span style="color:#ae81ff">&lt;YOUR_TOKEN_HERE&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">authtoken</span>: <span style="color:#ae81ff">&lt;YOUR_TOKEN_HERE&gt;</span>
 <span style="color:#f92672">tunnels</span>:
         <span style="color:#f92672">sshglob</span>:
                 <span style="color:#f92672">proto</span>: <span style="color:#ae81ff">tcp</span>
                 <span style="color:#f92672">addr</span>: <span style="color:#ae81ff">22</span>
 </code></pre></div><p>Above config setups tunnel <code>sshglob</code> which forwards locally hosted <code>tcp/22</code> - in this case SSH service. You should change these values according to your needs.</p>
 <p>Now you can try to start ngrok <code>ngrok start sshglob</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ngrok by @inconshreveable                                                            (Ctrl+C to quit)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ngrok by @inconshreveable                                                            (Ctrl+C to quit)
 
 Session Status                online
 Account                       whoami (Plan: Free)
@@ -204,7 +204,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 <h2 id="3-bypass-random-port-issue">3. Bypass random port issue<a href="#3-bypass-random-port-issue" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>If you run ngrok couple of times you should notice that every time you service is running at random port, to bypass this issue you can by a premium or make some additional steps presented below.</p>
 <h3 id="install-dependencies">Install dependencies<a href="#install-dependencies" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install -y python3 python3-pip curl jq
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install -y python3 python3-pip curl jq
 pip3 install telegram
 </code></pre></div><h3 id="setup-telegram-bot">Setup Telegram bot<a href="#setup-telegram-bot" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>For myself I decided to create Telegram<a href="#references">[2]</a> bot which will send me external hostname and random IP address. Ofc you need to have created Telegram account to follow next steps.</p>
@@ -212,13 +212,13 @@ pip3 install telegram
 <li>Start conversation with telegram <a href="https://t.me/botfather">Botfather</a>.</li>
 <li>Type commands in Botfather conversation:</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/newbot
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/newbot
 mysuper_bot <span style="color:#75715e"># replace &#34;mysuper&#34; with your bot name</span>
 </code></pre></div><ol start="3">
 <li>Copy API key and start conversation with your bot</li>
 <li>Type something in the chat &amp; run the below code:</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
 <span style="color:#f92672">import</span> telegram
 
 bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;YOUR_API_KEY&#34;</span>)
@@ -227,7 +227,7 @@ print(bot<span style="color:#f92672">.</span>getUpdates())
 <li>Copy <code>chat_id</code></li>
 <li>Create script <code>tsend.py</code>:</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
 <span style="color:#f92672">import</span> telegram
 
 bot <span style="color:#f92672">=</span> telegram<span style="color:#f92672">.</span>Bot(token<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;YOUR_API_KEY&#34;</span>) <span style="color:#75715e"># FIXME your api key</span>
@@ -250,7 +250,7 @@ bot<span style="color:#f92672">.</span>send_message(chat_id<span style="color:#f
 <p>Below script is designed to be run from cron, thanks to this solution it will be run automatically i.e every 5 minutes:
 <code>*/5 * * * * path/to/monitor.sh</code></p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># monitor.sh</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># monitor.sh</span>
 <span style="color:#75715e">#!/bin/bash</span>
 
 NGROK<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/ngrok&#39;</span>

@@ -71,8 +71,8 @@
 <meta property="og:description" content="How to bypass the stack canary with . (dot) and scanf." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/scanf-and-hateful-dot/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-10T15:32:42&#43;02:00" />
-<meta property="article:modified_time" content="2021-06-10T15:32:42&#43;02:00" /><meta property="og:site_name" content="REhex" />
+<meta property="article:published_time" content="2021-06-10T15:32:42+02:00" />
+<meta property="article:modified_time" content="2021-06-10T15:32:42+02:00" /><meta property="og:site_name" content="REhex" />
 
 
 
@@ -177,7 +177,7 @@
         <p>How to bypass the stack canary with <code>.</code> (dot) and <code>scanf</code>.</p>
 <h2 id="scenario">Scenario<a href="#scenario" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Imagine that you have given binary implemented by following code (compiled with default settings):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sum</span>() {
     <span style="color:#66d9ef">double</span> buffer[<span style="color:#ae81ff">20</span>];
@@ -204,7 +204,7 @@
 <li>overwriting stack canary will cause exception</li>
 <li>we can&rsquo;t brute-force the stack cookie (program is not giving us such possibility)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> <span style="color:#a6e22e">sum</span>(<span style="color:#66d9ef">void</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> <span style="color:#a6e22e">sum</span>(<span style="color:#66d9ef">void</span>)
 {
   <span style="color:#66d9ef">int</span> v1; <span style="color:#75715e">// [rsp+10h] [rbp-C0h] BYREF
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+14h] [rbp-BCh]
@@ -228,7 +228,7 @@
 }
 </code></pre></div><h2 id="game-over-not-exactly-">Game Over? Not exactly ;)<a href="#game-over-not-exactly-" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Notice that user input is collected with <code>scanf(&quot;%lf&quot;, &amp;buffer[i])</code> and here is the trick: you can pass <code>.</code> (dot) as input, which will <em>skip</em> overwriting the data in referenced variable:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Number[20]: .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Number[20]: .
 Number[21]: .
 Your sum: -92773155265697924505313227519998636757689855298695787655081074157174089977436344947792687303154543628009248831613884078618796617025716224.000000
 [Inferior 1 (process 29710) exited normally]
@@ -236,7 +236,7 @@ Your sum: -927731552656979245053132275199986367576898552986957876550810741571740
 <h3 id="what">What<a href="#what" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>First question which comes to mind after seeing this trick is <em>Why it happens</em> - I will try to answer to this question in the next section - and <em>Is it working only for doubles?</em>.</p>
 <p>I created a very simple test program which will help us understand the scope of this trick without reading the source:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
         <span style="color:#66d9ef">double</span> foo <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.7</span>;
         scanf(<span style="color:#e6db74">&#34;%lf&#34;</span>, <span style="color:#f92672">&amp;</span>foo);

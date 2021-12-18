@@ -72,8 +72,8 @@
  Once upon a time I was using Bear.app for writing and organizing notes. It had really good features like multi-tagging and couple of other nice features like pseudo markdown support. Unfortunatelly a lot of things were bugged, developers slow in fixing them so I decided to move my notes from Bear to other platform." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/keep-your-md-notes-organized/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-01-18T09:00:00&#43;01:00" />
-<meta property="article:modified_time" content="2020-01-18T09:00:00&#43;01:00" /><meta property="og:site_name" content="REhex" />
+<meta property="article:published_time" content="2020-01-18T09:00:00+01:00" />
+<meta property="article:modified_time" content="2020-01-18T09:00:00+01:00" /><meta property="og:site_name" content="REhex" />
 
 
 
@@ -226,13 +226,13 @@
 <h3 id="move-your-bear-notes">Move your bear notes<a href="#move-your-bear-notes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>First of all I created a concept of &ldquo;main tag&rdquo;, so if note have multiple tags (i.e <code>tag1/sub1</code> and <code>tag2/sub2</code>) we have to choose which tag is more important to us. The <em>main tag</em> will be actually translated into directory structure in your notes directory and saved there! The rest of the tags will be added into note as YAML meta-data.</p>
 <p>For example: you have exported <em>bear</em> note to <code>$BEAR_DIR/note.md</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"># Note
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"># Note
 
 My note
 
 #tag1/sub1 #tag2/sub2
 </code></pre></div><p>After exporting this note with my script and selecting <code>#tag1/sub1</code> as main tag, the note will be saved under <code>$NOTES_DIR/tag1/sub1/note.md</code> and it will look like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
 tags: [&#34;tag1/sub1&#34;, &#34;tag2/sub2&#34;]
 ---
 # Note
@@ -240,7 +240,7 @@ tags: [&#34;tag1/sub1&#34;, &#34;tag2/sub2&#34;]
 My note
 </code></pre></div><h4 id="demo">Demo<a href="#demo" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <p>Before running <code>export-bear2typora.py</code> don&rsquo;t forget setup script by editing it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># config dirs</span>
 NOTE_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Notes/&#34;</span>         <span style="color:#75715e"># output dir</span>
 BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BearNotes/&#34;</span>     <span style="color:#75715e"># input dir</span>
 </code></pre></div><p>Paths are relative to script path, during script execution you can be prompted for tag selection. During this you can also jump into python interactive session and fix tag name if something was wrongly matched (minimum knowledge of python is required) - tags are kept in <code>tags</code> array.</p>
@@ -249,12 +249,12 @@ BEAR_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;B
 <p>This topic is actually nicely described in <a href="https://github.com/trib0r3/bear2markdowntree#multi-tagging-support">README</a>. We can emulate multi-tags structure by symbolic links (but with some problems on Windows and in Typora) or by creating special file which I called <em>index</em>.</p>
 <p>This file should be (re)generated with <code>build-tags.py</code> each time you decide to put some new file in your directory list.</p>
 <p>Here you should edit only one variable (if you have <code>NOTES_DIR</code> relative to home directory):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">HOME_USER <span style="color:#f92672">=</span> str(Path<span style="color:#f92672">.</span>home())
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">HOME_USER <span style="color:#f92672">=</span> str(Path<span style="color:#f92672">.</span>home())
 NOTES_DIR <span style="color:#f92672">=</span> HOME_USER <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/Dropbox/Notes/&#34;</span> <span style="color:#75715e"># FIXME:  add path to your Notes folder (relative to $HOME)</span>
 </code></pre></div><p>If you want to use absoulte path change code to:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/root/home/notes/&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">NOTES_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/root/home/notes/&#34;</span>
 </code></pre></div><p>Additionally if you don&rsquo;t want to see some tags, you can add them here:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># If you want ignore some tags in the final listing add them to this list</span>
 <span style="color:#75715e"># WARNING: this feature is actually taking only subtag, </span>
 <span style="color:#75715e">#  Ex#1: you have note with tag: &#34;dev/python/code-snippets&#34;</span>
 <span style="color:#75715e">#    if you decide to ignore tag &#34;dev&#34;, then all subtags (&#34;python&#34;, &#34;code-snippets&#34;)  will be also ignored!</span>
