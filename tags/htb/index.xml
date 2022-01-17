@@ -1,201 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>htb on REhex</title>
-    <link>/tags/htb/</link>
-    <description>Recent content in htb on REhex</description>
+    <title>htb on reHex Ninja</title>
+    <link>https://rehex.ninja/tags/htb/</link>
+    <description>Recent content in htb on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="/tags/htb/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/htb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup - Cosy Casino</title>
-      <link>/posts/writeup-cosy-casino/</link>
+      <link>https://rehex.ninja/posts/writeup-cosy-casino/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
       
-      <guid>/posts/writeup-cosy-casino/</guid>
+      <guid>https://rehex.ninja/posts/writeup-cosy-casino/</guid>
       <description></description>
-      <content>&lt;blockquote&gt;
-&lt;p&gt;Welcome to Cosy Casino. Try your luck to win a bunch of 💎 and become a millionaire! Be careful not to be addicted though.. Rules: No smoking, no guns and no pets are allowed inside the Casino, especially canaries..&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;general-hints&#34;&gt;General Hints&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Gallopsled/pwntools&#34;&gt;pwntools&lt;/a&gt; lib is your friend&lt;/li&gt;
-&lt;li&gt;copy-pasted code tends to be vulnerable if pasted incorrectly ;)&lt;/li&gt;
-&lt;li&gt;check where stack variables of threat functions are located&lt;/li&gt;
-&lt;li&gt;remember that you can always patch the local binary to make your life easier&lt;/li&gt;
-&lt;li&gt;sometimes the only way to bypass the canary is to forge own canary&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;writeup&#34;&gt;Writeup&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This task is still live, so the writeup is available only in &lt;a href=&#34;https://link-to-cyberchef&#34;&gt;encrypted form&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Use flag from challenge to read the writeup, public version of writeup will be released after this task will be retired.&lt;/p&gt;
-&lt;/blockquote&gt;</content>
     </item>
     
     <item>
       <title>Writeup - HTB Snake</title>
-      <link>/posts/writeup-htb-snake/</link>
+      <link>https://rehex.ninja/posts/writeup-htb-snake/</link>
       <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
       
-      <guid>/posts/writeup-htb-snake/</guid>
+      <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
       <description>[re] Snake (10) Description Short info about task:
  Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
  Overview We have got the python script that is waiting for some username and password:
 $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
-      <content>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
-&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
-&lt;p&gt;Short info about task:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
-
-___________.__               _________              __
-\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
- |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
- |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
- |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
-               \/     \/          \/     \/     \/     \/    \/
-
-
-The Snake Created by 3XPL017
-Your number is 809
-Authentication required
-
-Enter your username
-QWE
-Wrong username try harder
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;
-&lt;h2 id=&#34;bypass-code&#34;&gt;Bypass code&lt;/h2&gt;
-&lt;p&gt;We can see partially obfuscated variables, that are later xored with some values, let&amp;rsquo;s try to get username.&lt;/p&gt;
-&lt;h3 id=&#34;username&#34;&gt;Username&lt;/h3&gt;
-&lt;p&gt;Username is combined from random dropped variables that are of course hex-encoded letters (i.e &lt;code&gt;db = &#39;\x6e&#39;&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong username try harder&amp;#39;&lt;/span&gt;
-    exit()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; python snake.py
-
-___________.__               _________              __
-\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
-  |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
-  |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
-  |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
-                \/     \/          \/     \/     \/     \/    \/
-
-
-The Snake Created by 3XPL017
-Your number is 351
-Authentication required
-
-====&amp;gt; Username: anaconda
-Enter your password
-PASSWORD
-Wrong password try harder
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yay, so the username is &lt;code&gt;anaconda&lt;/code&gt;, now we need to guess password.&lt;/p&gt;
-&lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
-            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This part is much harder, because every input which starts with &lt;code&gt;&#39;u&#39;&lt;/code&gt; is accepted (we can realize it by checking runtime to which letter input is compared). This is probably &amp;ldquo;programming mistake&amp;rdquo;, now we should guess what author wanted to achieve - what kind of verification.&lt;/p&gt;
-&lt;p&gt;We can also get all chars array (&lt;code&gt;[117, 100, 118, 118, 114, 106, 119, 97, 36, 36, 126, 114, 115, 125, 42, 115, 125, 42, 107, 42, 126, 124, 121, 118, 118]&lt;/code&gt;) and print this as string: &lt;code&gt;&amp;quot;udvvrjwa$$~rs}*s}*k*~|yvv&amp;quot;&lt;/code&gt;, but this is not our password :/&lt;/p&gt;
-&lt;p&gt;Making a step back, by ignoring loop where chars are incremented by &lt;code&gt;0xA&lt;/code&gt; we can read that chars is just a message: &lt;code&gt;&amp;quot;this is a troll&amp;quot;&lt;/code&gt;, so the real password is somewhere else.&lt;/p&gt;
-&lt;p&gt;We can also notice unused variable password: &lt;code&gt;password = [0x69, 0x74, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x65, 0x61, 0x73, 0x79]&lt;/code&gt;, but this is just another rabbit hole:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; password:
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s
-&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;its not that easy&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With some additional prints we can notice that output and &lt;code&gt;lock = 5&lt;/code&gt; variable are the same:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
-==&amp;gt; keys: password!!
-==&amp;gt; auth: keep trying
-Your number is 774
-Lock 5
-==&amp;gt; chars1: udvvrjwa$$
-==&amp;gt; chars2: udvvrjwa$$~rs}*s}*k*~|yvv
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;My simplified code which gives above result:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random 
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;print_array&lt;/span&gt;(name, chars):
-    r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        r &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
-    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;==&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(name, r)
-
-chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;]
-keys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x64&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;]
-auth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x6b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x67&lt;/span&gt;]
-
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chains&amp;#34;&lt;/span&gt;, chains)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;keys&amp;#34;&lt;/span&gt;, keys)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;, auth)
-
-chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3e8&lt;/span&gt;)
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; lock_pick
-
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Your number is &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock_pick)
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Lock &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; keys:
-    keys_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; key
-    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(keys_encrypt)
-
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars1&amp;#34;&lt;/span&gt;, chars)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chains:
-    chains_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xA&lt;/span&gt;
-    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(chains_encrypt)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars2&amp;#34;&lt;/span&gt;, chars)
-
-
-pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
-    print chars
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
-            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After we delete &amp;lsquo;troll-part&amp;rsquo; of password we can check the flag : &lt;code&gt;HTB{anaconda:udvvrjwa$$}&lt;/code&gt; we will get a success.&lt;/p&gt;
-&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
-&lt;p&gt;After we will make some understanding of all strings, variables and code we can get the flag, but to be clear: this is more like &lt;em&gt;try every possible flag&lt;/em&gt; challenge, than challenge which will allow you to learn something.&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s just internet troll - but not very funny.&lt;/p&gt;
-</content>
     </item>
     
   </channel>

@@ -1,373 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>writeups on REhex</title>
-    <link>/tags/writeups/</link>
-    <description>Recent content in writeups on REhex</description>
+    <title>writeups on reHex Ninja</title>
+    <link>https://rehex.ninja/tags/writeups/</link>
+    <description>Recent content in writeups on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="/tags/writeups/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/writeups/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup - Cosy Casino</title>
-      <link>/posts/writeup-cosy-casino/</link>
+      <link>https://rehex.ninja/posts/writeup-cosy-casino/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
       
-      <guid>/posts/writeup-cosy-casino/</guid>
+      <guid>https://rehex.ninja/posts/writeup-cosy-casino/</guid>
       <description></description>
-      <content>&lt;blockquote&gt;
-&lt;p&gt;Welcome to Cosy Casino. Try your luck to win a bunch of 💎 and become a millionaire! Be careful not to be addicted though.. Rules: No smoking, no guns and no pets are allowed inside the Casino, especially canaries..&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;general-hints&#34;&gt;General Hints&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Gallopsled/pwntools&#34;&gt;pwntools&lt;/a&gt; lib is your friend&lt;/li&gt;
-&lt;li&gt;copy-pasted code tends to be vulnerable if pasted incorrectly ;)&lt;/li&gt;
-&lt;li&gt;check where stack variables of threat functions are located&lt;/li&gt;
-&lt;li&gt;remember that you can always patch the local binary to make your life easier&lt;/li&gt;
-&lt;li&gt;sometimes the only way to bypass the canary is to forge own canary&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;writeup&#34;&gt;Writeup&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This task is still live, so the writeup is available only in &lt;a href=&#34;https://link-to-cyberchef&#34;&gt;encrypted form&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Use flag from challenge to read the writeup, public version of writeup will be released after this task will be retired.&lt;/p&gt;
-&lt;/blockquote&gt;</content>
     </item>
     
     <item>
       <title>247CTF - The Secret Lock Writeup</title>
-      <link>/posts/247ctf-the-secret-lock/</link>
+      <link>https://rehex.ninja/posts/247ctf-the-secret-lock/</link>
       <pubDate>Sun, 02 Aug 2020 12:32:42 +0200</pubDate>
       
-      <guid>/posts/247ctf-the-secret-lock/</guid>
+      <guid>https://rehex.ninja/posts/247ctf-the-secret-lock/</guid>
       <description></description>
-      <content>&lt;h2 id=&#34;about-247ctf1&#34;&gt;About &lt;a href=&#34;https://247ctf.com/&#34;&gt;247CTF&lt;/a&gt;&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The 247/CTF is a security Capture The Flag (CTF) learning environment. The platform contains a number of hacking challenges where you can test your skills across web, cryptography, networking, reversing and exploitation by solving problems to recover flags.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Or generally saying it is the platform which hosts CTF challs for whole year :)&lt;/p&gt;
-&lt;h2 id=&#34;task---the-secret-lock&#34;&gt;Task - The Secret Lock&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Can you reverse the secret combination to open the lock and recover the flag?&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The single HTML page is given with digital lock:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;it have 40 fields&lt;/li&gt;
-&lt;li&gt;each field have 501 available values (0-500)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;/img/.247ctf-the-secret-lock.assets/secret-lock.png&#34; alt=&#34;Lock&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
-&lt;p&gt;By looking into the code we can quickly identify the code section, because it is written in plain-text in the single &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; block. Below you can see the main unlocking logic:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;onChange&lt;/span&gt;() {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;();
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;checkFlag&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;);
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;textContent&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;() {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {};
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;len&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rows&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;len&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rows&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;querySelector&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.is-selected .text&amp;#39;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;textContent&lt;/span&gt;;
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#a6e22e&#34;&gt;checkFlag&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;){
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;LOCKED&amp;#34;&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;classList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;verified&amp;#39;&lt;/span&gt;);
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Object.&lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;/* stripped for readibillity */&lt;/span&gt;)) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;idx&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;) {
-        &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; (String.&lt;span style=&#34;color:#a6e22e&#34;&gt;fromCharCode&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;idx&lt;/span&gt;]));
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;dom&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;classList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;verified&amp;#39;&lt;/span&gt;);
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is the unlocking summary:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;On each digit change the &lt;code&gt;onChange()&lt;/code&gt; function is called.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;getCode()&lt;/code&gt; is run, it returns the integer value.&lt;/li&gt;
-&lt;li&gt;Code is checked in &lt;code&gt;checkFlag()&lt;/code&gt; which runs a lot of algebraic expressions (120 to be precise). I stripped them to improve the readibillity.&lt;/li&gt;
-&lt;li&gt;If all checks are passed, then each value is treated as ascii character and it&amp;rsquo;s passed to &lt;em&gt;result&lt;/em&gt; value.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Like I mentioned before - we have big block of conditions which needs to be met, you can find short snippet below (I used visual-code to quickly get rid of &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; operators and put each expression in new line).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;234&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2332&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;114&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;38&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;33&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;800&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;34&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;98&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;38&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;248&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;18&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2694&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;19&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;9813&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;34&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;72&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4950&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5143&lt;/span&gt;) 
-((&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;flag&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2759&lt;/span&gt;) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can notice a lot of expressions -&amp;gt; &lt;del&gt;we can&amp;rsquo;t&lt;/del&gt; don&amp;rsquo;t want to solve it manually - we need to write a script.&lt;/p&gt;
-&lt;p&gt;Expressions are utilizing different operations, so we can&amp;rsquo;t simply parse them in python, it is better to use some specialized tool like &lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;z3-solver&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; z3 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Solver()
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# We are creating the bit represenation of int32, 40 = len(FLAG)&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# I&amp;#39;m using vectors not ints, because ints are not supporting XOR&lt;/span&gt;
-flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [BitVec(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{:02}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i), &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;)]
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
-    z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;, i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;)
-    &lt;span style=&#34;color:#75715e&#34;&gt;# z.add(i &amp;gt; 30, i &amp;lt; 127) potential optimization&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# copy-paste the conditions&lt;/span&gt;
-z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;37&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) 
-z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; (flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;234&lt;/span&gt;) 
-&lt;span style=&#34;color:#75715e&#34;&gt;### ---[Stripped conditions]---&lt;/span&gt;
-z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add((flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; flag[&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;)
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Check if  z3 can solve the problem&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;check() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sat&amp;#34;&lt;/span&gt;:
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;z3 can solve it&amp;#34;&lt;/span&gt;)
-
-    &lt;span style=&#34;color:#75715e&#34;&gt;# now we can create the model and evaluate it to &amp;#34;real&amp;#34; values&lt;/span&gt;
-    model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; z&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;model()
-    solution &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; flag:
-        solution &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(int(model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluate(f)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;as_long()))
-        print(solution)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsolvable&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will give as a flag :)&lt;/p&gt;
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://247ctf.com/&#34;&gt;247CTF&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;z3-solver&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Boolean_satisfiability_problem&#34;&gt;SAT problem&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
     </item>
     
     <item>
       <title>Writeup - Securinets2020 Warmup</title>
-      <link>/posts/writeup-securinets2020-warmup/</link>
+      <link>https://rehex.ninja/posts/writeup-securinets2020-warmup/</link>
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
       
-      <guid>/posts/writeup-securinets2020-warmup/</guid>
+      <guid>https://rehex.ninja/posts/writeup-securinets2020-warmup/</guid>
       <description>Warmup  Warmup : Welcome to securinets CTF
  In this task we are dealing with very simple function main:
 undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
-      <content>&lt;h1 id=&#34;warmup&#34;&gt;Warmup&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Warmup : Welcome to securinets CTF&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
-{
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
-    undefined8 uVar2;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32_t&lt;/span&gt; var_8h;
-    undefined8 var_4h;
-    
-    write(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
-    read(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x31&lt;/span&gt;);
-    iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
-    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(undefined &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)(iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20107f&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-    var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-    strcpy(rsi, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
-    uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; strlen(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
-    memfrob(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
-    var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
-        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
-                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
-        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
-        printf(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);
-    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
-        puts(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9d5&lt;/span&gt;);
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this function the &lt;code&gt;memfrob&lt;/code&gt; is used, from manual you can learn that this function is xoring buffer with key &lt;code&gt;42&lt;/code&gt;, solution:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [  &lt;span style=&#34;color:#ae81ff&#34;&gt;0x46&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x59&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5d&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x58&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;,
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5a&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x75&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x48&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x53&lt;/span&gt;]
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; a:
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   r&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(b&lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;)
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; r
-[&lt;span style=&#34;color:#ae81ff&#34;&gt;108&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;51&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;116&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;115&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;119&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;52&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;114&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;109&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;49&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;116&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;117&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;112&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;95&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;98&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;111&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;121&lt;/span&gt;]
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([chr(c) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; r])
-&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;l3t&amp;#39;s_w4rm_1t_up_boy&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And execution:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;Welcome to SECURINETS CTF
-l3t&amp;#39;s_w4rm_1t_up_boy
-Good job
-You can submit with securinets{l3t&amp;#39;s_w4rm_1t_up_boy}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
       <title>Writeup - HTB Snake</title>
-      <link>/posts/writeup-htb-snake/</link>
+      <link>https://rehex.ninja/posts/writeup-htb-snake/</link>
       <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
       
-      <guid>/posts/writeup-htb-snake/</guid>
+      <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
       <description>[re] Snake (10) Description Short info about task:
  Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
  Overview We have got the python script that is waiting for some username and password:
 $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
-      <content>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
-&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
-&lt;p&gt;Short info about task:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
-
-___________.__               _________              __
-\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
- |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
- |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
- |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
-               \/     \/          \/     \/     \/     \/    \/
-
-
-The Snake Created by 3XPL017
-Your number is 809
-Authentication required
-
-Enter your username
-QWE
-Wrong username try harder
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;
-&lt;h2 id=&#34;bypass-code&#34;&gt;Bypass code&lt;/h2&gt;
-&lt;p&gt;We can see partially obfuscated variables, that are later xored with some values, let&amp;rsquo;s try to get username.&lt;/p&gt;
-&lt;h3 id=&#34;username&#34;&gt;Username&lt;/h3&gt;
-&lt;p&gt;Username is combined from random dropped variables that are of course hex-encoded letters (i.e &lt;code&gt;db = &#39;\x6e&#39;&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your username&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong username try harder&amp;#39;&lt;/span&gt;
-    exit()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get correct username we should know the slither value, we can easly get it by printing before verification check.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve decided to &amp;lsquo;patch&amp;rsquo; above code into:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;user_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slither
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;====&amp;gt; Username: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(user_input)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user_input &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; slither:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; python snake.py
-
-___________.__               _________              __
-\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
-  |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
-  |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
-  |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
-                \/     \/          \/     \/     \/     \/    \/
-
-
-The Snake Created by 3XPL017
-Your number is 351
-Authentication required
-
-====&amp;gt; Username: anaconda
-Enter your password
-PASSWORD
-Wrong password try harder
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yay, so the username is &lt;code&gt;anaconda&lt;/code&gt;, now we need to guess password.&lt;/p&gt;
-&lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
-            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This part is much harder, because every input which starts with &lt;code&gt;&#39;u&#39;&lt;/code&gt; is accepted (we can realize it by checking runtime to which letter input is compared). This is probably &amp;ldquo;programming mistake&amp;rdquo;, now we should guess what author wanted to achieve - what kind of verification.&lt;/p&gt;
-&lt;p&gt;We can also get all chars array (&lt;code&gt;[117, 100, 118, 118, 114, 106, 119, 97, 36, 36, 126, 114, 115, 125, 42, 115, 125, 42, 107, 42, 126, 124, 121, 118, 118]&lt;/code&gt;) and print this as string: &lt;code&gt;&amp;quot;udvvrjwa$$~rs}*s}*k*~|yvv&amp;quot;&lt;/code&gt;, but this is not our password :/&lt;/p&gt;
-&lt;p&gt;Making a step back, by ignoring loop where chars are incremented by &lt;code&gt;0xA&lt;/code&gt; we can read that chars is just a message: &lt;code&gt;&amp;quot;this is a troll&amp;quot;&lt;/code&gt;, so the real password is somewhere else.&lt;/p&gt;
-&lt;p&gt;We can also notice unused variable password: &lt;code&gt;password = [0x69, 0x74, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x65, 0x61, 0x73, 0x79]&lt;/code&gt;, but this is just another rabbit hole:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;]
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; password:
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;   s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
-&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; s
-&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;its not that easy&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With some additional prints we can notice that output and &lt;code&gt;lock = 5&lt;/code&gt; variable are the same:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;==&amp;gt; chains: this is a troll
-==&amp;gt; keys: password!!
-==&amp;gt; auth: keep trying
-Your number is 774
-Lock 5
-==&amp;gt; chars1: udvvrjwa$$
-==&amp;gt; chars2: udvvrjwa$$~rs}*s}*k*~|yvv
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;My simplified code which gives above result:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/python2.7&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random 
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;print_array&lt;/span&gt;(name, chars):
-    r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        r &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; chr(c)
-    print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;==&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(name, r)
-
-chains &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x68&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt;]
-keys &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x61&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x73&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6f&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x64&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;]
-auth &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x6b&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x74&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x79&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6e&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x67&lt;/span&gt;]
-
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chains&amp;#34;&lt;/span&gt;, chains)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;keys&amp;#34;&lt;/span&gt;, keys)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;, auth)
-
-chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3e8&lt;/span&gt;)
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock_pick &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; lock_pick
-
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Your number is &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock_pick)
-print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Lock &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(lock)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; keys:
-    keys_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lock &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; key
-    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(keys_encrypt)
-
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars1&amp;#34;&lt;/span&gt;, chars)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chains:
-    chains_encrypt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chain &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xA&lt;/span&gt;
-    chars&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(chains_encrypt)
-print_array(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chars2&amp;#34;&lt;/span&gt;, chars)
-
-
-pass_input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; raw_input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Enter your password&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; pass_input:
-    print chars
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; char &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; chars:
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; passes &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; str(chr(char)):
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Good Job&amp;#39;&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Wrong password try harder&amp;#39;&lt;/span&gt;
-            exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After we delete &amp;lsquo;troll-part&amp;rsquo; of password we can check the flag : &lt;code&gt;HTB{anaconda:udvvrjwa$$}&lt;/code&gt; we will get a success.&lt;/p&gt;
-&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
-&lt;p&gt;After we will make some understanding of all strings, variables and code we can get the flag, but to be clear: this is more like &lt;em&gt;try every possible flag&lt;/em&gt; challenge, than challenge which will allow you to learn something.&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s just internet troll - but not very funny.&lt;/p&gt;
-</content>
     </item>
     
   </channel>

@@ -1,291 +1,261 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on REhex</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on REhex</description>
+    <title>Tags on reHex Ninja</title>
+    <link>https://rehex.ninja/tags/</link>
+    <description>Recent content in Tags on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>htb</title>
-      <link>/tags/htb/</link>
+      <link>https://rehex.ninja/tags/htb/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
       
-      <guid>/tags/htb/</guid>
+      <guid>https://rehex.ninja/tags/htb/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>pwn</title>
-      <link>/tags/pwn/</link>
+      <link>https://rehex.ninja/tags/pwn/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
       
-      <guid>/tags/pwn/</guid>
+      <guid>https://rehex.ninja/tags/pwn/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>writeups</title>
-      <link>/tags/writeups/</link>
+      <link>https://rehex.ninja/tags/writeups/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
       
-      <guid>/tags/writeups/</guid>
+      <guid>https://rehex.ninja/tags/writeups/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>linux</title>
-      <link>/tags/linux/</link>
+      <link>https://rehex.ninja/tags/linux/</link>
       <pubDate>Mon, 14 Jun 2021 21:32:42 +0200</pubDate>
       
-      <guid>/tags/linux/</guid>
+      <guid>https://rehex.ninja/tags/linux/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>note</title>
-      <link>/tags/note/</link>
+      <link>https://rehex.ninja/tags/note/</link>
       <pubDate>Mon, 14 Jun 2021 21:32:42 +0200</pubDate>
       
-      <guid>/tags/note/</guid>
+      <guid>https://rehex.ninja/tags/note/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>pwntools</title>
-      <link>/tags/pwntools/</link>
+      <link>https://rehex.ninja/tags/pwntools/</link>
       <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
       
-      <guid>/tags/pwntools/</guid>
+      <guid>https://rehex.ninja/tags/pwntools/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>tools</title>
-      <link>/tags/tools/</link>
+      <link>https://rehex.ninja/tags/tools/</link>
       <pubDate>Mon, 10 May 2021 17:12:00 +0200</pubDate>
       
-      <guid>/tags/tools/</guid>
+      <guid>https://rehex.ninja/tags/tools/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>cheatsheet</title>
-      <link>/tags/cheatsheet/</link>
+      <link>https://rehex.ninja/tags/cheatsheet/</link>
       <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
       
-      <guid>/tags/cheatsheet/</guid>
+      <guid>https://rehex.ninja/tags/cheatsheet/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>radare2</title>
-      <link>/tags/radare2/</link>
+      <link>https://rehex.ninja/tags/radare2/</link>
       <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
       
-      <guid>/tags/radare2/</guid>
+      <guid>https://rehex.ninja/tags/radare2/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>rizin</title>
-      <link>/tags/rizin/</link>
+      <link>https://rehex.ninja/tags/rizin/</link>
       <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
       
-      <guid>/tags/rizin/</guid>
+      <guid>https://rehex.ninja/tags/rizin/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>pe</title>
-      <link>/tags/pe/</link>
+      <link>https://rehex.ninja/tags/pe/</link>
       <pubDate>Sun, 18 Apr 2021 12:12:00 +0200</pubDate>
       
-      <guid>/tags/pe/</guid>
+      <guid>https://rehex.ninja/tags/pe/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>re</title>
-      <link>/tags/re/</link>
+      <link>https://rehex.ninja/tags/re/</link>
       <pubDate>Sun, 18 Apr 2021 12:12:00 +0200</pubDate>
       
-      <guid>/tags/re/</guid>
+      <guid>https://rehex.ninja/tags/re/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>binja</title>
-      <link>/tags/binja/</link>
+      <link>https://rehex.ninja/tags/binja/</link>
       <pubDate>Thu, 17 Dec 2020 19:04:08 +0200</pubDate>
       
-      <guid>/tags/binja/</guid>
+      <guid>https://rehex.ninja/tags/binja/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>z3</title>
-      <link>/tags/z3/</link>
+      <link>https://rehex.ninja/tags/z3/</link>
       <pubDate>Sun, 02 Aug 2020 12:32:42 +0200</pubDate>
       
-      <guid>/tags/z3/</guid>
+      <guid>https://rehex.ninja/tags/z3/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>frida</title>
-      <link>/tags/frida/</link>
+      <link>https://rehex.ninja/tags/frida/</link>
       <pubDate>Sun, 26 Jul 2020 15:31:42 +0200</pubDate>
       
-      <guid>/tags/frida/</guid>
+      <guid>https://rehex.ninja/tags/frida/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>frida-playground</title>
-      <link>/tags/frida-playground/</link>
+      <link>https://rehex.ninja/tags/frida-playground/</link>
       <pubDate>Sun, 26 Jul 2020 15:31:42 +0200</pubDate>
       
-      <guid>/tags/frida-playground/</guid>
+      <guid>https://rehex.ninja/tags/frida-playground/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>google-hacking</title>
-      <link>/tags/google-hacking/</link>
+      <link>https://rehex.ninja/tags/google-hacking/</link>
       <pubDate>Sun, 14 Jun 2020 09:42:17 +0200</pubDate>
       
-      <guid>/tags/google-hacking/</guid>
+      <guid>https://rehex.ninja/tags/google-hacking/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>binary-instrumentation</title>
-      <link>/tags/binary-instrumentation/</link>
+      <link>https://rehex.ninja/tags/binary-instrumentation/</link>
       <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
       
-      <guid>/tags/binary-instrumentation/</guid>
+      <guid>https://rehex.ninja/tags/binary-instrumentation/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>ghidra</title>
-      <link>/tags/ghidra/</link>
+      <link>https://rehex.ninja/tags/ghidra/</link>
       <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
       
-      <guid>/tags/ghidra/</guid>
+      <guid>https://rehex.ninja/tags/ghidra/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>ida</title>
-      <link>/tags/ida/</link>
+      <link>https://rehex.ninja/tags/ida/</link>
       <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
       
-      <guid>/tags/ida/</guid>
+      <guid>https://rehex.ninja/tags/ida/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>ctf</title>
-      <link>/tags/ctf/</link>
+      <link>https://rehex.ninja/tags/ctf/</link>
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
       
-      <guid>/tags/ctf/</guid>
+      <guid>https://rehex.ninja/tags/ctf/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>dev</title>
-      <link>/tags/dev/</link>
+      <link>https://rehex.ninja/tags/dev/</link>
       <pubDate>Sat, 01 Feb 2020 13:53:37 +0100</pubDate>
       
-      <guid>/tags/dev/</guid>
+      <guid>https://rehex.ninja/tags/dev/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>asm</title>
-      <link>/tags/asm/</link>
+      <link>https://rehex.ninja/tags/asm/</link>
       <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
       
-      <guid>/tags/asm/</guid>
+      <guid>https://rehex.ninja/tags/asm/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>malware-analysis</title>
-      <link>/tags/malware-analysis/</link>
+      <link>https://rehex.ninja/tags/malware-analysis/</link>
       <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
       
-      <guid>/tags/malware-analysis/</guid>
+      <guid>https://rehex.ninja/tags/malware-analysis/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>windows</title>
-      <link>/tags/windows/</link>
+      <link>https://rehex.ninja/tags/windows/</link>
       <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
       
-      <guid>/tags/windows/</guid>
+      <guid>https://rehex.ninja/tags/windows/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>bear2md</title>
-      <link>/tags/bear2md/</link>
+      <link>https://rehex.ninja/tags/bear2md/</link>
       <pubDate>Sat, 18 Jan 2020 09:00:00 +0100</pubDate>
       
-      <guid>/tags/bear2md/</guid>
+      <guid>https://rehex.ninja/tags/bear2md/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>tools/binary-analysis</title>
-      <link>/tags/tools/binary-analysis/</link>
+      <link>https://rehex.ninja/tags/tools/binary-analysis/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tools/binary-analysis/</guid>
+      <guid>https://rehex.ninja/tags/tools/binary-analysis/</guid>
       <description></description>
-      <content></content>
     </item>
     
     <item>
       <title>writeups/247ctf</title>
-      <link>/tags/writeups/247ctf/</link>
+      <link>https://rehex.ninja/tags/writeups/247ctf/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/tags/writeups/247ctf/</guid>
+      <guid>https://rehex.ninja/tags/writeups/247ctf/</guid>
       <description></description>
-      <content></content>
     </item>
     
   </channel>

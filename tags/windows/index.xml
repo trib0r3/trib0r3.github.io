@@ -1,52 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>windows on REhex</title>
-    <link>/tags/windows/</link>
-    <description>Recent content in windows on REhex</description>
+    <title>windows on reHex Ninja</title>
+    <link>https://rehex.ninja/tags/windows/</link>
+    <description>Recent content in windows on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 Jan 2020 14:00:15 +0100</lastBuildDate><atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Jan 2020 14:00:15 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Disable Aslr</title>
-      <link>/posts/disable-aslr/</link>
+      <link>https://rehex.ninja/posts/disable-aslr/</link>
       <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
       
-      <guid>/posts/disable-aslr/</guid>
+      <guid>https://rehex.ninja/posts/disable-aslr/</guid>
       <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
-      <content>&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;radare2&#34;&gt;radare2&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
-dor aslr=no
-aaa
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
-&lt;h3 id=&#34;windows-7&#34;&gt;Windows 7&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;Open &lt;code&gt;RegEdit&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Goto: &lt;code&gt;HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Create new &lt;em&gt;value&lt;/em&gt; (not a key): &lt;code&gt;MoveImages&lt;/code&gt; with value &lt;code&gt;0&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Reboot.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;windows-10&#34;&gt;Windows 10&lt;/h3&gt;
-&lt;h4 id=&#34;disable-aslr-per-file&#34;&gt;Disable ASLR per file&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;disable-aslr-by-default&#34;&gt;Disable ASLR by default&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Search in Windows for: “windows defender Security Center”&lt;/li&gt;
-&lt;li&gt;Click on the second icon from the bottom: “App &amp;amp; browser control”&lt;/li&gt;
-&lt;li&gt;Scroll to the bottom and click on: “Exploit protection settings”&lt;/li&gt;
-&lt;li&gt;Set “Force randomization for images “ to &lt;em&gt;OFF&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;Reboot&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/&#34;&gt;Disable ASLR for Easier Malware Debugging With x64dbg and IDA Pro&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/trietptm/b84ccad9db01f459ac7e&#34;&gt;Gist&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.reddit.com/r/ReverseEngineering/comments/bzn06z/disable_aslr_for_easier_malware_debugging_with/&#34;&gt;Disable ASLR For Easier Malware Debugging With x64dbg and IDA Pro (OALabs Quick Tip) : ReverseEngineering&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
     </item>
     
   </channel>

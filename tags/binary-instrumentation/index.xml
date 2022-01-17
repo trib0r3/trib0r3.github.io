@@ -1,110 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>binary-instrumentation on REhex</title>
-    <link>/tags/binary-instrumentation/</link>
-    <description>Recent content in binary-instrumentation on REhex</description>
+    <title>binary-instrumentation on reHex Ninja</title>
+    <link>https://rehex.ninja/tags/binary-instrumentation/</link>
+    <description>Recent content in binary-instrumentation on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 21 May 2020 14:53:08 +0200</lastBuildDate><atom:link href="/tags/binary-instrumentation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 May 2020 14:53:08 +0200</lastBuildDate><atom:link href="https://rehex.ninja/tags/binary-instrumentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Qiling Scripting and Simple RE Task</title>
-      <link>/posts/qiling-scripting-and-simple-re-task/</link>
+      <link>https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/</link>
       <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
       
-      <guid>/posts/qiling-scripting-and-simple-re-task/</guid>
+      <guid>https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/</guid>
       <description>Note about qiling and basic usage</description>
-      <content>&lt;h2 id=&#34;what-is-qiling&#34;&gt;What is Qiling&lt;/h2&gt;
-&lt;p&gt;From the author&amp;rsquo;s website:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Qiling is an advanced binary emulation framework, with the following features:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Cross platform: Windows, MacOS, Linux, BSD&lt;/li&gt;
-&lt;li&gt;Cross architecture: X86, X86_64, Arm, Arm64, Mips&lt;/li&gt;
-&lt;li&gt;Multiple file formats: PE, MachO, ELF&lt;/li&gt;
-&lt;li&gt;Emulate &amp;amp; sandbox machine code in a isolated environment&lt;/li&gt;
-&lt;li&gt;Supports cross architecture and platform debugging capabilities&lt;/li&gt;
-&lt;li&gt;Provide high level API to setup &amp;amp; configure the sandbox&lt;/li&gt;
-&lt;li&gt;Fine-grain instrumentation: allow hooks at various levels (instruction/basic-block/memory-access/exception/syscall/IO/etc)&lt;/li&gt;
-&lt;li&gt;Allow dynamic hotpatch on-the-fly running code, including the loaded library&lt;/li&gt;
-&lt;li&gt;True framework in Python, making it easy to build customized security analysis tools on top&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Qiling is backed by &lt;a href=&#34;http://www.unicorn-engine.org&#34;&gt;Unicorn engine&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Or just saying shortly: this tool will allow you to run binary from one system to another, i.e you can run Windows PE on Mac.&lt;/p&gt;
-&lt;p&gt;Additionally you can also utilize its scripting ability to hook addresses, run only part of binary, etc. Check the &lt;a href=&#34;#references&#34;&gt;references&lt;/a&gt; to view project&amp;rsquo;s GitHub page and others.&lt;/p&gt;
-&lt;h2 id=&#34;simple-demo&#34;&gt;Simple demo&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s imagine that we have this simple task:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/img/task-code.png&#34; alt=&#34;Task&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Obviously flag is generated from the stack strings with some on-the-fly operations, we can very easly capture the flag by setting couple of breakpoints in the debugger at addresses: &lt;code&gt;0x804852e&lt;/code&gt; and &lt;code&gt;0x804853d&lt;/code&gt; and check the contents of &lt;em&gt;eax&lt;/em&gt; (notice that second part of the flag actually replaces the 1st part) or we can write simple script using Qiling:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
-
-EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
-ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
-FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
-    addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
-    FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;my_sandbox&lt;/span&gt;(path, rootfs):
-    ql &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Qiling(path, rootfs)
-    
-    &lt;span style=&#34;color:#75715e&#34;&gt;# remove systrace logs&lt;/span&gt;
-    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
-    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;)
-    ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;run()
-
-    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
-    print(flag)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
-    my_sandbox(EXEC_FILE, ROOTFS)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Some explanation: Qiling for execution requires 2 things:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;binary - what is obvious;&lt;/li&gt;
-&lt;li&gt;Rootfs - which should match target architecture.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In my case environment variable &lt;code&gt;$QILING_ROOTFS&lt;/code&gt; points to &lt;code&gt;$QILING_REPO_DIR/examples/rootfs&lt;/code&gt;, above mentioned is a linux x86 binary so we are selecting &lt;code&gt;x86_linux&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; qiling &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; environ
-
-EXEC_FILE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./task&amp;#34;&lt;/span&gt;]
-ROOTFS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/x86_linux&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;QILING_ROOTFS&amp;#34;&lt;/span&gt;])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We want to &lt;del&gt;break&lt;/del&gt; hook at specified addresses, so we can achieve that by calling &lt;code&gt;hook_address(callback, address)&lt;/code&gt; I decided to reuse twice the same function, but you can create separate functions for that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804852e&lt;/span&gt;)
-ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hook_address(on_hook, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x804853d&lt;/span&gt;) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After everything is setup we can run the binary with &lt;code&gt;ql.run()&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Our hook method reads the value from &lt;em&gt;eax&lt;/em&gt; register and saves it in global variable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_hook&lt;/span&gt;(ql : core&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Qiling) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
-    addr_flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eax
-    FLAG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(addr_flag, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice that we are reading twice the same amount of bytes (&lt;code&gt;ql.mem.read(addr_flag, 0x13)&lt;/code&gt;), so we need to truncate these array before printing it on the screen:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; FLAG[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][:&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()
-    print(flag)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default Qiling displays &lt;code&gt;strace&lt;/code&gt; log, if you don&amp;rsquo;t want to see it or you want to see only logs from specific methods you can use filters (you need to change this variable before running the qiling):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mute strace log&lt;/span&gt;
-ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# display only &amp;#34;read&amp;#34; functions&lt;/span&gt;
-ql&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;filter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;read&amp;#34;&lt;/span&gt;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Notice&lt;/strong&gt;: the current version doesn&amp;rsquo;t have working properly filters, so you need to switch to &lt;code&gt;dev&lt;/code&gt; branch.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Finally you can run it with python and see the flag:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/img/qiling-flag.png&#34; alt=&#34;flag&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;closing-notes&#34;&gt;Closing notes&lt;/h2&gt;
-&lt;p&gt;Qiling is definitely great framework, very simple to use and very powerful. Definately worth to try :)&lt;/p&gt;
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/qilingframework/qiling&#34;&gt;Qiling Github&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;docs.google.com/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</content>
     </item>
     
   </channel>

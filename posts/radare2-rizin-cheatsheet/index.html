@@ -1,182 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  
-    <title>!e radare2 / rizin cheatsheet :: REhex</title>
-  
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="radare2 / rizin cheatsheet
-" />
-<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="/posts/radare2-rizin-cheatsheet/" />
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>!e radare2 / rizin cheatsheet | reHex Ninja</title>
+<meta name="keywords" content="radare2, rizin, cheatsheet, note" />
+<meta name="description" content="radare2 / rizin cheatsheet">
+<meta name="author" content="trib0r3">
+<link rel="canonical" href="https://rehex.ninja/posts/radare2-rizin-cheatsheet/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://rehex.ninja/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://rehex.ninja/apple-touch-icon.png">
+<link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.92.0" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
-<link rel="stylesheet" href="/assets/style.css">
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-  <link rel="stylesheet" href="/assets/blue.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="stylesheet" href="/style.css">
-
-
-<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-
-<meta name="twitter:card" content="summary" />
-
-  
-    <meta name="twitter:site" content="https://rehex.ninja" />
-  
-    <meta name="twitter:creator" content="trib0r3" />
-
-
-
-<meta property="og:locale" content="en" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="!e radare2 / rizin cheatsheet">
-<meta property="og:description" content="radare2 / rizin cheatsheet
-" />
-<meta property="og:url" content="/posts/radare2-rizin-cheatsheet/" />
-<meta property="og:site_name" content="REhex" />
-
-  
-    <meta property="og:image" content="/favicon.ico">
-  
-
-<meta property="og:image:width" content="2048">
-<meta property="og:image:height" content="1024">
-
-
-  <meta property="article:published_time" content="2021-05-03 14:40:06 &#43;0100 &#43;0100" />
-
-
-
-
-
-
-
-
-
-
-<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
-<meta property="og:title" content="!e radare2 / rizin cheatsheet" />
+    </style>
+</noscript><meta property="og:title" content="!e radare2 / rizin cheatsheet" />
 <meta property="og:description" content="radare2 / rizin cheatsheet" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/radare2-rizin-cheatsheet/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-05-03T14:40:06+01:00" />
-<meta property="article:modified_time" content="2021-05-03T14:40:06+01:00" /><meta property="og:site_name" content="REhex" />
+<meta property="og:url" content="https://rehex.ninja/posts/radare2-rizin-cheatsheet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-03T14:40:06&#43;01:00" />
+<meta property="article:modified_time" content="2021-05-03T14:40:06&#43;01:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="!e radare2 / rizin cheatsheet"/>
+<meta name="twitter:description" content="radare2 / rizin cheatsheet"/>
 
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://rehex.ninja/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "!e radare2 / rizin cheatsheet",
+      "item": "https://rehex.ninja/posts/radare2-rizin-cheatsheet/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "!e radare2 / rizin cheatsheet",
+  "name": "!e radare2 \/ rizin cheatsheet",
+  "description": "radare2 / rizin cheatsheet\n",
+  "keywords": [
+    "radare2", "rizin", "cheatsheet", "note"
+  ],
+  "articleBody": "radare2 / rizin cheatsheet\n Warning: This cheatsheet was originally created for r2, but it should still be compatibile for rizin\n  radare2 rizin  Debugging Manage file # open in debug mode r2 -d $FILE doo # re-open file in debug mode ood # / Flow control # display / set breakpoint db [flag/addr] # continue to breakpoint dc # continue until addr / flag (without setting breakpoint) dcu  # break on syscall name / value dcs  # step into N instructions ds [N] # step over N instructions dso [N] Reverse debugging dts? # select some point db sym.foo # store point in time / start recording? dts+ dc # go to the previous instruction dsb # write / read ALL trace sessions to / from disk dtst sessions.dbg dtsf sessions.dbg Read values # show registers drr # show stack contents pxr @ rsp!32 Scripting (hooks) # auto-run command on breakpoint db main # set breakpoint dbc main drr\t# set command on breakpoint  Custom environment  Note that when first starting radare2 in debug mode, you will actually be debugging rarun2! You need to first continue execution (dc) which will leave you in the loader for the program itself.\n # run program with custom environment r2 -d rarun2 program=./ arg0=foo stdin=./ setenv=ENV_VAR= ==OR==\n#!/usr/bin/rarun2 program=./ arg0=foo stdin=./ setenv=ENV_VAR= r2 -d rarun2 script.rr2 Visual debugging  (Enter V command to enter or VV / VV!), with [p] / [P] you can change views)\n  With dm you can check if you are still in loader code - search for ()*.\n  [.] - seek to program counter [c] - toggle cursor [o] - toggle asm / pseudo [g] - seek to… [G] - seek to highlighted [u], [U] - undo / redo seek , - xrefs from/to [B], [F2] - toggle breakpoint [s], [F7] - step into [S], [F8] - step over [F9] - continue [t] - tab managment  ESIL  ESIL · Radare2 Explorations ESIL · Radare2 Book  e asm.emu = true # esil comments e io.cache = true # write in memory cache Visual mode  [O] - toggle pseudocode / ESIL  Commands # check used registers by the function aeaf Example session aei # init esil vm  aeim # init mem  aeip # set esil vm pointer to current seek aer\t# handle esil registers # example set value aer eax=0x1234 # # continue until eax is not greater than on start \"aecue eax,0x1234,\" Macros Macros · Radare2 Book\nExample session\n# set up relative breakpoints. one per cmp instruction* db sym.check_code_int+0x00001289-0x00001265 db sym.check_code_int+0x000012b7-0x00001265 db sym.check_code_int+0x000012e2-0x00001265 db sym.check_code_int+0x0000130d-0x00001265*#* *execute program* dc* # input four digits (doesn't matter which ones)* 1 1 1 1*# define a macro that replaces the value * *# of ebx with the content of eax and stores it into a file* !rm ./crack_code (eax_replace, dr ebx=`dr eax` | tee -a crack_code, dc)*# use the macro* .(eax_replace )@@=0 1 2 3*# show the results* !cat ./crack_code Malware Analysis ob= # show open files afl= # list function ranges aflt # show function table p= # show hist of entropy p== # show hist entropy horizontal Operations Writing r2 -w binary # write null-terminated string wz \"hello there\" psz # print it # write number at offset wx deadbeef @ 0x30 p8 @ 0x30!4 # print Write in block wo? # write bytes in sequence starting from 42, incrementing by 3 woe 42 3 @ edi!32 # xor block of memory by 41 wx 41 @ esp!32 Visual mode  [TAB] - switch between columns [c] - toggle cursor mode [i] - enter insert mode [A] - assemble binary:  enter your asm, instructions can be separated with ;, press [Enter] and [y] to save changes.    Copy/Paste  Enter to visual mode. Enable cursor mode with [c]. Press [Shift] to select area to copy, ten press [y]. Go to desired place and press [Y] to paste copied data.  Code analysis  Enter to Visual mode. Seek to piece of code for analysis Enter [d], then [f] for define function.  References / Furtker Reading  Introduction · Radare2 Explorations Introduction · Radare2 Book ",
+  "wordCount" : "677",
+  "inLanguage": "en",
+  "datePublished": "2021-05-03T14:40:06+01:00",
+  "dateModified": "2021-05-03T14:40:06+01:00",
+  "author":{
+    "@type": "Person",
+    "name": "trib0r3"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rehex.ninja/posts/radare2-rizin-cheatsheet/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "reHex Ninja",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rehex.ninja/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
-<body class="blue">
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-<div class="container full headings--one-size">
+</script>
 
-  <header class="header">
-  <div class="header__inner">
-    <div class="header__logo">
-      <a href="/">
-  <div class="logo">
-    REhex
-  </div>
-</a>
-
-    </div>
-    
-      <div class="menu-trigger">menu</div>
-    
-  </div>
-  
-    <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/tags">#tags</a></li>
-        
-      
-        
-          <li><a href="/about">About</a></li>
-        
-      
-        
-          <li><a href="/contact">Contact</a></li>
-        
-      
-      
-    
-
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/tags">#tags</a></li>
-      
-    
-      
-        <li><a href="/about">About</a></li>
-      
-    
-      
-        <li><a href="/contact">Contact</a></li>
-      
-    
-    
-  </ul>
-</nav>
-
-  
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://rehex.ninja/tags" title="#tags">
+                    <span>#tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/search" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/archives" title="archives">
+                    <span>archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </header>
+<main class="main">
 
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/posts/">Posts</a></div>
+    <h1 class="post-title">
+      !e radare2 / rizin cheatsheet
+    </h1>
+    <div class="post-meta"><span title='2021-05-03 14:40:06 +0100 +0100'>May 3, 2021</span>&nbsp;·&nbsp;trib0r3&nbsp;|&nbsp;<a href="https://github.com/trib0r3/trib0r3.github.io/posts/radare2-rizin-cheatsheet.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
 
-  <div class="content">
-    
-<div class="post">
-  <h1 class="post-title">
-    <a href="/posts/radare2-rizin-cheatsheet/">!e radare2 / rizin cheatsheet</a></h1>
-  <div class="post-meta">
-    
-      <span class="post-date">
-        2021-05-03 [Updated: 2021-05-03]
-      </span>
-    
-    
-    <span class="post-author">:: trib0r3</span>
-    
-  </div>
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-  
-  <span class="post-tags">
-    
-    #<a href="/tags/radare2/">radare2</a>&nbsp;
-    
-    #<a href="/tags/rizin/">rizin</a>&nbsp;
-    
-    #<a href="/tags/cheatsheet/">cheatsheet</a>&nbsp;
-    
-    #<a href="/tags/note/">note</a>&nbsp;
-    
-  </span>
-  
+        <div class="inner"><ul>
+                <li>
+                    <a href="#debugging" aria-label="Debugging">Debugging</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#manage-file" aria-label="Manage file">Manage file</a></li>
+                <li>
+                    <a href="#flow-control" aria-label="Flow control">Flow control</a></li></ul>
+                    
+                <li>
+                    <a href="#reverse-debugging" aria-label="Reverse debugging">Reverse debugging</a><ul>
+                        
+                <li>
+                    <a href="#read-values" aria-label="Read values">Read values</a></li>
+                <li>
+                    <a href="#scripting-hooks" aria-label="Scripting (hooks)">Scripting (hooks)</a></li>
+                <li>
+                    <a href="#custom-environment" aria-label="Custom environment">Custom environment</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#visual-debugging" aria-label="Visual debugging">Visual debugging</a></li>
+                <li>
+                    <a href="#esil" aria-label="ESIL">ESIL</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#visual-mode" aria-label="Visual mode">Visual mode</a></li>
+                <li>
+                    <a href="#commands" aria-label="Commands">Commands</a></li>
+                <li>
+                    <a href="#example-session" aria-label="Example session">Example session</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#macros" aria-label="Macros">Macros</a></li>
+                <li>
+                    <a href="#malware-analysis" aria-label="Malware Analysis">Malware Analysis</a></li>
+                <li>
+                    <a href="#operations" aria-label="Operations">Operations</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#writing" aria-label="Writing">Writing</a></li>
+                <li>
+                    <a href="#write-in-block" aria-label="Write in block">Write in block</a></li>
+                <li>
+                    <a href="#visual-mode-1" aria-label="Visual mode">Visual mode</a></li>
+                <li>
+                    <a href="#copypaste" aria-label="Copy/Paste">Copy/Paste</a></li>
+                <li>
+                    <a href="#code-analysis" aria-label="Code analysis">Code analysis</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#references--furtker-reading" aria-label="References / Furtker Reading">References / Furtker Reading</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-  
-
-  
-
-  <div class="post-content"><div>
-        <p>radare2 / rizin cheatsheet</p>
+  <div class="post-content"><p>radare2 / rizin cheatsheet</p>
 <blockquote>
 <p>Warning: This cheatsheet was originally created for r2, but it should still be compatibile for rizin</p>
 </blockquote>
@@ -184,14 +270,14 @@
 <li><a href="https://rada.re">radare2</a></li>
 <li><a href="https://rizin.re">rizin</a></li>
 </ul>
-<h2 id="debugging">Debugging<a href="#debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<h4 id="manage-file">Manage file<a href="#manage-file" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h2 id="debugging">Debugging<a hidden class="anchor" aria-hidden="true" href="#debugging">#</a></h2>
+<h4 id="manage-file">Manage file<a hidden class="anchor" aria-hidden="true" href="#manage-file">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># open in debug mode</span>
 r2 -d $FILE
 
 doo <span style="color:#75715e"># re-open file in debug mode</span>
 ood <span style="color:#75715e"># /</span>
-</code></pre></div><h4 id="flow-control">Flow control<a href="#flow-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="flow-control">Flow control<a hidden class="anchor" aria-hidden="true" href="#flow-control">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># display / set breakpoint</span>
 db <span style="color:#f92672">[</span>flag/addr<span style="color:#f92672">]</span>
 
@@ -209,7 +295,7 @@ ds <span style="color:#f92672">[</span>N<span style="color:#f92672">]</span>
 
 <span style="color:#75715e"># step over N instructions</span>
 dso <span style="color:#f92672">[</span>N<span style="color:#f92672">]</span>
-</code></pre></div><h3 id="reverse-debugging">Reverse debugging<a href="#reverse-debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+</code></pre></div><h3 id="reverse-debugging">Reverse debugging<a hidden class="anchor" aria-hidden="true" href="#reverse-debugging">#</a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dts?
 
 <span style="color:#75715e"># select some point</span>
@@ -225,17 +311,17 @@ dsb
 <span style="color:#75715e"># write / read ALL trace sessions to / from disk</span>
 dtst sessions.dbg
 dtsf sessions.dbg
-</code></pre></div><h4 id="read-values">Read values<a href="#read-values" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="read-values">Read values<a hidden class="anchor" aria-hidden="true" href="#read-values">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># show registers</span>
 drr
 
 <span style="color:#75715e"># show stack contents</span>
 pxr @ rsp!32
-</code></pre></div><h4 id="scripting-hooks">Scripting (hooks)<a href="#scripting-hooks" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="scripting-hooks">Scripting (hooks)<a hidden class="anchor" aria-hidden="true" href="#scripting-hooks">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># auto-run command on breakpoint</span>
 db main  						<span style="color:#75715e"># set breakpoint</span>
 dbc main drr					<span style="color:#75715e"># set command on breakpoint </span>
-</code></pre></div><h4 id="custom-environment">Custom environment<a href="#custom-environment" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="custom-environment">Custom environment<a hidden class="anchor" aria-hidden="true" href="#custom-environment">#</a></h4>
 <blockquote>
 <p>Note that when first starting radare2 in debug mode, you will actually be debugging rarun2! <em>You need to first continue execution (dc)</em> which will leave you in the loader for the program itself.</p>
 </blockquote>
@@ -248,7 +334,7 @@ arg0=foo
 stdin=./&lt;some_file&gt;
 setenv=ENV_VAR=&lt;value&gt;
 </code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">r2 -d rarun2 script.rr2
-</code></pre></div><h2 id="visual-debugging">Visual debugging<a href="#visual-debugging" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="visual-debugging">Visual debugging<a hidden class="anchor" aria-hidden="true" href="#visual-debugging">#</a></h2>
 <blockquote>
 <p>(Enter <code>V</code> command to enter or <code>VV</code> / <code>VV!</code>), with [p] / [P] you can change views)</p>
 </blockquote>
@@ -269,21 +355,21 @@ setenv=ENV_VAR=&lt;value&gt;
 <li>[F9] -&gt; continue</li>
 <li>[t] -&gt; tab managment</li>
 </ul>
-<h2 id="esil">ESIL<a href="#esil" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="esil">ESIL<a hidden class="anchor" aria-hidden="true" href="#esil">#</a></h2>
 <ul>
 <li><a href="https://monosource.gitbooks.io/radare2-explorations/content/tut3/tut3_-_esil.html">ESIL · Radare2 Explorations</a></li>
 <li><a href="https://radare.gitbooks.io/radare2book/content/disassembling/esil.html">ESIL · Radare2 Book</a></li>
 </ul>
 <pre tabindex="0"><code class="language-radare2rc" data-lang="radare2rc">e asm.emu = true # esil comments
 e io.cache = true # write in memory cache
-</code></pre><h4 id="visual-mode">Visual mode<a href="#visual-mode" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre><h4 id="visual-mode">Visual mode<a hidden class="anchor" aria-hidden="true" href="#visual-mode">#</a></h4>
 <ul>
 <li>[O] - toggle pseudocode / ESIL</li>
 </ul>
-<h4 id="commands">Commands<a href="#commands" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h4 id="commands">Commands<a hidden class="anchor" aria-hidden="true" href="#commands">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># check used registers by the function</span>
 aeaf
-</code></pre></div><h4 id="example-session">Example session<a href="#example-session" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="example-session">Example session<a hidden class="anchor" aria-hidden="true" href="#example-session">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aei 	<span style="color:#75715e"># init esil vm </span>
 aeim  <span style="color:#75715e"># init mem </span>
 aeip 	<span style="color:#75715e"># set esil vm pointer to current seek</span>
@@ -294,7 +380,7 @@ aer eax<span style="color:#f92672">=</span>0x1234 <span style="color:#75715e">#<
 
 <span style="color:#75715e"># continue until eax is not greater than on start</span>
 <span style="color:#e6db74">&#34;aecue eax,0x1234,&gt;&#34;</span>
-</code></pre></div><h2 id="macros">Macros<a href="#macros" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="macros">Macros<a hidden class="anchor" aria-hidden="true" href="#macros">#</a></h2>
 <p><a href="https://radare.gitbooks.io/radare2book/content/scripting/macros.html">Macros · Radare2 Book</a></p>
 <p>Example session</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># set up relative breakpoints. one per cmp instruction*</span>
@@ -312,15 +398,15 @@ dc* <span style="color:#75715e"># input four digits (doesn&#39;t matter which on
 <span style="color:#f92672">(</span>eax_replace, dr ebx<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>dr eax<span style="color:#e6db74">`</span> | tee -a crack_code, dc<span style="color:#f92672">)</span>*# use the macro*
 .<span style="color:#f92672">(</span>eax_replace <span style="color:#f92672">)</span>@@<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> 3*# show the results*
 !cat ./crack_code
-</code></pre></div><h2 id="malware-analysis">Malware Analysis<a href="#malware-analysis" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h2 id="malware-analysis">Malware Analysis<a hidden class="anchor" aria-hidden="true" href="#malware-analysis">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ob<span style="color:#f92672">=</span>  <span style="color:#75715e"># show open files</span>
 afl<span style="color:#f92672">=</span> <span style="color:#75715e"># list function ranges</span>
 aflt <span style="color:#75715e"># show function table</span>
 
 p<span style="color:#f92672">=</span>   <span style="color:#75715e"># show hist of entropy</span>
 p<span style="color:#f92672">==</span>  <span style="color:#75715e"># show hist entropy horizontal</span>
-</code></pre></div><h2 id="operations">Operations<a href="#operations" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<h4 id="writing">Writing<a href="#writing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h2 id="operations">Operations<a hidden class="anchor" aria-hidden="true" href="#operations">#</a></h2>
+<h4 id="writing">Writing<a hidden class="anchor" aria-hidden="true" href="#writing">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">r2 -w binary
 </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># write null-terminated string</span>
 wz <span style="color:#e6db74">&#34;hello there&#34;</span>
@@ -329,7 +415,7 @@ psz <span style="color:#75715e"># print it</span>
 <span style="color:#75715e"># write number at offset</span>
 wx deadbeef @ 0x30
 p8 @ 0x30!4 <span style="color:#75715e"># print</span>
-</code></pre></div><h4 id="write-in-block">Write in block<a href="#write-in-block" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="write-in-block">Write in block<a hidden class="anchor" aria-hidden="true" href="#write-in-block">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wo?
 
 <span style="color:#75715e"># write bytes in sequence starting from 42, incrementing by 3</span>
@@ -337,7 +423,7 @@ woe <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">3</span> @
 
 <span style="color:#75715e"># xor block of memory by 41</span>
 wx <span style="color:#ae81ff">41</span> @ esp!32
-</code></pre></div><h4 id="visual-mode-1">Visual mode<a href="#visual-mode-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+</code></pre></div><h4 id="visual-mode-1">Visual mode<a hidden class="anchor" aria-hidden="true" href="#visual-mode-1">#</a></h4>
 <ul>
 <li>[TAB] -&gt; switch between columns</li>
 <li>[c] -&gt; toggle cursor mode</li>
@@ -350,107 +436,212 @@ wx <span style="color:#ae81ff">41</span> @ esp!32
 </ul>
 </li>
 </ul>
-<h4 id="copypaste">Copy/Paste<a href="#copypaste" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h4 id="copypaste">Copy/Paste<a hidden class="anchor" aria-hidden="true" href="#copypaste">#</a></h4>
 <ol>
 <li>Enter to <em>visual mode</em>.</li>
 <li>Enable cursor mode with [c].</li>
 <li>Press [Shift] to select area to copy, ten press [y].</li>
 <li>Go to desired place and press [Y] to paste copied data.</li>
 </ol>
-<h4 id="code-analysis">Code analysis<a href="#code-analysis" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h4 id="code-analysis">Code analysis<a hidden class="anchor" aria-hidden="true" href="#code-analysis">#</a></h4>
 <ol>
 <li>Enter to <em>Visual mode</em>.</li>
 <li>Seek to piece of code for analysis</li>
 <li>Enter [d], then [f] for define function.</li>
 </ol>
-<h2 id="references--furtker-reading">References / Furtker Reading<a href="#references--furtker-reading" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="references--furtker-reading">References / Furtker Reading<a hidden class="anchor" aria-hidden="true" href="#references--furtker-reading">#</a></h2>
 <ul>
 <li><a href="https://monosource.gitbooks.io/radare2-explorations/content/">Introduction · Radare2 Explorations</a></li>
 <li><a href="https://radare.gitbooks.io/radare2book/content/">Introduction · Radare2 Book</a></li>
 </ul>
-      </div></div>
-
-  
-  
-<div class="pagination">
-    <div class="pagination__title">
-        <span class="pagination__title-h">Read other posts</span>
-        <hr />
-    </div>
-    <div class="pagination__buttons">
-        
-        <span class="button previous">
-            <a href="/posts/mitmproxy/">
-                <span class="button__icon">←</span>
-                <span class="button__text">!e MITM Proxy</span>
-            </a>
-        </span>
-        
-        
-        <span class="button next">
-            <a href="/posts/fix-broken-pe/">
-                <span class="button__text">!e Fix Broken PE</span>
-                <span class="button__icon">→</span>
-            </a>
-        </span>
-        
-    </div>
-</div>
-
-  
-
-  
-
-<hr>
-<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "trib0r3s-blog" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-</div>
 
   </div>
 
-  
-    <footer class="footer">
-  <div class="footer__inner">
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://rehex.ninja/tags/radare2/">radare2</a></li>
+      <li><a href="https://rehex.ninja/tags/rizin/">rizin</a></li>
+      <li><a href="https://rehex.ninja/tags/cheatsheet/">cheatsheet</a></li>
+      <li><a href="https://rehex.ninja/tags/note/">note</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://rehex.ninja/posts/mitmproxy/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>!e MITM Proxy</span>
+  </a>
+  <a class="next" href="https://rehex.ninja/posts/fix-broken-pe/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>!e Fix Broken PE</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on twitter"
+        href="https://twitter.com/intent/tweet/?text=%21e%20radare2%20%2f%20rizin%20cheatsheet&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f&amp;hashtags=radare2%2crizin%2ccheatsheet%2cnote">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f&amp;title=%21e%20radare2%20%2f%20rizin%20cheatsheet&amp;summary=%21e%20radare2%20%2f%20rizin%20cheatsheet&amp;source=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f&title=%21e%20radare2%20%2f%20rizin%20cheatsheet">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on whatsapp"
+        href="https://api.whatsapp.com/send?text=%21e%20radare2%20%2f%20rizin%20cheatsheet%20-%20https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share !e radare2 / rizin cheatsheet on telegram"
+        href="https://telegram.me/share/url?text=%21e%20radare2%20%2f%20rizin%20cheatsheet&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fradare2-rizin-cheatsheet%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
     
-      <div class="copyright copyright--user">
-        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
-    
-        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
-      </div>
-  </div>
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://rehex.ninja">reHex Ninja</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
-<script src="/assets/main.js"></script>
-<script src="/assets/prism.js"></script>
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
 
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
 
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
 
-  
-</div>
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
 
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
 </body>
+
 </html>

@@ -1,657 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  
-    <title>re :: REhex</title>
-  
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="" />
-<meta name="keywords" content="reverse-engineering, development, malware-analysis, re" />
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="/tags/re/" />
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>re | reHex Ninja</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Blog About Reversing">
+<meta name="author" content="trib0r3">
+<link rel="canonical" href="https://rehex.ninja/tags/re/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://rehex.ninja/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://rehex.ninja/apple-touch-icon.png">
+<link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.92.0" />
+<link rel="alternate" type="application/rss+xml" href="https://rehex.ninja/tags/re/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
-<link rel="stylesheet" href="/assets/style.css">
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-  <link rel="stylesheet" href="/assets/blue.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="stylesheet" href="/style.css">
-
-
-<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-
-<meta name="twitter:card" content="summary" />
-
-  
-    <meta name="twitter:site" content="https://rehex.ninja" />
-  
-    <meta name="twitter:creator" content="" />
-
-
-
-<meta property="og:locale" content="en" />
+    </style>
+</noscript><meta property="og:title" content="re" />
+<meta property="og:description" content="Blog About Reversing" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="re">
-<meta property="og:description" content="" />
-<meta property="og:url" content="/tags/re/" />
-<meta property="og:site_name" content="REhex" />
+<meta property="og:url" content="https://rehex.ninja/tags/re/" />
 
-  
-    <meta property="og:image" content="/favicon.ico">
-  
-
-<meta property="og:image:width" content="2048">
-<meta property="og:image:height" content="1024">
-
-
-
-
-
-  <link href="/tags/re/index.xml" rel="alternate" type="application/rss+xml" title="REhex" />
-
-
-
-
-
-
-
-<meta name="google-site-verification" content="Bf1vRw0a3PdL80fr1mxdlmaJbpLwHdliGy9r3w2Qaec" />
-<meta property="og:title" content="re" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="/tags/re/" /><meta property="og:site_name" content="REhex" />
-
-
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="re"/>
+<meta name="twitter:description" content="Blog About Reversing"/>
 
 </head>
-<body class="blue">
 
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-<div class="container full headings--one-size">
+</script>
 
-  <header class="header">
-  <div class="header__inner">
-    <div class="header__logo">
-      <a href="/">
-  <div class="logo">
-    REhex
-  </div>
-</a>
-
-    </div>
-    
-      <div class="menu-trigger">menu</div>
-    
-  </div>
-  
-    <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/tags">#tags</a></li>
-        
-      
-        
-          <li><a href="/about">About</a></li>
-        
-      
-        
-          <li><a href="/contact">Contact</a></li>
-        
-      
-      
-    
-
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/tags">#tags</a></li>
-      
-    
-      
-        <li><a href="/about">About</a></li>
-      
-    
-      
-        <li><a href="/contact">Contact</a></li>
-      
-    
-    
-  </ul>
-</nav>
-
-  
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://rehex.ninja/tags" title="#tags">
+                    <span>#tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/search" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/archives" title="archives">
+                    <span>archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/tags/">Tags</a></div>
+  <h1>re</h1>
 </header>
 
-
-  <div class="content">
-    
-  
-  <div class="posts">
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/fix-broken-pe/">!e Fix Broken PE</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-18
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/pe/">pe</a>&nbsp;
-            
-            #<a href="/tags/note/">note</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/fix-broken-pe/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/247ctf-the-secret-lock/">247CTF - The Secret Lock Writeup</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-08-02
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/writeups/247ctf/">writeups/247ctf</a>&nbsp;
-            
-            #<a href="/tags/z3/">z3</a>&nbsp;
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-          </span>
-        
-
-        
-          <img src="/img/thumb/247ctf-thesecretlock.png" class="post-cover" alt="247CTF - The Secret Lock Writeup" />
-        
-
-        <div class="post-content">
-          
-          
-          
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/247ctf-the-secret-lock/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/0-frida-playgrounds/">[0x0] FRIDA Playground</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-07-26
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/frida/">frida</a>&nbsp;
-            
-            #<a href="/tags/frida-playground/">frida-playground</a>&nbsp;
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-          </span>
-        
-
-        
-          <img src="/img/thumb/fridaplayground-0.png" class="post-cover" alt="[0x0] FRIDA Playground" />
-        
-
-        <div class="post-content">
-          
-          
-          <p>Hello, this is the very first post of my new series where I will show the big potential of <a href="#references">frida</a> on practical examples.</p>
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/0-frida-playgrounds/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/qiling-scripting-and-simple-re-task/">Qiling Scripting and Simple RE Task</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-05-21
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/binary-instrumentation/">binary-instrumentation</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/qiling-scripting-and-simple-re-task/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/comparision-of-re-tools/">Comparision of Reverse-Engineering Tools</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-04-19
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/binja/">binja</a>&nbsp;
-            
-            #<a href="/tags/ida/">ida</a>&nbsp;
-            
-            #<a href="/tags/radare2/">radare2</a>&nbsp;
-            
-            #<a href="/tags/ghidra/">ghidra</a>&nbsp;
-            
-          </span>
-        
-
-        
-          <img src="/img/thumb/decomp-versus.png" class="post-cover" alt="Comparision of Reverse-Engineering Tools" />
-        
-
-        <div class="post-content">
-          
-          
-          <p>Let&rsquo;s compare the most populare reverse-egineering with strong focus on <strong>personal</strong> usage: <em>BinaryNinja</em>, <em>Ghidra</em>, <em>IDA</em> and <em>radare2</em>.</p>
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/comparision-of-re-tools/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/writeup-securinets2020-warmup/">Writeup - Securinets2020 Warmup</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-03-28
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/writeups/">writeups</a>&nbsp;
-            
-            #<a href="/tags/ctf/">ctf</a>&nbsp;
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Warmup  Warmup : Welcome to securinets CTF
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Writeup - Securinets2020 Warmup
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Warmup  Warmup : Welcome to securinets CTF
  In this task we are dealing with very simple function main:
-undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.
-          
-          
-        </div>
+undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 &#43; 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &lt; 0x14) { var_8h = var_8h &#43; (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h &#43; 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h &#43; 0x201080)); var_4h....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-03-28 08:00:00 +0100 CET'>March 28, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Writeup - Securinets2020 Warmup" href="https://rehex.ninja/posts/writeup-securinets2020-warmup/"></a>
+</article>
 
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/writeup-securinets2020-warmup/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/writeup-htb-snake/">Writeup - HTB Snake</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-03-27
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/writeups/">writeups</a>&nbsp;
-            
-            #<a href="/tags/htb/">htb</a>&nbsp;
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          [re] Snake (10) Description Short info about task:
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Writeup - HTB Snake
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>[re] Snake (10) Description Short info about task:
  Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
  Overview We have got the python script that is waiting for some username and password:
-$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &lt;\ ___/ |____| |___| /\___ &gt; /_______ /___| (____ /__|_ \___ &gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&rsquo;s look into code to get more info about how to get username and password.
-          
-          
-        </div>
+$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &lt;\ ___/ |____| |___| /\___ &gt; /_______ /___| (____ /__|_ \___ &gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let’s look into code to get more info about how to get username and password....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-03-27 19:22:09 +0100 CET'>March 27, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Writeup - HTB Snake" href="https://rehex.ninja/posts/writeup-htb-snake/"></a>
+</article>
 
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/writeup-htb-snake/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/ida-pro-plugins/">Ida Pro Plugins</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-02-15
-          </span>
-          
-        </div>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Ida Pro Plugins
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Plugins worth installing
+...</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-02-15 12:01:53 +0100 CET'>February 15, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Ida Pro Plugins" href="https://rehex.ninja/posts/ida-pro-plugins/"></a>
+</article>
 
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-          </span>
-        
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Unmap PE Manually
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &gt; Sections &gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i&#43;1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-01-25 09:00:00 +0100 CET'>January 25, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Unmap PE Manually" href="https://rehex.ninja/posts/unmap-pe-manually/"></a>
+</article>
 
-        
-
-        <div class="post-content">
-          
-          
-          <p>Plugins worth installing</p>
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ida-pro-plugins/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/unmap-pe-manually/">Unmap PE Manually</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-01-25
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
-            
-            #<a href="/tags/asm/">asm</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &gt; Sections &gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/unmap-pe-manually/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/disable-aslr/">Disable Aslr</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-01-18
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/asm/">asm</a>&nbsp;
-            
-            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
-            
-            #<a href="/tags/windows/">windows</a>&nbsp;
-            
-            #<a href="/tags/linux/">linux</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/disable-aslr/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="/posts/c&#43;&#43;-assembly/">C++ assembly</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2020-01-11
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/asm/">asm</a>&nbsp;
-            
-            #<a href="/tags/re/">re</a>&nbsp;
-            
-            #<a href="/tags/malware-analysis/">malware-analysis</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/c&#43;&#43;-assembly/">Read more →</a>
-        </div>
-        
-      </div>
-    
-    <div class="pagination">
-  <div class="pagination__buttons">
-    
-      <span class="button previous">
-        <a href="/tags/re/">
-          <span class="button__icon">←</span>
-          <span class="button__text">Newer posts</span>
-        </a>
-      </span>
-    
-    
-      <span class="button next">
-        <a href="/tags/re/page/3/">
-          <span class="button__text">Older posts</span>
-          <span class="button__icon">→</span>
-        </a>
-      </span>
-    
-  </div>
-</div>
-
-  </div>
-
-  </div>
-
-  
-    <footer class="footer">
-  <div class="footer__inner">
-    
-      <div class="copyright copyright--user">
-        <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
-    
-        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
-      </div>
-  </div>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Disable Aslr
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-01-18 14:00:15 +0100 CET'>January 18, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Disable Aslr" href="https://rehex.ninja/posts/disable-aslr/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://rehex.ninja/tags/re/">« Prev Page</a>
+    <a class="next" href="https://rehex.ninja/tags/re/page/3/">Next Page »</a>
+  </nav>
 </footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://rehex.ninja">reHex Ninja</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
-<script src="/assets/main.js"></script>
-<script src="/assets/prism.js"></script>
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
-
-
-
-  
-</div>
-
+</script>
 </body>
+
 </html>
