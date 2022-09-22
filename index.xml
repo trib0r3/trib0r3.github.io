@@ -5,7 +5,16 @@
     <link>https://rehex.ninja/</link>
     <description>Recent content on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Sep 2022 20:52:00 +0200</lastBuildDate><atom:link href="https://rehex.ninja/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iOS Forensics Cheatsheet</title>
+      <link>https://rehex.ninja/posts/ios-forensics-cheatsheet/</link>
+      <pubDate>Thu, 22 Sep 2022 20:52:00 +0200</pubDate>
+      
+      <guid>https://rehex.ninja/posts/ios-forensics-cheatsheet/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Writeup - Cosy Casino</title>
       <link>https://rehex.ninja/posts/writeup-cosy-casino/</link>
@@ -138,8 +147,8 @@
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/writeup-securinets2020-warmup/</guid>
-      <description>Warmup  Warmup : Welcome to securinets CTF
- In this task we are dealing with very simple function main:
+      <description>Warmup Warmup : Welcome to securinets CTF
+In this task we are dealing with very simple function main:
 undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
     </item>
     
@@ -150,8 +159,8 @@ undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefi
       
       <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
       <description>[re] Snake (10) Description Short info about task:
- Name: Snake Difficulty: easy Score: 10   Flag should be in the format: HTB{username:password}
- Overview We have got the python script that is waiting for some username and password:
+Name: Snake Difficulty: easy Score: 10 Flag should be in the format: HTB{username:password}
+Overview We have got the python script that is waiting for some username and password:
 $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
     </item>
     
@@ -179,7 +188,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/unmap-pe-manually/</guid>
-      <description>Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
+      <description>Prerequisities Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary Unmap With PE bear Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so: RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i] If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections Fix misalligned sections Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
     </item>
     
     <item>
@@ -188,7 +197,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/disable-aslr/</guid>
-      <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
+      <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7 Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot. Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
     </item>
     
     <item>
@@ -197,8 +206,8 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       <pubDate>Sat, 18 Jan 2020 09:00:00 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/keep-your-md-notes-organized/</guid>
-      <description>Journey of finding ideal note-taking app  TL;DR: If you want to transfer your bear notes to markdown goto Move your bear notes, if you want to emulate Bear multi-tagging check Multitagging support.
- Once upon a time I was using Bear.app for writing and organizing notes. It had really good features like multi-tagging and couple of other nice features like pseudo markdown support. Unfortunatelly a lot of things were bugged, developers slow in fixing them so I decided to move my notes from Bear to other platform.</description>
+      <description>Journey of finding ideal note-taking app TL;DR: If you want to transfer your bear notes to markdown goto Move your bear notes, if you want to emulate Bear multi-tagging check Multitagging support.
+Once upon a time I was using Bear.app for writing and organizing notes. It had really good features like multi-tagging and couple of other nice features like pseudo markdown support. Unfortunatelly a lot of things were bugged, developers slow in fixing them so I decided to move my notes from Bear to other platform.</description>
     </item>
     
     <item>
@@ -207,7 +216,7 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
       <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/c&#43;&#43;-assembly/</guid>
-      <description>Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
+      <description>Structures C struct vs C++ class C struct functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size. C++ class Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
     </item>
     
     

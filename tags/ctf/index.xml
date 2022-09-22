@@ -12,8 +12,8 @@
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/writeup-securinets2020-warmup/</guid>
-      <description>Warmup  Warmup : Welcome to securinets CTF
- In this task we are dealing with very simple function main:
+      <description>Warmup Warmup : Welcome to securinets CTF
+In this task we are dealing with very simple function main:
 undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
     </item>
     

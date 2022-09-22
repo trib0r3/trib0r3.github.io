@@ -5,7 +5,34 @@
     <link>https://rehex.ninja/tags/</link>
     <description>Recent content in Tags on reHex Ninja</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Sep 2022 20:52:00 +0200</lastBuildDate><atom:link href="https://rehex.ninja/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cheatsheet</title>
+      <link>https://rehex.ninja/tags/cheatsheet/</link>
+      <pubDate>Thu, 22 Sep 2022 20:52:00 +0200</pubDate>
+      
+      <guid>https://rehex.ninja/tags/cheatsheet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>forensics</title>
+      <link>https://rehex.ninja/tags/forensics/</link>
+      <pubDate>Thu, 22 Sep 2022 20:52:00 +0200</pubDate>
+      
+      <guid>https://rehex.ninja/tags/forensics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ios</title>
+      <link>https://rehex.ninja/tags/ios/</link>
+      <pubDate>Thu, 22 Sep 2022 20:52:00 +0200</pubDate>
+      
+      <guid>https://rehex.ninja/tags/ios/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>htb</title>
       <link>https://rehex.ninja/tags/htb/</link>
@@ -66,15 +93,6 @@
       <pubDate>Mon, 10 May 2021 17:12:00 +0200</pubDate>
       
       <guid>https://rehex.ninja/tags/tools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cheatsheet</title>
-      <link>https://rehex.ninja/tags/cheatsheet/</link>
-      <pubDate>Mon, 03 May 2021 14:40:06 +0100</pubDate>
-      
-      <guid>https://rehex.ninja/tags/cheatsheet/</guid>
       <description></description>
     </item>
     

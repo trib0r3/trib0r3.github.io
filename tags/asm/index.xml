@@ -12,7 +12,7 @@
       <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/unmap-pe-manually/</guid>
-      <description>Prerequisities  Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary  Unmap With PE bear  Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so:  RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i]   If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections  Fix misalligned sections  Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
+      <description>Prerequisities Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary Unmap With PE bear Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so: RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i] If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections Fix misalligned sections Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
     </item>
     
     <item>
@@ -21,7 +21,7 @@
       <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/disable-aslr/</guid>
-      <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7  Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot.  Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default  Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
+      <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7 Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot. Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
     </item>
     
     <item>
@@ -30,7 +30,7 @@
       <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
       
       <guid>https://rehex.ninja/posts/c&#43;&#43;-assembly/</guid>
-      <description>Structures C struct vs C++ class C struct  functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size.  C++ class  Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
+      <description>Structures C struct vs C++ class C struct functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size. C++ class Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
     </item>
     
   </channel>

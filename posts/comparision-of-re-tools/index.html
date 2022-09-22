@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Comparision of Reverse-Engineering Tools | reHex Ninja</title>
-<meta name="keywords" content="re, binja, ida, radare2, ghidra" />
+<meta name="keywords" content="re, binja, ida, radare2, ghidra">
 <meta name="description" content="Let&rsquo;s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.">
 <meta name="author" content="trib0r3">
-<link rel="canonical" href="https://rehex.ninja/posts/comparision-of-re-tools/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+<link rel="canonical" href="https://rehex.ninja/posts/comparision-of-re-tools/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://rehex.ninja/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
@@ -20,7 +20,6 @@
 <link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.92.0" />
 <noscript>
     <style>
         #theme-toggle,
@@ -62,8 +61,8 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://rehex.ninja/posts/comparision-of-re-tools/" />
 <meta property="og:image" content="https://rehex.ninja/img/thumb/decomp-versus.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-04-19T12:12:00&#43;02:00" />
-<meta property="article:modified_time" content="2020-04-19T12:12:00&#43;02:00" />
+<meta property="article:published_time" content="2020-04-19T12:12:00+02:00" />
+<meta property="article:modified_time" content="2020-04-19T12:12:00+02:00" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://rehex.ninja/img/thumb/decomp-versus.png" />
@@ -101,7 +100,7 @@
   "keywords": [
     "re", "binja", "ida", "radare2", "ghidra"
   ],
-  "articleBody": "Let’s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.\nHopefully this post will help you to find tools worth choosing as primary reverse engineering tool.\nScoring rules To be fair during my analysis I developed simple score system. For each feature product can specific amount of points:\n 1.0 (+) - given feature is available and fully operational. 0.5 (~) - feature is partially available, you need to install plugin to achieve it or pay for extra license. 0.0 (-)- feature is not available at all.  Comparision For detailed description of features go to corresponding chapters below.\n[Bracketed] character means that in my opinion specified tool is the “best” in the specified category (feature), it is not extra scored, but it may be useful for somebody.\n| | Price | Score | Cross-platform | Multi-arch | Decompiler | Debugger | Plugins (1) | Signatures (2) | Patching (3) | Symbolic constants | |:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:| | BinaryNinja 2.0.2097 | $150 | 7.0 | + | + | + | + | + | + | [+] | - | | Ghidra 9.1.2 | Free | 6.5 | + | + | [+] | - | ~ | + | + | + | | IDA Home(4) | $365 | 6.0 | ~ (1/license) | ~ (1/license) | ~ (extra-paid feature) | [+] | + | [+] | ~ | + | | radare2/Cutter | Free | 7.0 | [+] | [+] | + | + | + | + | + | - |  Plugins - support for modern, updated programming languages. Signatures - built-in signatures with option to add own. Patching - ability to assemble code without using the hex-editor. IDA Home - currently this version is not published yet, but this is just a limited IDA Pro version, so I will rate it based on my previous experiences with IDA Pro (for limitation list go to References).  Price Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:\n BinaryNinja Cloud - Binary Ninja Personal in browser, but without debugger and plugins support. IDA Freeware 7.0 - free version of IDA, with a lot of limitations.   To be 100% honest, BinaryNinja also have standalone demo, but it is more limited than cloud version, so I decided to ignore it.\n Score Just remember to not blindly follow my scoring! This blog post is about my subjective point of view. If you want to know, which tool I like the most - jump to the summary.\nCross platform From my perspective disassembly tool should be cross-platform, it is very annoying when you can’t easily install your tool on any operating system, specially when you are not staying with one favourite whole time (like me - I’m the user of OSX, Linux \u0026 Windows).\nUnfortunatelly IDA is “not the best” here, because you need to specify on what kind of operating system you are going to use it :/\n Don’t understand me wrong: you can disassemble Linux binaries on Windows and veice versa. But it means that if you decide to buy it in version for Windows, then you will receive IDA install files only for Windows.\n The absolute winner is radare2, this tool you can run on almost anything (probably you can even run it on your washing machine).\nMulti-arch (support multiple CPU families) You never know when you will have change architecture of analysed software, probably you will do the most of analysis for x86 or ARM, but it is good to be ready for any kind of analysis, especially when you are paying for some tools.\nOnce again IDA is not cheap and supports only 1 architecture for each home license.\nradare2 supports probably the biggest amount of architectures by default.\n Note: the rest of tools probably requires only install of some plugin to support extra architecture - IDA Home is an exception.\n Decompiler Probably the most desired feature in every disassembly product. Unfortunatelly IDA Home won’t have it built-in in this price and you need to pay full-price to get it (and this is very expensive toy).\n Note: I really hate to hate IDA, because I like this tool, but IDA have also another disadvantage (without hex-rays): local variables doesn’t support types.\nThis actually affects all plugins using i.e ghidra decompiler - if you have binary where some structure is created in the context of local variable, then you have to manually rename variables - even if definition of its structure is known for you.\n But anyway Ghidra seems to have the best decompiler at this moment (even better that HexRays): with support for C++ classes, etc. Definately the strongest feature of Ghidra.\nFor Binja it is relatively fresh stuff (it is available from version 2.0), so hopefully it will be similarly good as Ghidra (binja-devs we are waiting for support of classes!).\nFinally r2 Cutter have some decompiler, but seems to prefer to use ghidra’s decompiler with as pretty good integration.\nDebugger IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.\n Note: radare2 developed something called ESIL - very useful features for emulating code, analysis. Unfortunatelly it can’t run code handled by operating system (APIs).\n  Update: actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)\n Plugins Here I had very simple requirements: plugin API must be available AND used language must be up to date.\nGhidra failed here, because it is using Java or Python2 (Jython to be honest). Just no.\nI really like radare2 API, because it is just radare syntax :P Then binja API seems to be very intuitive, IDA contains the most complex API.\n BinaryNinja and radare2 have plugin managers which helps you to install plugins \u0026 keep them updated.\n Signatures Every dissasembly tool should have some mechanism for detecing commonly known functions and actually all of mentioned tools have such ability:\n BinaryNinja - own “Signatures” engine (I will work on support for FLIRT); Ghidra - own signatures engine + FLIRT support (plugin required); IDA Home - FLIRT, support for Lumina server is not known is not known yet; Radare2 - zignatures(iz?) + FLIRT.  Patching From my perspective Binja contains the best user interface for this (you can invert jumps, xor pieces of code, etc just by few clicks), pretty good interface is in Cutter, ofc if you are masochist you can everything in radare2 ;)\nIn IDA patching is theorethically possible, but I won’t recommend it - much easier is to easier code in built-in hex editor than with very limited Assemble code feature.\nSymbolic contants Useful when you are analysing Windows binaries, just replace ugly int with more meaningful name.\nSummary From my perspective if you are just looking for your 1st tool to begin with in reverse engineering, then I would recommend you Ghidra (I know, it’s ugly - but it’s free), then you can start thinking about buying i.e BinaryNinja.\nPersonally I very like BinaryNinja - for the interface and incoming features, it seems to become very good tool in the near feature. I can’t also don’t recommend radare2 which is very powerful, but this tool requires a little bit more attention.\nI don’t think that IDA Home is worth of waiting (it will be available in May), because it seems to be very limited in comparision to other tools - I can change my mind onluif it will contain HexRays Decompiler built-in in home version.\nI hope this article will help you find your new favourite tool - if you have different opinion: please, share it in the comments :)\nReferences  Binary Ninja Ghidra IDA Home radare2 \u0026 Cutter Light Saber icon by Delapouite under CC BY 3.0 ",
+  "articleBody": "Let’s compare the most populare reverse-egineering with strong focus on personal usage: BinaryNinja, Ghidra, IDA and radare2.\nHopefully this post will help you to find tools worth choosing as primary reverse engineering tool.\nScoring rules To be fair during my analysis I developed simple score system. For each feature product can specific amount of points:\n1.0 (+) - given feature is available and fully operational. 0.5 (~) - feature is partially available, you need to install plugin to achieve it or pay for extra license. 0.0 (-)- feature is not available at all. Comparision For detailed description of features go to corresponding chapters below.\n[Bracketed] character means that in my opinion specified tool is the “best” in the specified category (feature), it is not extra scored, but it may be useful for somebody.\n| | Price | Score | Cross-platform | Multi-arch | Decompiler | Debugger | Plugins (1) | Signatures (2) | Patching (3) | Symbolic constants | |:--------------------:|:-----:|:-----:|:--------------:|:-------------:|:----------------------:|:--------:|:------------:|:---------------:|:-------------:|:------------------:| | BinaryNinja 2.0.2097 | $150 | 7.0 | + | + | + | + | + | + | [+] | - | | Ghidra 9.1.2 | Free | 6.5 | + | + | [+] | - | ~ | + | + | + | | IDA Home(4) | $365 | 6.0 | ~ (1/license) | ~ (1/license) | ~ (extra-paid feature) | [+] | + | [+] | ~ | + | | radare2/Cutter | Free | 7.0 | [+] | [+] | + | + | + | + | + | - | Plugins - support for modern, updated programming languages. Signatures - built-in signatures with option to add own. Patching - ability to assemble code without using the hex-editor. IDA Home - currently this version is not published yet, but this is just a limited IDA Pro version, so I will rate it based on my previous experiences with IDA Pro (for limitation list go to References). Price Actually here is no winner, I would like to only mention that I skipped some freeware versions of paid tools:\nBinaryNinja Cloud - Binary Ninja Personal in browser, but without debugger and plugins support. IDA Freeware 7.0 - free version of IDA, with a lot of limitations. To be 100% honest, BinaryNinja also have standalone demo, but it is more limited than cloud version, so I decided to ignore it.\nScore Just remember to not blindly follow my scoring! This blog post is about my subjective point of view. If you want to know, which tool I like the most -\u003e jump to the summary.\nCross platform From my perspective disassembly tool should be cross-platform, it is very annoying when you can’t easily install your tool on any operating system, specially when you are not staying with one favourite whole time (like me - I’m the user of OSX, Linux \u0026 Windows).\nUnfortunatelly IDA is “not the best” here, because you need to specify on what kind of operating system you are going to use it :/\nDon’t understand me wrong: you can disassemble Linux binaries on Windows and veice versa. But it means that if you decide to buy it in version for Windows, then you will receive IDA install files only for Windows.\nThe absolute winner is radare2, this tool you can run on almost anything (probably you can even run it on your washing machine).\nMulti-arch (support multiple CPU families) You never know when you will have change architecture of analysed software, probably you will do the most of analysis for x86 or ARM, but it is good to be ready for any kind of analysis, especially when you are paying for some tools.\nOnce again IDA is not cheap and supports only 1 architecture for each home license.\nradare2 supports probably the biggest amount of architectures by default.\nNote: the rest of tools probably requires only install of some plugin to support extra architecture - IDA Home is an exception.\nDecompiler Probably the most desired feature in every disassembly product. Unfortunatelly IDA Home won’t have it built-in in this price and you need to pay full-price to get it (and this is very expensive toy).\nNote: I really hate to hate IDA, because I like this tool, but IDA have also another disadvantage (without hex-rays): local variables doesn’t support types.\nThis actually affects all plugins using i.e ghidra decompiler - if you have binary where some structure is created in the context of local variable, then you have to manually rename variables - even if definition of its structure is known for you.\nBut anyway Ghidra seems to have the best decompiler at this moment (even better that HexRays): with support for C++ classes, etc. Definately the strongest feature of Ghidra.\nFor Binja it is relatively fresh stuff (it is available from version 2.0), so hopefully it will be similarly good as Ghidra (binja-devs we are waiting for support of classes!).\nFinally r2 Cutter have some decompiler, but seems to prefer to use ghidra’s decompiler with as pretty good integration.\nDebugger IDA is the winner and the loser at the same time. Definately the ugliest and the less intuitive interface, but it also have win-feature in debugger (even if debugger is sometimes bugged): populate current code state to database. Very useful during unpacking or dynamic code modifications.\nNote: radare2 developed something called ESIL - very useful features for emulating code, analysis. Unfortunatelly it can’t run code handled by operating system (APIs).\nUpdate: actually binja from some time also can populate analysis database based on debugging session! (it happens auto-magically)\nPlugins Here I had very simple requirements: plugin API must be available AND used language must be up to date.\nGhidra failed here, because it is using Java or Python2 (Jython to be honest). Just no.\nI really like radare2 API, because it is just radare syntax :P Then binja API seems to be very intuitive, IDA contains the most complex API.\nBinaryNinja and radare2 have plugin managers which helps you to install plugins \u0026 keep them updated.\nSignatures Every dissasembly tool should have some mechanism for detecing commonly known functions and actually all of mentioned tools have such ability:\nBinaryNinja - own “Signatures” engine (I will work on support for FLIRT); Ghidra - own signatures engine + FLIRT support (plugin required); IDA Home - FLIRT, support for Lumina server is not known is not known yet; Radare2 - zignatures(iz?) + FLIRT. Patching From my perspective Binja contains the best user interface for this (you can invert jumps, xor pieces of code, etc just by few clicks), pretty good interface is in Cutter, ofc if you are masochist you can everything in radare2 ;)\nIn IDA patching is theorethically possible, but I won’t recommend it - much easier is to easier code in built-in hex editor than with very limited Assemble code feature.\nSymbolic contants Useful when you are analysing Windows binaries, just replace ugly int with more meaningful name.\nSummary From my perspective if you are just looking for your 1st tool to begin with in reverse engineering, then I would recommend you Ghidra (I know, it’s ugly - but it’s free), then you can start thinking about buying i.e BinaryNinja.\nPersonally I very like BinaryNinja - for the interface and incoming features, it seems to become very good tool in the near feature. I can’t also don’t recommend radare2 which is very powerful, but this tool requires a little bit more attention.\nI don’t think that IDA Home is worth of waiting (it will be available in May), because it seems to be very limited in comparision to other tools - I can change my mind onluif it will contain HexRays Decompiler built-in in home version.\nI hope this article will help you find your new favourite tool - if you have different opinion: please, share it in the comments :)\nReferences Binary Ninja Ghidra IDA Home radare2 \u0026 Cutter Light Saber icon by Delapouite under CC BY 3.0 ",
   "wordCount" : "1329",
   "inLanguage": "en",
   "image":"https://rehex.ninja/img/thumb/decomp-versus.png","datePublished": "2020-04-19T12:12:00+02:00",
@@ -142,14 +141,14 @@
     <nav class="nav">
         <div class="logo">
             <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
-            <span class="logo-switches">
+            <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -163,7 +162,7 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-            </span>
+            </div>
         </div>
         <ul id="menu">
             <li>
@@ -367,12 +366,12 @@
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/">
-    <span class="title">« Prev Page</span>
+    <span class="title">« Prev</span>
     <br>
     <span>Qiling Scripting and Simple RE Task</span>
   </a>
   <a class="next" href="https://rehex.ninja/posts/writeup-securinets2020-warmup/">
-    <span class="title">Next Page »</span>
+    <span class="title">Next »</span>
     <br>
     <span>Writeup - Securinets2020 Warmup</span>
   </a>
@@ -382,48 +381,47 @@
 <div class="share-buttons">
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on twitter"
         href="https://twitter.com/intent/tweet/?text=Comparision%20of%20Reverse-Engineering%20Tools&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f&amp;hashtags=re%2cbinja%2cida%2cradare2%2cghidra">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
         </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on linkedin"
         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f&amp;title=Comparision%20of%20Reverse-Engineering%20Tools&amp;summary=Comparision%20of%20Reverse-Engineering%20Tools&amp;source=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
         </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on reddit"
         href="https://reddit.com/submit?url=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f&title=Comparision%20of%20Reverse-Engineering%20Tools">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
         </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on facebook"
         href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
         </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on whatsapp"
         href="https://api.whatsapp.com/send?text=Comparision%20of%20Reverse-Engineering%20Tools%20-%20https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
         </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer" aria-label="share Comparision of Reverse-Engineering Tools on telegram"
         href="https://telegram.me/share/url?text=Comparision%20of%20Reverse-Engineering%20Tools&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fcomparision-of-re-tools%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
             <path
                 d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
         </svg>
     </a>
 </div>
-
   </footer>
 </article>
     </main>
@@ -433,7 +431,7 @@
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
@@ -502,12 +500,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerText = 'copy';
+        copybutton.innerHTML = 'copy';
 
         function copyingDone() {
-            copybutton.innerText = 'copied!';
+            copybutton.innerHTML = 'copied!';
             setTimeout(() => {
-                copybutton.innerText = 'copy';
+                copybutton.innerHTML = 'copy';
             }, 2000);
         }
 

@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rehex.ninja/tags/cheatsheet/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/forensics/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/ios/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/posts/ios-forensics-cheatsheet/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/posts/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/</loc>
+    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
+  </url><url>
     <loc>https://rehex.ninja/tags/htb/</loc>
     <lastmod>2021-07-03T10:22:09+01:00</lastmod>
   </url><url>
-    <loc>https://rehex.ninja/posts/</loc>
-    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
-  </url><url>
     <loc>https://rehex.ninja/tags/pwn/</loc>
-    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/</loc>
-    <lastmod>2021-07-03T10:22:09+01:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/tags/</loc>
     <lastmod>2021-07-03T10:22:09+01:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/posts/writeup-cosy-casino/</loc>
@@ -48,9 +60,6 @@
     <lastmod>2021-05-10T17:12:00+02:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/posts/radare2-rizin-cheatsheet/</loc>
-    <lastmod>2021-05-03T14:40:06+01:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/tags/cheatsheet/</loc>
     <lastmod>2021-05-03T14:40:06+01:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/tags/radare2/</loc>

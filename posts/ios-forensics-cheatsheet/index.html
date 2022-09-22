@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>iOS Forensics Cheatsheet | reHex Ninja</title>
+<meta name="keywords" content="ios, forensics, cheatsheet">
+<meta name="description" content="iOS Forensics Cheatsheet - reHex Ninja">
+<meta name="author" content="trib0r3">
+<link rel="canonical" href="https://rehex.ninja/posts/ios-forensics-cheatsheet/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://rehex.ninja/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://rehex.ninja/apple-touch-icon.png">
+<link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="iOS Forensics Cheatsheet" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rehex.ninja/posts/ios-forensics-cheatsheet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-22T20:52:00+02:00" />
+<meta property="article:modified_time" content="2022-09-22T20:52:00+02:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="iOS Forensics Cheatsheet"/>
+<meta name="twitter:description" content=""/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://rehex.ninja/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "iOS Forensics Cheatsheet",
+      "item": "https://rehex.ninja/posts/ios-forensics-cheatsheet/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "iOS Forensics Cheatsheet",
+  "name": "iOS Forensics Cheatsheet",
+  "description": "",
+  "keywords": [
+    "ios", "forensics", "cheatsheet"
+  ],
+  "articleBody": "Terms Very loose “translation” of names which can be found in iOS ecosystem\nubiquity = icloud sharingd = AirDrop / continuity Nano = Apple Watch Data Acquisition sysdiagnose Full Filesystem (root required) Backups Encrypted have much more data! Mac: ~/Library/Application Support/MobileSync/Backup/ Windows Vista+: \\Users\\\\AppData\\Roaming\\Apple Computer\\MobileSync\\Backup\\ Artifacts Table(s) with paths to specific artefacts on iOS backup (likely encrypted) / iOS rooted\nArtifact iOS Backup iOS (FFS) Version \u0026 Serial Number\n❔ /System/Library/CoreServices/System Version.plist Device UUID ❔ /private/var/Library/Safari/SyncedTabsMetadata.plist Installation date ❌ /[private/var]/mobile/Library/Preferences/com.apple.purplebuddy.plist Cellural Info /wireless/Library/Preferences/com.apple.commcenter.data.plist /private/var/wireless/Library/Preferences/com.apple.commcenter.data.plist iOS - Auto-Wipe Enabled (after failed pin) ❌ [/private/var]/mobile/Library/Preferences/com.apple.springboard.plist Network Interfaces \u0026 System Model ❌ /private/var/preferences/SystemConfiguration/NetworkInterfaces.plist Network Information (IP) /preferences/SystemConfiguration/preferences.plist /private/var/preferences/SystemConfiguration/preferences.plist DHCP /db/dhcpclient/leases/ /private/var/db/dhcpclient/leases Known WiFi ❌ [/private/var/]preferences/SystemConfiguration/com.apple.wifi.plist Configuration profiles ❌ /private/var/mobile/Library/ConfigurationProfiles/, /private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles Enterprise Provisioning Profiles ❌ /private/var/MobileDevice/ProvisioningProfiles/ FileSystem Events ❌ /.fseventsd Keychains /Keychains: keychain-backup.plist /private/var/Keychains/keychain-2.db LaunchAgent (User) ❌ /Library/LaunchAgents/ LaunchDaemons (System) ❌ /System/Library/LaunchDaemons, System/Library/NanoLaunchDaemons, Library/LaunchDaemons (jailbroken with Cydia) Keyboard - Dictionary - Spelling\naka Passwords! /KeyboardDomain/Library/Keyboard, /mobile/Library/Keyboard /private/var/mobile/Library/Keyboard/ Finder / SpringBoard\nToday View Archive. plist, IconState.plist, -CarDisplayIconState.plist /mobile/Library/SpringBoard/ /private/var/mobile/Library/SpringBoard/ Notifications /mobile/Library/UserNotifications/ /private/var/mobile/Library/UserNotifications/ Bluetooth Devices ❌ com.apple.MobileBluetooth.devices.plist , com.apple.MobileBluetooth.ledevices.other.db, com.apple.MobileBluetooth.ledevices.paired.db Installation Log ❌ iOS 6: /mobile/Library/Logs/MobileInstallation/ iOS 7–9: /private/var/mobile/Library/Logs/MobileInstallation/\niOS 10+: /private/var/installd/Library/Logs/MobileInstallation/\n/private/var/mobile/Library/FrontBoard/applicationState.db Unified Logs Logs: /var/db/diagnostics/, Ref Data: /var/db/uuidtext/ Application Preferences /mobile/Applications//, /mobile/Library/Preferences, /mobile/Library/ /private/var/mobile/Containers/...//Preferences, /private/var/mobile/Preferences, /private/var/mobile/Library/ Application Caches ❌ /private/var/mobile/Containers/...//Library/Caches/, /private/var/mobile/Library/Cache/ App Shared Directories ❔ Normal App data: /Data/Application/ Shared App data: /Shared/AppGroup/ Application Snaphosts (thumbs when app is backgrounded) ❌ /Library/Caches/Snapshots// TCC (Transparency, Control Control) - permissions /mobile/Library/TCC/TCC.db /private/var/mobile/Library/TCC/TCC.db Apps using Location Services /root/Library/Caches/locationd/clients.plist /private/var/root/Library/Caches/locationd/clients.plist MRU - Recent Apps ❔(springboard?)\n/mobile/Library/Recents/com.apple.corerecents.recentsd com.apple.springboard.plist\n/private/var/mobile/Library/Recents/com.apple.corerecents.recentsd Internet Accounts ❌ [/private/var]/mobile/Library/Accounts/Accounts{3,4}.sqlite App - Safari\nHistory.db\nLastSession.plist\nBrowserState.db /mobile/Library/Safari/ /private/var/mobile/Library/Safari/, /private/var/mobile/Containers/Data/Application// App - Safari (FFS only) ❌ /private/var/mobile/Containers/Data/Application//Library/Caches/, /private/var/mobile/Containers/Data/Application//Library/Safari/Thumbnails/, /private/var/mobile/Library/Safari/CloudTabs.db (synced tabs), /private/var/mobile/Containers/Data/Application//Library/Caches/WebKit/ (website visit, cached items list), com.apple.Safari.plist (config \u0026 recent searches), RecentlyClosedTabs.plist, Downloads.plist App - Mail\nEnvelope Index (db) /mobile/Library/Mail/ /private/var/mobile/Library/Mail/, /private/var/mobile/Containers/Data/Application// App - Messages /mobile/Library/SMS/sms.db /private/var/mobile/Library/SMS/sms.db App - Call History (CallHistory.storedata) /mobile/Library/CallHistoryDB/ /private/var/mobile/Library/CallHistoryDB/ App - Voice Mail (voicemail.db, AMR, *.transcript files) /mobile/Library/Voicemail/ /private/var/mobile/Library/Voicemail/ App - Calendar /mobile/Library/Calendar/ /private/var/mobile/Library/Calendar/ App - Reminders (Data-.sqlite) /mobile/Library/Reminders /private/var/mobile/Library/Reminders/ App - Address Book aka Contacts\n(AddressBook-v22.abcddb) /mobile/Library/AddressBook [/private/var/]mobile/Library/AddressBook/ App - Notes1 (NoteStore.sqlite, Media/, Preview/) /mobile/Applications/com.apple.notes\n/mobile/Applications/Notes (Legacy) /private/var/mobile/Containers/Shared/AppGroup/\n/private/var/mobile/Library/Notes (Legacy) App - Wallet (Cards, Transactions, Peer Payments) ❌ /private/var/mobile/Library/Passes, /private/var/mobile/Library/Mobile Documents/com~apple~shoebox/UbiquitosCards (iCloud)\npasses23.sqlite App - Photos (Photos.sql, photos - xattrs) ❔ [/private/var/]mobile/Media/PhotoData, [private/var/]mobile/Media/ App - Maps /mobile/Applications/com.apple.Maps/ (may not contain all files) /private/var/mobile/Containers/Data/Application//Maps App - ScreenTime ❌ /private/var/mobile/Library/Application Support/com.apple.remotemanagementd AppleWatch ❌ /mobile/Library/DeviceRegistry/ Application Usage\nMedia Playing\nDevice Status (lock, powered)\n(more)2 ❌ /private/var/mobile/Library/CoreDuet/Knowledge/knowledgeC.db2 Application Usage Volume and Battery Level\nCall Status \u0026 Camera State (CurrentPowerlog.PLSQL) - issues with timestamps Sysdiagnose /private/var/containers/Shared/SystemGroup//Library/BatteryLife/ (+Archives/) Health ❌ /private/var/mobile/Library/Health/healthdb_secure.sqlite Device Status - Lock ❌ /private/var/mobile/Library/AggregateDictionary/ADDataStore.sqlitedb Location (significant locations) ❌ /private/var/mobile/Library/Caches/com.apple.routined/ Location (WiFi) ❌ /private/var/root/library/caches/locationd/{cache_encrypted*.db,lockCache_encrypted*.db} Apple Document Versions/Revisions/History ❌ /private/var/.DocumentRevisions-V100/ iCloud Synced Preferences (SyncedPreferences dirs)\n❌ /private/var/mobile/Library/SyncedPreferences/\n/private/var/mobile/Containers iCloud - WiFi ❌ com.apple.wifid.plist (connected), com.apple.airport.plist (available ❔) iCloud - Synced Documents ❌ Mobile Documents/ Uniqied Logs Queries # show all alogs log show --info # Network usage log show --info --predicate 'senderImagePath contains[cd] \"IPConfiguration\" and (eventMessage contains[cd] \"SSID\" or 6d861c1c51aeae2854076da982bf4829 eventMessage contains[cd] \"Lease\" or eventMessage contains[cd] \"network changed\")' https://developer.apple.com/documentation/os/logging\nSQL Queries https://www.evernote.com/pub/view/sledwards/for518/0cd1d73a-9684-4749-8470-af3a415463d4?locale=en#st=p\u0026n=0cd1d73a-9684-4749-8470-af3a415463d4 https://github.com/mac4n6/APOLLO Tooling tips Timestamps Timestamps starting from 1 are likely to be UNIX Epoch timestamps, others (example 5) - Mac Epoch\nEpoch Converter eopchalypyse.py Plists plutil, plistutil, xcode Plain text: 3C3F 786D 6C - \u003c?xml Binary: 6270 6c69 7374 3030 - bplist00 xattrs # list all xattr -lx # dump hex plist embedded in xattr xattr -px com.apple.metadata:kMDItemDownloadedDate LiberiOS11.0.3.ipa | xxd -r -px | plutil -p - sysdiagnose dump analyser GitHub - cheeky4n6monkey/iOS_sysdiagnose_forensic_scripts\nMac_apt / iOS_apt (filesystem analyser) GitHub - ydkhatri/mac_apt: macOS (\u0026 ios) Artifact Parsing Tool\nkeychains Import to system keychain (visible under custom keychains) or security command iOS requires decryption3: python keychain_tool.py -d keychain-backup.plist Manifest.plist apple system log log or syslog\nfsmon monitor filesystem events\nReferences https://www.ciofecaforensics.com/2020/01/10/apple-notes-revisited/ Apple Notes ↩︎\nhttps://github.com/mac4n6/APOLLO Apollo Project ↩︎ ↩︎\nhttps://dpron.com/recovering-google-authenticator-keys-from-ios-backups/ Steps 1-3 ↩︎\n",
+  "wordCount" : "636",
+  "inLanguage": "en",
+  "datePublished": "2022-09-22T20:52:00+02:00",
+  "dateModified": "2022-09-22T20:52:00+02:00",
+  "author":{
+    "@type": "Person",
+    "name": "trib0r3"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rehex.ninja/posts/ios-forensics-cheatsheet/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "reHex Ninja",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rehex.ninja/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://rehex.ninja/tags" title="#tags">
+                    <span>#tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/search" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://rehex.ninja/archives" title="archives">
+                    <span>archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/posts/">Posts</a></div>
+    <h1 class="post-title">
+      iOS Forensics Cheatsheet
+    </h1>
+    <div class="post-meta"><span title='2022-09-22 20:52:00 +0200 CEST'>September 22, 2022</span>&nbsp;·&nbsp;trib0r3&nbsp;|&nbsp;<a href="https://github.com/trib0r3/trib0r3.github.io/issues" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#terms" aria-label="Terms">Terms</a></li>
+                <li>
+                    <a href="#data-acquisition" aria-label="Data Acquisition">Data Acquisition</a></li>
+                <li>
+                    <a href="#artifacts" aria-label="Artifacts">Artifacts</a><ul>
+                        
+                <li>
+                    <a href="#uniqied-logs-queries" aria-label="Uniqied Logs Queries">Uniqied Logs Queries</a></li>
+                <li>
+                    <a href="#sql-queries" aria-label="SQL Queries">SQL Queries</a></li></ul>
+                </li>
+                <li>
+                    <a href="#tooling-tips" aria-label="Tooling tips">Tooling tips</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#timestamps" aria-label="Timestamps">Timestamps</a></li>
+                <li>
+                    <a href="#plists" aria-label="Plists">Plists</a></li>
+                <li>
+                    <a href="#xattrs" aria-label="xattrs">xattrs</a></li>
+                <li>
+                    <a href="#sysdiagnose-dump-analyser" aria-label="sysdiagnose dump analyser">sysdiagnose dump analyser</a></li>
+                <li>
+                    <a href="#mac_apt--ios_apt-filesystem-analyser" aria-label="Mac_apt / iOS_apt (filesystem analyser)">Mac_apt / iOS_apt (filesystem analyser)</a></li>
+                <li>
+                    <a href="#keychains" aria-label="keychains">keychains</a></li>
+                <li>
+                    <a href="#apple-system-log" aria-label="apple system log">apple system log</a></li>
+                <li>
+                    <a href="#fsmon" aria-label="fsmon">fsmon</a></li></ul>
+                    </ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="terms">Terms<a hidden class="anchor" aria-hidden="true" href="#terms">#</a></h2>
+<blockquote>
+<p>Very loose &ldquo;translation&rdquo; of names which can be found in iOS ecosystem</p>
+</blockquote>
+<ul>
+<li><code>ubiquity</code> = icloud</li>
+<li><code>sharingd</code> = AirDrop / continuity</li>
+<li><code>Nano</code> = Apple Watch</li>
+</ul>
+<h2 id="data-acquisition">Data Acquisition<a hidden class="anchor" aria-hidden="true" href="#data-acquisition">#</a></h2>
+<ul>
+<li>sysdiagnose</li>
+<li>Full Filesystem (root required)</li>
+<li>Backups
+<ul>
+<li>Encrypted have much more data!</li>
+<li>Mac: <code>~/Library/Application Support/MobileSync/Backup/</code></li>
+<li>Windows Vista+: <code>\Users\&lt;user&gt;\AppData\Roaming\Apple Computer\MobileSync\Backup\</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="artifacts">Artifacts<a hidden class="anchor" aria-hidden="true" href="#artifacts">#</a></h2>
+<p>Table(s) with paths to specific artefacts on iOS backup (likely encrypted) / iOS rooted</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>iOS Backup</th>
+<th>iOS (FFS)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version &amp; Serial Number<br /></td>
+<td>❔</td>
+<td><code>/System/Library/CoreServices/System Version.plist</code></td>
+</tr>
+<tr>
+<td>Device UUID</td>
+<td>❔</td>
+<td><code>/private/var/Library/Safari/SyncedTabsMetadata.plist</code></td>
+</tr>
+<tr>
+<td>Installation date</td>
+<td>❌</td>
+<td><code>/[private/var]/mobile/Library/Preferences/com.apple.purplebuddy.plist</code></td>
+</tr>
+<tr>
+<td>Cellural Info</td>
+<td><code>/wireless/Library/Preferences/com.apple.commcenter.data.plist</code></td>
+<td><code>/private/var/wireless/Library/Preferences/com.apple.commcenter.data.plist</code></td>
+</tr>
+<tr>
+<td>iOS - Auto-Wipe Enabled (after failed pin)</td>
+<td>❌</td>
+<td><code>[/private/var]/mobile/Library/Preferences/com.apple.springboard.plist</code></td>
+</tr>
+<tr>
+<td>Network Interfaces &amp; System Model</td>
+<td>❌</td>
+<td><code>/private/var/preferences/SystemConfiguration/NetworkInterfaces.plist</code></td>
+</tr>
+<tr>
+<td>Network Information (IP)</td>
+<td><code>/preferences/SystemConfiguration/preferences.plist</code></td>
+<td><code>/private/var/preferences/SystemConfiguration/preferences.plist</code></td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td><code>/db/dhcpclient/leases/</code></td>
+<td><code>/private/var/db/dhcpclient/leases</code></td>
+</tr>
+<tr>
+<td>Known WiFi</td>
+<td>❌</td>
+<td><code>[/private/var/]preferences/SystemConfiguration/com.apple.wifi.plist</code></td>
+</tr>
+<tr>
+<td>Configuration profiles</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/ConfigurationProfiles/</code>, <code>/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles</code></td>
+</tr>
+<tr>
+<td>Enterprise Provisioning Profiles</td>
+<td>❌</td>
+<td><code>/private/var/MobileDevice/ProvisioningProfiles/</code></td>
+</tr>
+<tr>
+<td>FileSystem Events</td>
+<td>❌</td>
+<td><code>&lt;VOLUME ROOT&gt;/.fseventsd</code></td>
+</tr>
+<tr>
+<td>Keychains</td>
+<td><code>/Keychains: keychain-backup.plist</code></td>
+<td><code>/private/var/Keychains/keychain-2.db</code></td>
+</tr>
+<tr>
+<td>LaunchAgent (User)</td>
+<td>❌</td>
+<td><code>/Library/LaunchAgents/ </code></td>
+</tr>
+<tr>
+<td>LaunchDaemons (System)</td>
+<td>❌</td>
+<td><code>/System/Library/LaunchDaemons</code>, <code>System/Library/NanoLaunchDaemons</code>, <br /><code>Library/LaunchDaemons</code> (jailbroken with Cydia)</td>
+</tr>
+<tr>
+<td>Keyboard - Dictionary - Spelling<br />aka Passwords!</td>
+<td><code>/KeyboardDomain/Library/Keyboard</code>, <code>/mobile/Library/Keyboard</code></td>
+<td><code>/private/var/mobile/Library/Keyboard/</code></td>
+</tr>
+<tr>
+<td>Finder / SpringBoard<br /><code>Today View Archive. plist</code>, <code>IconState.plist</code>, <code>&lt;GUID&gt;-CarDisplayIconState.plist</code></td>
+<td><code>/mobile/Library/SpringBoard/</code></td>
+<td><code>/private/var/mobile/Library/SpringBoard/</code></td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td><code>/mobile/Library/UserNotifications/</code></td>
+<td><code>/private/var/mobile/Library/UserNotifications/</code></td>
+</tr>
+<tr>
+<td>Bluetooth Devices</td>
+<td>❌</td>
+<td><code>com.apple.MobileBluetooth.devices.plist </code>, <code>com.apple.MobileBluetooth.ledevices.other.db</code>, <code>com.apple.MobileBluetooth.ledevices.paired.db</code></td>
+</tr>
+<tr>
+<td>Installation Log</td>
+<td>❌</td>
+<td>iOS 6: <code>/mobile/Library/Logs/MobileInstallation/</code><br/> iOS 7–9: <code>/private/var/mobile/Library/Logs/MobileInstallation/</code><br />iOS 10+: <code>/private/var/installd/Library/Logs/MobileInstallation/</code><br /><code>/private/var/mobile/Library/FrontBoard/applicationState.db</code></td>
+</tr>
+<tr>
+<td>Unified Logs</td>
+<td></td>
+<td>Logs: <code>/var/db/diagnostics/</code>, Ref Data: <code>/var/db/uuidtext/</code></td>
+</tr>
+<tr>
+<td>Application Preferences</td>
+<td><code>/mobile/Applications/&lt;bundle_id&gt;/</code>, <code>/mobile/Library/Preferences</code>, <code>/mobile/Library/</code></td>
+<td><code>/private/var/mobile/Containers/.../&lt;bundle_id&gt;/Preferences</code>, <code>/private/var/mobile/Preferences</code>, <code>/private/var/mobile/Library/</code></td>
+</tr>
+<tr>
+<td>Application Caches</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Containers/.../&lt;bundle_id&gt;/Library/Caches/</code>, <code>/private/var/mobile/Library/Cache/&lt;bundle_id&gt;</code></td>
+</tr>
+<tr>
+<td>App Shared Directories</td>
+<td>❔</td>
+<td>Normal App data: <code>/Data/Application/</code> <br />Shared App data: <code>/Shared/AppGroup/</code></td>
+</tr>
+<tr>
+<td>Application Snaphosts (thumbs when app is backgrounded)</td>
+<td>❌</td>
+<td><code>&lt;app_dir&gt;/Library/Caches/Snapshots/&lt;bundle_id&gt;/</code></td>
+</tr>
+<tr>
+<td>TCC (Transparency, Control Control) - permissions</td>
+<td><code>/mobile/Library/TCC/TCC.db</code></td>
+<td><code>  /private/var/mobile/Library/TCC/TCC.db</code></td>
+</tr>
+<tr>
+<td>Apps using Location Services</td>
+<td><code>/root/Library/Caches/locationd/clients.plist</code></td>
+<td><code>/private/var/root/Library/Caches/locationd/clients.plist</code></td>
+</tr>
+<tr>
+<td>MRU - Recent Apps</td>
+<td>❔(springboard?)<br /><code>/mobile/Library/Recents/com.apple.corerecents.recentsd</code></td>
+<td><code>com.apple.springboard.plist</code><br /><code>/private/var/mobile/Library/Recents/com.apple.corerecents.recentsd</code></td>
+</tr>
+<tr>
+<td>Internet Accounts</td>
+<td>❌</td>
+<td><code>[/private/var]/mobile/Library/Accounts/Accounts{3,4}.sqlite</code></td>
+</tr>
+<tr>
+<td>App - Safari<br /> <code>History.db</code><br /><code>LastSession.plist</code><br /><code>BrowserState.db</code></td>
+<td><code>/mobile/Library/Safari/</code></td>
+<td><code>/private/var/mobile/Library/Safari/</code>, <code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/</code></td>
+</tr>
+<tr>
+<td>App - Safari (FFS only)</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/Library/Caches/</code>, <code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/Library/Safari/Thumbnails/</code>, <code>/private/var/mobile/Library/Safari/CloudTabs.db</code> (synced tabs), <code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/Library/Caches/WebKit/</code> (website visit, cached items list), <code>com.apple.Safari.plist</code> (config &amp; recent searches), <code>RecentlyClosedTabs.plist</code>, <code>Downloads.plist</code></td>
+</tr>
+<tr>
+<td>App - Mail<br /><code>Envelope Index</code> (db)</td>
+<td><code>/mobile/Library/Mail/</code></td>
+<td><code>/private/var/mobile/Library/Mail/</code>, <code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/</code></td>
+</tr>
+<tr>
+<td>App - Messages</td>
+<td><code>/mobile/Library/SMS/sms.db</code></td>
+<td><code>/private/var/mobile/Library/SMS/sms.db</code></td>
+</tr>
+<tr>
+<td>App - Call History (<code>CallHistory.storedata</code>)</td>
+<td><code>/mobile/Library/CallHistoryDB/</code></td>
+<td><code>/private/var/mobile/Library/CallHistoryDB/</code></td>
+</tr>
+<tr>
+<td>App - Voice Mail (voicemail.db, AMR, *.transcript files)</td>
+<td><code>/mobile/Library/Voicemail/</code></td>
+<td><code>/private/var/mobile/Library/Voicemail/</code></td>
+</tr>
+<tr>
+<td>App - Calendar</td>
+<td><code>/mobile/Library/Calendar/</code></td>
+<td><code>/private/var/mobile/Library/Calendar/</code></td>
+</tr>
+<tr>
+<td>App - Reminders (<code>Data-&lt;GUID&gt;.sqlite</code>)</td>
+<td><code>/mobile/Library/Reminders</code></td>
+<td><code>/private/var/mobile/Library/Reminders/</code></td>
+</tr>
+<tr>
+<td>App - Address Book  aka Contacts<br />(<code>AddressBook-v22.abcddb</code>)</td>
+<td><code>/mobile/Library/AddressBook</code></td>
+<td><code>[/private/var/]mobile/Library/AddressBook/</code></td>
+</tr>
+<tr>
+<td>App - Notes<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> (<code>NoteStore.sqlite</code>, <code>Media/</code>, <code>Preview/</code>)</td>
+<td><code>/mobile/Applications/com.apple.notes</code><br /><code>/mobile/Applications/Notes</code> (Legacy)</td>
+<td><code>/private/var/mobile/Containers/Shared/AppGroup/&lt;GUID&gt;</code><br /><code>/private/var/mobile/Library/Notes</code> (Legacy)</td>
+</tr>
+<tr>
+<td>App - Wallet (Cards, Transactions, Peer Payments)</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/Passes</code>, <code>/private/var/mobile/Library/Mobile Documents/com~apple~shoebox/UbiquitosCards</code> (iCloud)<br /><code>passes23.sqlite</code></td>
+</tr>
+<tr>
+<td>App - Photos (<code>Photos.sql</code>, photos - xattrs)</td>
+<td>❔</td>
+<td><code>[/private/var/]mobile/Media/PhotoData</code>, <code>[private/var/]mobile/Media/</code></td>
+</tr>
+<tr>
+<td>App - Maps</td>
+<td><code>/mobile/Applications/com.apple.Maps/</code> (may not contain all files)</td>
+<td><code>/private/var/mobile/Containers/Data/Application/&lt;GUID&gt;/Maps</code></td>
+</tr>
+<tr>
+<td>App - ScreenTime</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/Application Support/com.apple.remotemanagementd</code></td>
+</tr>
+<tr>
+<td>AppleWatch</td>
+<td>❌</td>
+<td><code>/mobile/Library/DeviceRegistry/</code></td>
+</tr>
+<tr>
+<td>Application Usage<br />Media Playing<br />Device Status (lock, powered)<br />(more)<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/CoreDuet/Knowledge/knowledgeC.db</code><sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+</tr>
+<tr>
+<td>Application Usage <br />Volume and Battery Level<br /><br />Call Status &amp; Camera State (<code>CurrentPowerlog.PLSQL</code>) - issues with timestamps</td>
+<td>Sysdiagnose</td>
+<td><code>/private/var/containers/Shared/SystemGroup/&lt;GUID&gt;/Library/BatteryLife/</code> (+<code>Archives/</code>)</td>
+</tr>
+<tr>
+<td>Health</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/Health/healthdb_secure.sqlite</code></td>
+</tr>
+<tr>
+<td>Device Status - Lock</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/AggregateDictionary/ADDataStore.sqlitedb</code></td>
+</tr>
+<tr>
+<td>Location (significant locations)</td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/Caches/com.apple.routined/</code></td>
+</tr>
+<tr>
+<td>Location (WiFi)</td>
+<td>❌</td>
+<td><code>/private/var/root/library/caches/locationd/{cache_encrypted*.db,lockCache_encrypted*.db}</code></td>
+</tr>
+<tr>
+<td>Apple Document Versions/Revisions/History</td>
+<td>❌</td>
+<td><code>/private/var/.DocumentRevisions-V100/</code></td>
+</tr>
+<tr>
+<td>iCloud Synced Preferences (<code>SyncedPreferences</code> dirs)<br /></td>
+<td>❌</td>
+<td><code>/private/var/mobile/Library/SyncedPreferences/</code><br /><code>/private/var/mobile/Containers</code></td>
+</tr>
+<tr>
+<td>iCloud - WiFi</td>
+<td>❌</td>
+<td><code>com.apple.wifid.plist</code> (connected), <code>com.apple.airport.plist</code> (available ❔)</td>
+</tr>
+<tr>
+<td>iCloud - Synced Documents</td>
+<td>❌</td>
+<td><code>Mobile Documents/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="uniqied-logs-queries">Uniqied Logs Queries<a hidden class="anchor" aria-hidden="true" href="#uniqied-logs-queries">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># show all alogs</span>
+</span></span><span style="display:flex;"><span>log show --info
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Network usage</span>
+</span></span><span style="display:flex;"><span>log show --info --predicate <span style="color:#e6db74">&#39;senderImagePath contains[cd] &#34;IPConfiguration&#34; and (eventMessage contains[cd] &#34;SSID&#34; or 6d861c1c51aeae2854076da982bf4829 eventMessage contains[cd] &#34;Lease&#34; or eventMessage contains[cd] &#34;network changed&#34;)&#39;</span>
+</span></span></code></pre></div><p><a href="https://developer.apple.com/documentation/os/logging">https://developer.apple.com/documentation/os/logging</a></p>
+<h3 id="sql-queries">SQL Queries<a hidden class="anchor" aria-hidden="true" href="#sql-queries">#</a></h3>
+<ul>
+<li><a href="https://www.evernote.com/pub/view/sledwards/for518/0cd1d73a-9684-4749-8470-af3a415463d4?locale=en#st=p&amp;n=0cd1d73a-9684-4749-8470-af3a415463d4">https://www.evernote.com/pub/view/sledwards/for518/0cd1d73a-9684-4749-8470-af3a415463d4?locale=en#st=p&amp;n=0cd1d73a-9684-4749-8470-af3a415463d4</a></li>
+<li><a href="https://github.com/mac4n6/APOLLO">https://github.com/mac4n6/APOLLO</a></li>
+</ul>
+<h2 id="tooling-tips">Tooling tips<a hidden class="anchor" aria-hidden="true" href="#tooling-tips">#</a></h2>
+<h5 id="timestamps">Timestamps<a hidden class="anchor" aria-hidden="true" href="#timestamps">#</a></h5>
+<blockquote>
+<p>Timestamps starting from <code>1</code> are likely to be UNIX Epoch timestamps, others (example <code>5</code>) - Mac Epoch</p>
+</blockquote>
+<ul>
+<li>Epoch Converter</li>
+<li><code>eopchalypyse.py</code></li>
+</ul>
+<h5 id="plists">Plists<a hidden class="anchor" aria-hidden="true" href="#plists">#</a></h5>
+<ul>
+<li>plutil, plistutil, xcode</li>
+<li>Plain text: <code>3C3F 786D 6C</code> - <code>&lt;?xml </code></li>
+<li>Binary: <code>6270 6c69 7374 3030</code> - <code>bplist00</code></li>
+</ul>
+<h5 id="xattrs">xattrs<a hidden class="anchor" aria-hidden="true" href="#xattrs">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># list all</span>
+</span></span><span style="display:flex;"><span>xattr -lx &lt;file&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># dump hex plist embedded in xattr</span>
+</span></span><span style="display:flex;"><span>xattr -px com.apple.metadata:kMDItemDownloadedDate LiberiOS11.0.3.ipa | xxd -r -px | plutil -p -
+</span></span></code></pre></div><h5 id="sysdiagnose-dump-analyser">sysdiagnose dump analyser<a hidden class="anchor" aria-hidden="true" href="#sysdiagnose-dump-analyser">#</a></h5>
+<p><a href="https://github.com/cheeky4n6monkey/iOS_sysdiagnose_forensic_scripts">GitHub - cheeky4n6monkey/iOS_sysdiagnose_forensic_scripts</a></p>
+<h5 id="mac_apt--ios_apt-filesystem-analyser">Mac_apt / iOS_apt (filesystem analyser)<a hidden class="anchor" aria-hidden="true" href="#mac_apt--ios_apt-filesystem-analyser">#</a></h5>
+<p><a href="https://github.com/ydkhatri/mac_apt">GitHub - ydkhatri/mac_apt: macOS (&amp; ios) Artifact Parsing Tool</a></p>
+<h5 id="keychains">keychains<a hidden class="anchor" aria-hidden="true" href="#keychains">#</a></h5>
+<ul>
+<li>Import to system keychain (visible under custom keychains) or <code>security</code> command</li>
+<li>iOS requires decryption<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python keychain_tool.py -d keychain-backup.plist Manifest.plist
+</span></span></code></pre></div><h5 id="apple-system-log">apple system log<a hidden class="anchor" aria-hidden="true" href="#apple-system-log">#</a></h5>
+<p>log or syslog</p>
+<h5 id="fsmon">fsmon<a hidden class="anchor" aria-hidden="true" href="#fsmon">#</a></h5>
+<p>monitor filesystem events</p>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.ciofecaforensics.com/2020/01/10/apple-notes-revisited/">https://www.ciofecaforensics.com/2020/01/10/apple-notes-revisited/</a> Apple Notes&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/mac4n6/APOLLO">https://github.com/mac4n6/APOLLO</a> Apollo Project&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://dpron.com/recovering-google-authenticator-keys-from-ios-backups/">https://dpron.com/recovering-google-authenticator-keys-from-ios-backups/</a> Steps 1-3&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://rehex.ninja/tags/ios/">ios</a></li>
+      <li><a href="https://rehex.ninja/tags/forensics/">forensics</a></li>
+      <li><a href="https://rehex.ninja/tags/cheatsheet/">cheatsheet</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://rehex.ninja/posts/writeup-cosy-casino/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Writeup - Cosy Casino</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on twitter"
+        href="https://twitter.com/intent/tweet/?text=iOS%20Forensics%20Cheatsheet&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f&amp;hashtags=ios%2cforensics%2ccheatsheet">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f&amp;title=iOS%20Forensics%20Cheatsheet&amp;summary=iOS%20Forensics%20Cheatsheet&amp;source=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f&title=iOS%20Forensics%20Cheatsheet">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on whatsapp"
+        href="https://api.whatsapp.com/send?text=iOS%20Forensics%20Cheatsheet%20-%20https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share iOS Forensics Cheatsheet on telegram"
+        href="https://telegram.me/share/url?text=iOS%20Forensics%20Cheatsheet&amp;url=https%3a%2f%2frehex.ninja%2fposts%2fios-forensics-cheatsheet%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://rehex.ninja">reHex Ninja</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
