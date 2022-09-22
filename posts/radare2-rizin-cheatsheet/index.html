@@ -537,7 +537,11 @@ e io.cache = true # write in memory cache
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
-</a>
+</a><style>
+    .main {
+        max-width: calc(var(--main-width) + var(--gap) * 15);
+    }
+</style>
 
 <script>
     let menu = document.getElementById('menu')
