@@ -1,42 +1,101 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>writeups on reHex Ninja</title>
+    <title>Writeups on reHex Ninja</title>
     <link>https://rehex.ninja/tags/writeups/</link>
-    <description>Recent content in writeups on reHex Ninja</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/writeups/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Writeups on reHex Ninja</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate>
+    <atom:link href="https://rehex.ninja/tags/writeups/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup - Cosy Casino</title>
       <link>https://rehex.ninja/posts/writeup-cosy-casino/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-cosy-casino/</guid>
       <description></description>
     </item>
-    
+    <item>
+      <title>247CTF - The Secret Lock Writeup</title>
+      <link>https://rehex.ninja/posts/247ctf-the-secret-lock/</link>
+      <pubDate>Sun, 02 Aug 2020 12:32:42 +0200</pubDate>
+      <guid>https://rehex.ninja/posts/247ctf-the-secret-lock/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Writeup - Securinets2020 Warmup</title>
       <link>https://rehex.ninja/posts/writeup-securinets2020-warmup/</link>
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-securinets2020-warmup/</guid>
-      <description>Warmup Warmup : Welcome to securinets CTF
-In this task we are dealing with very simple function main:
-undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
+      <description>&lt;h1 id=&#34;warmup&#34;&gt;Warmup&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Warmup : Welcome to securinets CTF&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    undefined8 uVar2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32_t&lt;/span&gt; var_8h;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    undefined8 var_4h;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x31&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;strlen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(undefined &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)(iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20107f&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;strcpy&lt;/span&gt;(rsi, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;strlen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;memfrob&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;puts&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9d5&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this function the &lt;code&gt;memfrob&lt;/code&gt; is used, from manual you can learn that this function is xoring buffer with key &lt;code&gt;42&lt;/code&gt;, solution:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Writeup - HTB Snake</title>
       <link>https://rehex.ninja/posts/writeup-htb-snake/</link>
       <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
-      <description>[re] Snake (10) Description Short info about task:
-Name: Snake Difficulty: easy Score: 10 Flag should be in the format: HTB{username:password}
-Overview We have got the python script that is waiting for some username and password:
-$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
+      <description>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;Short info about task:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
+
+___________.__               _________              __
+\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
+ |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
+ |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
+ |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
+               \/     \/          \/     \/     \/     \/    \/
+
+
+The Snake Created by 3XPL017
+Your number is 809
+Authentication required
+
+Enter your username
+QWE
+Wrong username try harder
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

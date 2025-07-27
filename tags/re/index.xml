@@ -1,114 +1,216 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>re on reHex Ninja</title>
+    <title>Re on reHex Ninja</title>
     <link>https://rehex.ninja/tags/re/</link>
-    <description>Recent content in re on reHex Ninja</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Apr 2021 12:12:00 +0200</lastBuildDate><atom:link href="https://rehex.ninja/tags/re/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Re on reHex Ninja</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Apr 2021 12:12:00 +0200</lastBuildDate>
+    <atom:link href="https://rehex.ninja/tags/re/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>!e Fix Broken PE</title>
       <link>https://rehex.ninja/posts/fix-broken-pe/</link>
       <pubDate>Sun, 18 Apr 2021 12:12:00 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/fix-broken-pe/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>247CTF - The Secret Lock Writeup</title>
       <link>https://rehex.ninja/posts/247ctf-the-secret-lock/</link>
       <pubDate>Sun, 02 Aug 2020 12:32:42 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/247ctf-the-secret-lock/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>[0x0] FRIDA Playground</title>
       <link>https://rehex.ninja/posts/0-frida-playgrounds/</link>
       <pubDate>Sun, 26 Jul 2020 15:31:42 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/0-frida-playgrounds/</guid>
-      <description>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Hello, this is the very first post of my new series where I will show the big potential of &lt;a href=&#34;https://rehex.ninja/posts/0-frida-playgrounds/#references&#34;&gt;frida&lt;/a&gt; on practical examples.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Qiling Scripting and Simple RE Task</title>
       <link>https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/</link>
       <pubDate>Thu, 21 May 2020 14:53:08 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/</guid>
       <description>Note about qiling and basic usage</description>
     </item>
-    
     <item>
       <title>Comparision of Reverse-Engineering Tools</title>
       <link>https://rehex.ninja/posts/comparision-of-re-tools/</link>
       <pubDate>Sun, 19 Apr 2020 12:12:00 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/comparision-of-re-tools/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s compare the most populare reverse-egineering with strong focus on &lt;strong&gt;personal&lt;/strong&gt; usage: &lt;em&gt;BinaryNinja&lt;/em&gt;, &lt;em&gt;Ghidra&lt;/em&gt;, &lt;em&gt;IDA&lt;/em&gt; and &lt;em&gt;radare2&lt;/em&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Writeup - Securinets2020 Warmup</title>
       <link>https://rehex.ninja/posts/writeup-securinets2020-warmup/</link>
       <pubDate>Sat, 28 Mar 2020 08:00:00 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-securinets2020-warmup/</guid>
-      <description>Warmup Warmup : Welcome to securinets CTF
-In this task we are dealing with very simple function main:
-undefined8 main(void) { int64_t iVar1; undefined8 uVar2; uint32_t var_8h; undefined8 var_4h; write(1, 0x988, 0x1a); read(0, 0x201080, 0x31); iVar1 = strlen(0x201080); *(undefined *)(iVar1 + 0x20107f) = 0; var_8h = 0; strcpy(rsi, 0x201080); uVar2 = strlen(0x201080); memfrob(0x201080, uVar2); var_4h._0_4_ = 0; while ((int32_t)var_4h &amp;lt; 0x14) { var_8h = var_8h + (int32_t)(char)(*(uint8_t *)((int64_t)(int32_t)var_4h + 0x201020) ^ *(uint8_t *)((int64_t)(int32_t)var_4h + 0x201080)); var_4h.</description>
+      <description>&lt;h1 id=&#34;warmup&#34;&gt;Warmup&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Warmup : Welcome to securinets CTF&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;In this task we are dealing with very simple function main:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;undefined8 &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt; iVar1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    undefined8 uVar2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32_t&lt;/span&gt; var_8h;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    undefined8 var_4h;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x988&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1a&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x31&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;strlen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(undefined &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)(iVar1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20107f&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;strcpy&lt;/span&gt;(rsi, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    uVar2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;strlen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;memfrob&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;, uVar2);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        var_8h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var_8h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201020&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                         &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8_t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int64_t&lt;/span&gt;)(&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x201080&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        var_4h._0_4_ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int32_t&lt;/span&gt;)var_4h &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (var_8h &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9a8&lt;/span&gt;, rsi);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;puts&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x9d5&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this function the &lt;code&gt;memfrob&lt;/code&gt; is used, from manual you can learn that this function is xoring buffer with key &lt;code&gt;42&lt;/code&gt;, solution:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Writeup - HTB Snake</title>
       <link>https://rehex.ninja/posts/writeup-htb-snake/</link>
       <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
-      <description>[re] Snake (10) Description Short info about task:
-Name: Snake Difficulty: easy Score: 10 Flag should be in the format: HTB{username:password}
-Overview We have got the python script that is waiting for some username and password:
-$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
+      <description>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;Short info about task:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
+
+___________.__               _________              __
+\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
+ |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
+ |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
+ |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
+               \/     \/          \/     \/     \/     \/    \/
+
+
+The Snake Created by 3XPL017
+Your number is 809
+Authentication required
+
+Enter your username
+QWE
+Wrong username try harder
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Ida Pro Plugins</title>
       <link>https://rehex.ninja/posts/ida-pro-plugins/</link>
       <pubDate>Sat, 15 Feb 2020 12:01:53 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/ida-pro-plugins/</guid>
       <description>&lt;p&gt;Plugins worth installing&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Unmap PE Manually</title>
       <link>https://rehex.ninja/posts/unmap-pe-manually/</link>
       <pubDate>Sat, 25 Jan 2020 09:00:00 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/unmap-pe-manually/</guid>
-      <description>Prerequisities Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary Unmap With PE bear Open PE-bear &amp;gt; Sections &amp;gt; Section Headers Make sure that VA and VS matches RA and RS, so: RA[i] = VA[i] RS[i] = RA[i+1] - RA[i] RS.reloc = 0 VS[i] = RS[i] If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections Fix misalligned sections Open binary in hex editor Go to the 1st section (on example above to 0x1000) Section should start in this place, nulls should be before.</description>
+      <description>&lt;h2 id=&#34;prerequisities&#34;&gt;Prerequisities&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Make sure that you have dumped binary from memory&lt;/li&gt;
+&lt;li&gt;(optionally) Fix PE headers if necessary&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;unmap&#34;&gt;Unmap&lt;/h2&gt;
+&lt;h3 id=&#34;with-pe-bear&#34;&gt;With PE bear&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;em&gt;PE-bear&lt;/em&gt; &amp;gt; &lt;em&gt;Sections&lt;/em&gt; &amp;gt; &lt;em&gt;Section Headers&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Make sure that VA and VS matches RA and RS, so:
+&lt;ol&gt;
+&lt;li&gt;RA[i] = VA[i]&lt;/li&gt;
+&lt;li&gt;RS[i] = RA[i+1] - RA[i]&lt;/li&gt;
+&lt;li&gt;RS.reloc = 0&lt;/li&gt;
+&lt;li&gt;VS[i] = RS[i]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;If you see some red blocks it means that PE is probably misalligned, check: &lt;em&gt;Fix misalligned sections&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt=&#34;UnmapPE&#34; loading=&#34;lazy&#34; src=&#34;https://rehex.ninja/img/unmap-pe.png&#34;&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Disable Aslr</title>
       <link>https://rehex.ninja/posts/disable-aslr/</link>
       <pubDate>Sat, 18 Jan 2020 14:00:15 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/disable-aslr/</guid>
-      <description>Linux echo 0 | sudo tee /proc/sys/kernel/randomize_va_space radare2 # disable ASLR &amp;amp; reanalyse dor aslr=no aaa Windows Windows 7 Open RegEdit Goto: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\ Create new value (not a key): MoveImages with value 0. Reboot. Windows 10 Disable ASLR per file Set-Processmitigation -Name name.exe -Disable ForceRelocateImages Disable ASLR by default Search in Windows for: “windows defender Security Center” Click on the second icon from the bottom: “App &amp;amp; browser control” Scroll to the bottom and click on: “Exploit protection settings” Set “Force randomization for images “ to OFF.</description>
+      <description>&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; | sudo tee /proc/sys/kernel/randomize_va_space
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;radare2&#34;&gt;radare2&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r2&#34; data-lang=&#34;r2&#34;&gt;# disable ASLR &amp;amp; reanalyse
+dor aslr=no
+aaa
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
+&lt;h3 id=&#34;windows-7&#34;&gt;Windows 7&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;code&gt;RegEdit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Goto: &lt;code&gt;HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create new &lt;em&gt;value&lt;/em&gt; (not a key): &lt;code&gt;MoveImages&lt;/code&gt; with value &lt;code&gt;0&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Reboot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;windows-10&#34;&gt;Windows 10&lt;/h3&gt;
+&lt;h4 id=&#34;disable-aslr-per-file&#34;&gt;Disable ASLR per file&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Set-Processmitigation -Name name.exe -Disable ForceRelocateImages
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;disable-aslr-by-default&#34;&gt;Disable ASLR by default&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Search in Windows for: “windows defender Security Center”&lt;/li&gt;
+&lt;li&gt;Click on the second icon from the bottom: “App &amp;amp; browser control”&lt;/li&gt;
+&lt;li&gt;Scroll to the bottom and click on: “Exploit protection settings”&lt;/li&gt;
+&lt;li&gt;Set “Force randomization for images “ to &lt;em&gt;OFF&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Reboot&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/&#34;&gt;Disable ASLR for Easier Malware Debugging With x64dbg and IDA Pro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/trietptm/b84ccad9db01f459ac7e&#34;&gt;Gist&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.reddit.com/r/ReverseEngineering/comments/bzn06z/disable_aslr_for_easier_malware_debugging_with/&#34;&gt;Disable ASLR For Easier Malware Debugging With x64dbg and IDA Pro (OALabs Quick Tip) : ReverseEngineering&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>C&#43;&#43; assembly</title>
       <link>https://rehex.ninja/posts/c&#43;&#43;-assembly/</link>
       <pubDate>Sat, 11 Jan 2020 14:50:06 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/c&#43;&#43;-assembly/</guid>
-      <description>Structures C struct vs C++ class C struct functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size. C++ class Find constructor, it have always 1 argument (this pointer -&amp;gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention.</description>
+      <description>&lt;h2 id=&#34;structures&#34;&gt;Structures&lt;/h2&gt;
+&lt;h3 id=&#34;c-struct-vs-c-class&#34;&gt;C struct vs C++ class&lt;/h3&gt;
+&lt;h4 id=&#34;c-struct&#34;&gt;C struct&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;functions are loosely correlated with paramaters,&lt;/li&gt;
+&lt;li&gt;parameters are usually passed via pointer,&lt;/li&gt;
+&lt;li&gt;it may look like array for struct with 2 identical parameters in struct,&lt;/li&gt;
+&lt;li&gt;for structures created dynamically look for &lt;code&gt;malloc&lt;/code&gt; with non-usual size.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;c-class&#34;&gt;C++ class&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Find constructor, it have always 1 argument (&lt;code&gt;this&lt;/code&gt; pointer -&amp;gt; &lt;code&gt;thiscall&lt;/code&gt;),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;main()&lt;/code&gt; function have initialization function &lt;code&gt;__main&lt;/code&gt; with ctor initlizers,&lt;/li&gt;
+&lt;li&gt;after creation of class with &lt;code&gt;new&lt;/code&gt; operator the class constructor is called (can be empty),&lt;/li&gt;
+&lt;li&gt;Methods are called with &lt;code&gt;thiscall&lt;/code&gt; convention.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;inheritance&#34;&gt;Inheritance&lt;/h3&gt;
+&lt;p&gt;Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

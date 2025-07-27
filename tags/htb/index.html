@@ -5,12 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>htb | reHex Ninja</title>
+<title>Htb | reHex Ninja</title>
 <meta name="keywords" content="">
 <meta name="description" content="Blog About Reversing">
 <meta name="author" content="trib0r3">
 <link rel="canonical" href="https://rehex.ninja/tags/htb/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://rehex.ninja/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
@@ -19,6 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://rehex.ninja/tags/htb/index.xml">
+<link rel="alternate" hreflang="en" href="https://rehex.ninja/tags/htb/">
 <noscript>
     <style>
         #theme-toggle,
@@ -36,7 +37,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -55,14 +56,15 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="htb" />
-<meta property="og:description" content="Blog About Reversing" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://rehex.ninja/tags/htb/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="htb"/>
-<meta name="twitter:description" content="Blog About Reversing"/>
+</noscript><meta property="og:url" content="https://rehex.ninja/tags/htb/">
+  <meta property="og:site_name" content="reHex Ninja">
+  <meta property="og:title" content="Htb">
+  <meta property="og:description" content="Blog About Reversing">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Htb">
+<meta name="twitter:description" content="Blog About Reversing">
 
 </head>
 
@@ -81,9 +83,9 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <a href="https://rehex.ninja/" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -125,19 +127,19 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/tags/">Tags</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://rehex.ninja/">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/tags/">Tags</a></div>
   <h1>
-    htb
+    Htb
   </h1>
 </header>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>Writeup - Cosy Casino
+    <h2 class="entry-hint-parent">Writeup - Cosy Casino
     </h2>
   </header>
   <div class="entry-content">
-    <p>...</p>
+    <p></p>
   </div>
   <footer class="entry-footer"><span title='2021-07-03 10:22:09 +0100 +0100'>July 3, 2021</span>&nbsp;·&nbsp;trib0r3</footer>
   <a class="entry-link" aria-label="post link to Writeup - Cosy Casino" href="https://rehex.ninja/posts/writeup-cosy-casino/"></a>
@@ -145,14 +147,15 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>Writeup - HTB Snake
+    <h2 class="entry-hint-parent">Writeup - HTB Snake
     </h2>
   </header>
   <div class="entry-content">
     <p>[re] Snake (10) Description Short info about task:
 Name: Snake Difficulty: easy Score: 10 Flag should be in the format: HTB{username:password}
 Overview We have got the python script that is waiting for some username and password:
-$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &lt;\ ___/ |____| |___| /\___ &gt; /_______ /___| (____ /__|_ \___ &gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let’s look into code to get more info about how to get username and password....</p>
+$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &lt;\ ___/ |____| |___| /\___ &gt; /_______ /___| (____ /__|_ \___ &gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let’s look into code to get more info about how to get username and password.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2020-03-27 19:22:09 +0100 CET'>March 27, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
   <a class="entry-link" aria-label="post link to Writeup - HTB Snake" href="https://rehex.ninja/posts/writeup-htb-snake/"></a>
@@ -160,7 +163,8 @@ $ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://rehex.ninja">reHex Ninja</a></span>
+        <span>&copy; 2025 <a href="https://rehex.ninja/">reHex Ninja</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

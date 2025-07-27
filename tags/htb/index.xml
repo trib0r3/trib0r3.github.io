@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>htb on reHex Ninja</title>
+    <title>Htb on reHex Ninja</title>
     <link>https://rehex.ninja/tags/htb/</link>
-    <description>Recent content in htb on reHex Ninja</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate><atom:link href="https://rehex.ninja/tags/htb/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Htb on reHex Ninja</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 03 Jul 2021 10:22:09 +0100</lastBuildDate>
+    <atom:link href="https://rehex.ninja/tags/htb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup - Cosy Casino</title>
       <link>https://rehex.ninja/posts/writeup-cosy-casino/</link>
       <pubDate>Sat, 03 Jul 2021 10:22:09 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-cosy-casino/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Writeup - HTB Snake</title>
       <link>https://rehex.ninja/posts/writeup-htb-snake/</link>
       <pubDate>Fri, 27 Mar 2020 19:22:09 +0100</pubDate>
-      
       <guid>https://rehex.ninja/posts/writeup-htb-snake/</guid>
-      <description>[re] Snake (10) Description Short info about task:
-Name: Snake Difficulty: easy Score: 10 Flag should be in the format: HTB{username:password}
-Overview We have got the python script that is waiting for some username and password:
-$ python snake.py ___________.__ _________ __ \__ ___/| |__ ____ / _____/ ____ _____ | | __ ____ | | | | \_/ __ \ \_____ \ / \__ \ | |/ // __ \ | | | Y \ ___/ / \ | \/ __ \| &amp;lt;\ ___/ |____| |___| /\___ &amp;gt; /_______ /___| (____ /__|_ \___ &amp;gt; \/ \/ \/ \/ \/ \/ \/ The Snake Created by 3XPL017 Your number is 809 Authentication required Enter your username QWE Wrong username try harder Let&amp;rsquo;s look into code to get more info about how to get username and password.</description>
+      <description>&lt;h1 id=&#34;re-snake-10&#34;&gt;[re] Snake (10)&lt;/h1&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;Short info about task:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Snake&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; &lt;em&gt;easy&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Score:&lt;/strong&gt; 10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flag should be in the format: HTB{username:password}&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;We have got the python script that is waiting for some username and password:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python snake.py
+
+___________.__               _________              __
+\__    ___/|  |__   ____    /   _____/ ____ _____  |  | __ ____
+ |    |   |  |  \_/ __ \   \_____  \ /    \__  \ |  |/ // __ \
+ |    |   |   Y  \  ___/   /        \   |  \/ __ \|    &amp;lt;\  ___/
+ |____|   |___|  /\___  &amp;gt; /_______  /___|  (____  /__|_ \___  &amp;gt;
+               \/     \/          \/     \/     \/     \/    \/
+
+
+The Snake Created by 3XPL017
+Your number is 809
+Authentication required
+
+Enter your username
+QWE
+Wrong username try harder
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s look into code to get more info about how to get username and password.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

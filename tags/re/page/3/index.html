@@ -5,12 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>re | reHex Ninja</title>
+<title>Re | reHex Ninja</title>
 <meta name="keywords" content="">
 <meta name="description" content="Blog About Reversing">
 <meta name="author" content="trib0r3">
 <link rel="canonical" href="https://rehex.ninja/tags/re/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://rehex.ninja/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
@@ -19,6 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://rehex.ninja/tags/re/index.xml">
+<link rel="alternate" hreflang="en" href="https://rehex.ninja/tags/re/">
 <noscript>
     <style>
         #theme-toggle,
@@ -36,7 +37,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -55,14 +56,15 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="re" />
-<meta property="og:description" content="Blog About Reversing" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://rehex.ninja/tags/re/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="re"/>
-<meta name="twitter:description" content="Blog About Reversing"/>
+</noscript><meta property="og:url" content="https://rehex.ninja/tags/re/">
+  <meta property="og:site_name" content="reHex Ninja">
+  <meta property="og:title" content="Re">
+  <meta property="og:description" content="Blog About Reversing">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Re">
+<meta name="twitter:description" content="Blog About Reversing">
 
 </head>
 
@@ -81,9 +83,9 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <a href="https://rehex.ninja/" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -125,19 +127,20 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://rehex.ninja">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/tags/">Tags</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://rehex.ninja/">Home</a>&nbsp;»&nbsp;<a href="https://rehex.ninja/tags/">Tags</a></div>
   <h1>
-    re
+    Re
   </h1>
 </header>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>C&#43;&#43; assembly
+    <h2 class="entry-hint-parent">C&#43;&#43; assembly
     </h2>
   </header>
   <div class="entry-content">
-    <p>Structures C struct vs C&#43;&#43; class C struct functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size. C&#43;&#43; class Find constructor, it have always 1 argument (this pointer -&gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention....</p>
+    <p>Structures C struct vs C&#43;&#43; class C struct functions are loosely correlated with paramaters, parameters are usually passed via pointer, it may look like array for struct with 2 identical parameters in struct, for structures created dynamically look for malloc with non-usual size. C&#43;&#43; class Find constructor, it have always 1 argument (this pointer -&gt; thiscall), main() function have initialization function __main with ctor initlizers, after creation of class with new operator the class constructor is called (can be empty), Methods are called with thiscall convention. Inheritance Constructors of base class are called 1st in child class, additionally assigment to variables in class definition is put inside constructor:
+...</p>
   </div>
   <footer class="entry-footer"><span title='2020-01-11 14:50:06 +0100 CET'>January 11, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
   <a class="entry-link" aria-label="post link to C&#43;&#43; assembly" href="https://rehex.ninja/posts/c&#43;&#43;-assembly/"></a>
@@ -152,7 +155,8 @@
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://rehex.ninja">reHex Ninja</a></span>
+        <span>&copy; 2025 <a href="https://rehex.ninja/">reHex Ninja</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

@@ -10,7 +10,7 @@
 <meta name="description" content="archives">
 <meta name="author" content="trib0r3">
 <link rel="canonical" href="https://rehex.ninja/archives/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://rehex.ninja/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://rehex.ninja/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://rehex.ninja/favicon-32x32.png">
@@ -18,6 +18,7 @@
 <link rel="mask-icon" href="https://rehex.ninja/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://rehex.ninja/archives/">
 <noscript>
     <style>
         #theme-toggle,
@@ -35,7 +36,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -54,26 +55,25 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Archive" />
-<meta property="og:description" content="archives" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://rehex.ninja/archives/" /><meta property="article:section" content="" />
-
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Archive"/>
-<meta name="twitter:description" content="archives"/>
+</noscript><meta property="og:url" content="https://rehex.ninja/archives/">
+  <meta property="og:site_name" content="reHex Ninja">
+  <meta property="og:title" content="Archive">
+  <meta property="og:description" content="archives">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Archive">
+<meta name="twitter:description" content="archives">
 
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [, 
+  "itemListElement": [
     {
       "@type": "ListItem",
-      "position":  2 ,
+      "position":  1 ,
       "name": "Archive",
       "item": "https://rehex.ninja/archives/"
     }
@@ -130,9 +130,9 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://rehex.ninja" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
+            <a href="https://rehex.ninja/" accesskey="h" title="reHex Ninja (Alt + H)">reHex Ninja</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -176,16 +176,23 @@
 <main class="main">
 
 <header class="page-header">
-  <h1>Archive</h1>
+  <h1>
+    Archive
+  </h1>
 </header>
 <div class="archive-year">
-  <h2 class="archive-year-header">2022<sup class="archive-count">&nbsp;&nbsp;1</sup>
+  <h2 class="archive-year-header" id="2022">
+    <a class="archive-header-link" href="#2022">2022</a>
+    <sup class="archive-count">&nbsp;1</sup>
   </h2>
   <div class="archive-month">
-    <h3 class="archive-month-header">September<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2022-September">
+      <a class="archive-header-link" href="#2022-September">September</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">iOS Forensics Cheatsheet
+        <h3 class="archive-entry-title entry-hint-parent">iOS Forensics Cheatsheet
         </h3>
         <div class="archive-meta"><span title='2022-09-22 20:52:00 +0200 CEST'>September 22, 2022</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to iOS Forensics Cheatsheet" href="https://rehex.ninja/posts/ios-forensics-cheatsheet/"></a>
@@ -194,13 +201,18 @@
   </div>
 </div>
 <div class="archive-year">
-  <h2 class="archive-year-header">2021<sup class="archive-count">&nbsp;&nbsp;7</sup>
+  <h2 class="archive-year-header" id="2021">
+    <a class="archive-header-link" href="#2021">2021</a>
+    <sup class="archive-count">&nbsp;7</sup>
   </h2>
   <div class="archive-month">
-    <h3 class="archive-month-header">July<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2021-July">
+      <a class="archive-header-link" href="#2021-July">July</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Writeup - Cosy Casino
+        <h3 class="archive-entry-title entry-hint-parent">Writeup - Cosy Casino
         </h3>
         <div class="archive-meta"><span title='2021-07-03 10:22:09 +0100 +0100'>July 3, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Writeup - Cosy Casino" href="https://rehex.ninja/posts/writeup-cosy-casino/"></a>
@@ -208,22 +220,25 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">June<sup class="archive-count">&nbsp;&nbsp;3</sup></h3>
+    <h3 class="archive-month-header" id="2021-June">
+      <a class="archive-header-link" href="#2021-June">June</a>
+      <sup class="archive-count">&nbsp;3</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">pwn&gt; Finding the libc version
+        <h3 class="archive-entry-title entry-hint-parent">pwn&gt; Finding the libc version
         </h3>
         <div class="archive-meta"><span title='2021-06-14 21:32:42 +0200 CEST'>June 14, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to pwn&gt; Finding the libc version" href="https://rehex.ninja/posts/identifying-libc/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">pwn&gt; scanf and hateful dot
+        <h3 class="archive-entry-title entry-hint-parent">pwn&gt; scanf and hateful dot
         </h3>
         <div class="archive-meta"><span title='2021-06-10 15:32:42 +0200 CEST'>June 10, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to pwn&gt; scanf and hateful dot" href="https://rehex.ninja/posts/scanf-and-hateful-dot/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">pwn&gt; ret2libc by example
+        <h3 class="archive-entry-title entry-hint-parent">pwn&gt; ret2libc by example
         </h3>
         <div class="archive-meta"><span title='2021-06-01 12:32:42 +0200 CEST'>June 1, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to pwn&gt; ret2libc by example" href="https://rehex.ninja/posts/ret2libc/"></a>
@@ -231,16 +246,19 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">May<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
+    <h3 class="archive-month-header" id="2021-May">
+      <a class="archive-header-link" href="#2021-May">May</a>
+      <sup class="archive-count">&nbsp;2</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">!e MITM Proxy
+        <h3 class="archive-entry-title entry-hint-parent">!e MITM Proxy
         </h3>
         <div class="archive-meta"><span title='2021-05-10 17:12:00 +0200 CEST'>May 10, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to !e MITM Proxy" href="https://rehex.ninja/posts/mitmproxy/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">!e radare2 / rizin cheatsheet
+        <h3 class="archive-entry-title entry-hint-parent">!e radare2 / rizin cheatsheet
         </h3>
         <div class="archive-meta"><span title='2021-05-03 14:40:06 +0100 +0100'>May 3, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to !e radare2 / rizin cheatsheet" href="https://rehex.ninja/posts/radare2-rizin-cheatsheet/"></a>
@@ -248,10 +266,13 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">April<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2021-April">
+      <a class="archive-header-link" href="#2021-April">April</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">!e Fix Broken PE
+        <h3 class="archive-entry-title entry-hint-parent">!e Fix Broken PE
         </h3>
         <div class="archive-meta"><span title='2021-04-18 12:12:00 +0200 CEST'>April 18, 2021</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to !e Fix Broken PE" href="https://rehex.ninja/posts/fix-broken-pe/"></a>
@@ -260,13 +281,18 @@
   </div>
 </div>
 <div class="archive-year">
-  <h2 class="archive-year-header">2020<sup class="archive-count">&nbsp;&nbsp;15</sup>
+  <h2 class="archive-year-header" id="2020">
+    <a class="archive-header-link" href="#2020">2020</a>
+    <sup class="archive-count">&nbsp;15</sup>
   </h2>
   <div class="archive-month">
-    <h3 class="archive-month-header">December<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2020-December">
+      <a class="archive-header-link" href="#2020-December">December</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">[HINT] BinaryNinja: how to view 2 IL views at the same time
+        <h3 class="archive-entry-title entry-hint-parent">[HINT] BinaryNinja: how to view 2 IL views at the same time
         </h3>
         <div class="archive-meta"><span title='2020-12-17 19:04:08 +0200 +0200'>December 17, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to [HINT] BinaryNinja: how to view 2 IL views at the same time" href="https://rehex.ninja/posts/protip-binary-ninja-side-view/"></a>
@@ -274,10 +300,13 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">August<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2020-August">
+      <a class="archive-header-link" href="#2020-August">August</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">247CTF - The Secret Lock Writeup
+        <h3 class="archive-entry-title entry-hint-parent">247CTF - The Secret Lock Writeup
         </h3>
         <div class="archive-meta"><span title='2020-08-02 12:32:42 +0200 CEST'>August 2, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to 247CTF - The Secret Lock Writeup" href="https://rehex.ninja/posts/247ctf-the-secret-lock/"></a>
@@ -285,16 +314,19 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">July<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
+    <h3 class="archive-month-header" id="2020-July">
+      <a class="archive-header-link" href="#2020-July">July</a>
+      <sup class="archive-count">&nbsp;2</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">[0x0] FRIDA Playground
+        <h3 class="archive-entry-title entry-hint-parent">[0x0] FRIDA Playground
         </h3>
         <div class="archive-meta"><span title='2020-07-26 15:31:42 +0200 CEST'>July 26, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to [0x0] FRIDA Playground" href="https://rehex.ninja/posts/0-frida-playgrounds/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Frida Cheatsheet
+        <h3 class="archive-entry-title entry-hint-parent">Frida Cheatsheet
         </h3>
         <div class="archive-meta"><span title='2020-07-26 15:25:42 +0200 CEST'>July 26, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Frida Cheatsheet" href="https://rehex.ninja/posts/frida-cheatsheet/"></a>
@@ -302,10 +334,13 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">June<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2020-June">
+      <a class="archive-header-link" href="#2020-June">June</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Nothing Is Lost in the Internet
+        <h3 class="archive-entry-title entry-hint-parent">Nothing Is Lost in the Internet
         </h3>
         <div class="archive-meta"><span title='2020-06-14 09:42:17 +0200 CEST'>June 14, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Nothing Is Lost in the Internet" href="https://rehex.ninja/posts/nothing-is-lost-in-the-internet/"></a>
@@ -313,10 +348,13 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">May<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2020-May">
+      <a class="archive-header-link" href="#2020-May">May</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Qiling Scripting and Simple RE Task
+        <h3 class="archive-entry-title entry-hint-parent">Qiling Scripting and Simple RE Task
         </h3>
         <div class="archive-meta"><span title='2020-05-21 14:53:08 +0200 CEST'>May 21, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Qiling Scripting and Simple RE Task" href="https://rehex.ninja/posts/qiling-scripting-and-simple-re-task/"></a>
@@ -324,10 +362,13 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">April<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
+    <h3 class="archive-month-header" id="2020-April">
+      <a class="archive-header-link" href="#2020-April">April</a>
+      <sup class="archive-count">&nbsp;1</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Comparision of Reverse-Engineering Tools
+        <h3 class="archive-entry-title entry-hint-parent">Comparision of Reverse-Engineering Tools
         </h3>
         <div class="archive-meta"><span title='2020-04-19 12:12:00 +0200 CEST'>April 19, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Comparision of Reverse-Engineering Tools" href="https://rehex.ninja/posts/comparision-of-re-tools/"></a>
@@ -335,16 +376,19 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">March<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
+    <h3 class="archive-month-header" id="2020-March">
+      <a class="archive-header-link" href="#2020-March">March</a>
+      <sup class="archive-count">&nbsp;2</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Writeup - Securinets2020 Warmup
+        <h3 class="archive-entry-title entry-hint-parent">Writeup - Securinets2020 Warmup
         </h3>
         <div class="archive-meta"><span title='2020-03-28 08:00:00 +0100 CET'>March 28, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Writeup - Securinets2020 Warmup" href="https://rehex.ninja/posts/writeup-securinets2020-warmup/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Writeup - HTB Snake
+        <h3 class="archive-entry-title entry-hint-parent">Writeup - HTB Snake
         </h3>
         <div class="archive-meta"><span title='2020-03-27 19:22:09 +0100 CET'>March 27, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Writeup - HTB Snake" href="https://rehex.ninja/posts/writeup-htb-snake/"></a>
@@ -352,16 +396,19 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">February<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
+    <h3 class="archive-month-header" id="2020-February">
+      <a class="archive-header-link" href="#2020-February">February</a>
+      <sup class="archive-count">&nbsp;2</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Ida Pro Plugins
+        <h3 class="archive-entry-title entry-hint-parent">Ida Pro Plugins
         </h3>
         <div class="archive-meta"><span title='2020-02-15 12:01:53 +0100 CET'>February 15, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Ida Pro Plugins" href="https://rehex.ninja/posts/ida-pro-plugins/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Expose Any Port With Ngrok
+        <h3 class="archive-entry-title entry-hint-parent">Expose Any Port With Ngrok
         </h3>
         <div class="archive-meta"><span title='2020-02-01 13:53:37 +0100 CET'>February 1, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Expose Any Port With Ngrok" href="https://rehex.ninja/posts/expose-any-port-with-ngrok/"></a>
@@ -369,28 +416,31 @@
     </div>
   </div>
   <div class="archive-month">
-    <h3 class="archive-month-header">January<sup class="archive-count">&nbsp;&nbsp;4</sup></h3>
+    <h3 class="archive-month-header" id="2020-January">
+      <a class="archive-header-link" href="#2020-January">January</a>
+      <sup class="archive-count">&nbsp;4</sup>
+    </h3>
     <div class="archive-posts">
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Unmap PE Manually
+        <h3 class="archive-entry-title entry-hint-parent">Unmap PE Manually
         </h3>
         <div class="archive-meta"><span title='2020-01-25 09:00:00 +0100 CET'>January 25, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Unmap PE Manually" href="https://rehex.ninja/posts/unmap-pe-manually/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Disable Aslr
+        <h3 class="archive-entry-title entry-hint-parent">Disable Aslr
         </h3>
         <div class="archive-meta"><span title='2020-01-18 14:00:15 +0100 CET'>January 18, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Disable Aslr" href="https://rehex.ninja/posts/disable-aslr/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">Keep Your Notes Organized (bear2mdtree demo)
+        <h3 class="archive-entry-title entry-hint-parent">Keep Your Notes Organized (bear2mdtree demo)
         </h3>
         <div class="archive-meta"><span title='2020-01-18 09:00:00 +0100 CET'>January 18, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to Keep Your Notes Organized (bear2mdtree demo)" href="https://rehex.ninja/posts/keep-your-md-notes-organized/"></a>
       </div>
       <div class="archive-entry">
-        <h3 class="archive-entry-title">C++ assembly
+        <h3 class="archive-entry-title entry-hint-parent">C++ assembly
         </h3>
         <div class="archive-meta"><span title='2020-01-11 14:50:06 +0100 CET'>January 11, 2020</span>&nbsp;·&nbsp;trib0r3</div>
         <a class="entry-link" aria-label="post link to C&#43;&#43; assembly" href="https://rehex.ninja/posts/c&#43;&#43;-assembly/"></a>
@@ -401,7 +451,8 @@
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://rehex.ninja">reHex Ninja</a></span>
+        <span>&copy; 2025 <a href="https://rehex.ninja/">reHex Ninja</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>pwntools on reHex Ninja</title>
+    <title>Pwntools on reHex Ninja</title>
     <link>https://rehex.ninja/tags/pwntools/</link>
-    <description>Recent content in pwntools on reHex Ninja</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 10 Jun 2021 15:32:42 +0200</lastBuildDate><atom:link href="https://rehex.ninja/tags/pwntools/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Pwntools on reHex Ninja</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 10 Jun 2021 15:32:42 +0200</lastBuildDate>
+    <atom:link href="https://rehex.ninja/tags/pwntools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pwn&gt; scanf and hateful dot</title>
       <link>https://rehex.ninja/posts/scanf-and-hateful-dot/</link>
       <pubDate>Thu, 10 Jun 2021 15:32:42 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/scanf-and-hateful-dot/</guid>
       <description>&lt;p&gt;How to bypass the stack canary with &lt;code&gt;.&lt;/code&gt; (dot) and &lt;code&gt;scanf&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>pwn&gt; ret2libc by example</title>
       <link>https://rehex.ninja/posts/ret2libc/</link>
       <pubDate>Tue, 01 Jun 2021 12:32:42 +0200</pubDate>
-      
       <guid>https://rehex.ninja/posts/ret2libc/</guid>
       <description>&lt;p&gt;How to perform the attack against the binary with randomized addresses of libaries in memory - ret2libc &amp;amp; pwntools by example.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
