@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rehex.ninja/tags/dev/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/devops/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/posts/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/posts/run-vscode-in-local-network/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
+    <loc>https://rehex.ninja/tags/triceratops/</loc>
+    <lastmod>2025-07-27T17:27:07+02:00</lastmod>
+  </url><url>
     <loc>https://rehex.ninja/tags/cheatsheet/</loc>
     <lastmod>2022-09-22T20:52:00+02:00</lastmod>
   </url><url>
@@ -12,15 +33,6 @@
     <lastmod>2022-09-22T20:52:00+02:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/posts/ios-forensics-cheatsheet/</loc>
-    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/posts/</loc>
-    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/</loc>
-    <lastmod>2022-09-22T20:52:00+02:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/tags/</loc>
     <lastmod>2022-09-22T20:52:00+02:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/tags/htb/</loc>
@@ -139,9 +151,6 @@
   </url><url>
     <loc>https://rehex.ninja/posts/ida-pro-plugins/</loc>
     <lastmod>2020-02-15T12:01:53+01:00</lastmod>
-  </url><url>
-    <loc>https://rehex.ninja/tags/dev/</loc>
-    <lastmod>2020-02-01T13:53:37+01:00</lastmod>
   </url><url>
     <loc>https://rehex.ninja/posts/expose-any-port-with-ngrok/</loc>
     <lastmod>2020-02-01T13:53:37+01:00</lastmod>

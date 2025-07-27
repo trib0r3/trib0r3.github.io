@@ -150,6 +150,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Unmap PE Manually
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Prerequisities Make sure that you have dumped binary from memory (optionally) Fix PE headers if necessary Unmap With PE bear Open PE-bear &gt; Sections &gt; Section Headers Make sure that VA and VS matches RA and RS, so: RA[i] = VA[i] RS[i] = RA[i&#43;1] - RA[i] RS.reloc = 0 VS[i] = RS[i] If you see some red blocks it means that PE is probably misalligned, check: Fix misalligned sections ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-01-25 09:00:00 +0100 CET'>January 25, 2020</span>&nbsp;·&nbsp;trib0r3</footer>
+  <a class="entry-link" aria-label="post link to Unmap PE Manually" href="https://rehex.ninja/posts/unmap-pe-manually/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Disable Aslr
     </h2>
   </header>
